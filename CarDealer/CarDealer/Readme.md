@@ -9,3 +9,6 @@ This project uses bootstrap store front template
 
 # The sample code is here. You can use this to build your application
 [https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie70]
+
+# Turn off new compiler warnings from here
+https://agirlamonggeeks.com/2019/10/20/how-to-turn-c-8-nullable-reference-types/
