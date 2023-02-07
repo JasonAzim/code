@@ -40,10 +40,10 @@ namespace Global.Utility
         {
             if (DatabaseName == DBNameImproveCode)
             {
-                return @"";
+                return @"Data Source=192.185.6.39;Initial Catalog=improve_code;User ID=impro_sa;Password=Terminator$1";
             }
 
-            return @"";
+            return @"Data Source=localhost;Initial Catalog=improve_code;User ID=impro_sa;Password=Terminator$1";
         }
 
         public static string ServerUrl()

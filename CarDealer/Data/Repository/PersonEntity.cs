@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using Global.Repository;
 
-namespace Pharmacy.Repository
+namespace CarDealer.Repository
 {
     public class PersonEntity : EntityBase
     {

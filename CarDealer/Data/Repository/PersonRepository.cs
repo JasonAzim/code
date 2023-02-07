@@ -8,7 +8,7 @@ using CarDealer;
 using CarDealer.Data;
 using CarDealer.Repository;
 
-namespace Pharmacy.Repository
+namespace CarDealer.Repository
 {
     public sealed class PersonRepository : RepositoryBase, IRepository<PersonEntity>
     {

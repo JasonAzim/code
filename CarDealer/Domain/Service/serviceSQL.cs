@@ -7,13 +7,13 @@ using System.Runtime.Serialization.Json;
 using System.ServiceModel;
 using System.Text;
 using Newtonsoft.Json;
-using Pharmacy;
+using CarDealer;
 using Global.Utility;
 using Global.Repository;
-using Pharmacy.Repository;
-using Pharmacy.Shape;
+using CarDealer.Repository;
+using CarDealer.Shape;
 
-namespace Pharmacy.Service
+namespace CarDealer.Service
 {
     public class serviceSQL
     {
