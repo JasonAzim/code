@@ -1,0 +1,1528 @@
+/* begin Page */
+
+body
+{
+  margin: 0 auto;
+  padding: 0;
+  background-color: #DBE5EB;
+  background-image: url('../images/Page-BgTexture.jpg');
+  background-repeat: repeat;
+  background-attachment: scroll;
+  background-position: top left;
+}
+
+.Main
+{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.PageBackgroundGlare
+{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+.PageBackgroundGlareImage
+{
+  background-image: url('../images/Page-BgGlare.png');
+  background-repeat: no-repeat;
+  height: 270px;
+  width: 459px;
+  margin: 0;
+}
+
+html:first-child .PageBackgroundGlare
+{
+  border: 1px solid transparent; /* Opera fix */
+}
+
+
+
+
+.cleared
+{
+  float: none;
+  clear: both;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size:1px;
+}
+
+/* end Page */
+
+/* begin Box, Sheet */
+.Sheet
+{
+  overflow: hidden;
+  min-width:23px;
+  min-height:23px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+  width: 900px;
+}
+
+
+.Sheet-body
+{
+  position: relative;
+  z-index: 0;
+  margin: 6px;
+}
+
+.Sheet-tl
+{
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 21px;
+  height: 21px;
+  background-image: url('../images/Sheet-s.png');
+}
+
+.Sheet-tr
+{
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: 21px;
+  height: 21px;
+}
+
+.Sheet-tr div
+{
+  position: absolute;
+  z-index: -1;
+  top: 0px;
+  left: -21px;
+  width: 42px;
+  height: 42px;
+  background-image: url('../images/Sheet-s.png');
+}
+
+.Sheet-bl
+{
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  bottom: 0;
+  left: 0;
+  width: 21px;
+  height: 21px;
+}
+
+.Sheet-bl div
+{
+  position: absolute;
+  z-index: -1;
+  top: -21px;
+  left: 0;
+  width: 42px;
+  height: 42px;
+  background-image: url('../images/Sheet-s.png');
+}
+
+.Sheet-br
+{
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  bottom: 0;
+  right: 0;
+  width: 21px;
+  height: 21px;
+}
+
+.Sheet-br div
+{
+  position: absolute;
+  z-index: -1;
+  top: -21px;
+  left: -21px;
+  width: 42px;
+  height: 42px;
+  background-image: url('../images/Sheet-s.png');
+}
+
+.Sheet-tc
+{
+  position: absolute;
+  overflow:hidden;
+  z-index: -1;
+  top: 0;
+  left: 21px;
+  right: 21px;
+  height: 21px;
+}
+
+.Sheet-tc div
+{
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 42px;
+  background-image: url('../images/Sheet-h.png');
+}
+
+.Sheet-bc
+{
+  position: absolute;
+  overflow:hidden;
+  z-index: -1;
+  bottom: 0;
+  left: 21px;
+  right: 21px;
+  height: 21px;
+}
+
+.Sheet-bc div
+{
+  position: absolute;
+  z-index: -1;
+  top: -21px;
+  left: 0;
+  width: 100%;
+  height: 42px;
+  background-image: url('../images/Sheet-h.png');
+}
+
+.Sheet-cl
+{
+	position: absolute;
+	overflow: hidden;
+	z-index: -1;
+	top: 21px;
+	left: 0;
+	width: 21px;
+	bottom: 21px;
+}
+
+.Sheet-cl div
+{
+	position: absolute;
+	z-index: -1;
+	top: 0;
+	left: 0;
+	width: 42px;
+	height: 100%;
+	background-image: url('../images/Sheet-v.png');
+}
+
+.Sheet-cr
+{
+  position: absolute;
+  overflow:hidden;
+  z-index: -1;
+  top: 21px;
+  right: 0;
+  width: 21px;
+  bottom: 21px;
+}
+
+.Sheet-cr div
+{
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: -21px;
+  width: 42px;
+  height: 100%;
+  background-image: url('../images/Sheet-v.png');
+}
+
+.Sheet-cc
+{
+  position: absolute;
+  overflow:hidden;
+  z-index: -2;
+  top: 21px;
+  left: 21px;
+  right: 21px;
+  bottom: 21px;
+  background-image: url('../images/Sheet-c.png');
+}
+
+
+.Sheet
+{
+	margin-top: 20px !important;
+	background-color: #FFFFFF;
+}
+/* end Box, Sheet */
+
+/* begin Header */
+div.Header
+{
+  margin: 0 auto;
+  position: relative;
+  z-index:0;
+  width: 888px;
+  height: 150px;
+}
+
+
+
+div.Header-jpeg
+{
+  position: absolute;
+  z-index:-1;
+  top: 0;
+  left: 0;
+  width: 888px;
+  height: 150px;
+  background-image: url('../images/Header.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+/* end Header */
+
+/* begin Logo */
+.logo
+{
+  display : block;
+  position: absolute;
+  left: 10px;
+  top: 36px;
+  width: 868px;
+}
+
+h1.logo-name
+{
+	display: block;
+	text-align: center;
+	color: #000000;
+}
+
+h1.logo-name, h1.logo-name a, h1.logo-name a:link, h1.logo-name a:visited, h1.logo-name a:hover
+{
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	font-size: 34px;
+	font-style: normal;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 0;
+	margin: 0;
+	color: #000000;
+}
+
+.logo-text
+{
+  display: block;
+  text-align: center;
+}
+
+.logo-text, .logo-text a
+{
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	font-size: 34px;
+	font-style: normal;
+	font-weight: normal;
+	padding: 0;
+	margin: 0;
+	color: #FFFFFF;
+}
+
+/* end Logo */
+
+/* begin Menu */
+/* menu structure */
+
+.artmenu a, .artmenu a:link, .artmenu a:visited, .artmenu a:hover
+{
+  text-align:left;
+  text-decoration:none;
+  outline:none;
+  letter-spacing:normal;
+  word-spacing:normal;
+}
+
+.artmenu, .artmenu ul
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style-type: none;
+  display: block;
+}
+
+.artmenu li
+{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: block;
+  float: left;
+  position: relative;
+  z-index: 5;
+  background:none;
+}
+
+.artmenu li:hover
+{
+  z-index: 10000;
+  white-space: normal;
+}
+
+.artmenu li li
+{
+  float: none;
+}
+
+.artmenu ul
+{
+  visibility: hidden;
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  background:none;
+}
+
+.artmenu li:hover>ul
+{
+  visibility: visible;
+  top: 100%;
+}
+
+.artmenu li li:hover>ul
+{
+  top: 0;
+  left: 100%;
+}
+
+.artmenu:after, .artmenu ul:after
+{
+  content: ".";
+  height: 0;
+  display: block;
+  visibility: hidden;
+  overflow: hidden;
+  clear: both;
+}
+.artmenu, .artmenu ul
+{
+  min-height: 0;
+}
+
+.artmenu ul
+{
+  background-image: url(../images/spacer.gif);
+  padding: 10px 30px 30px 30px;
+  margin: -10px 0 0 -30px;
+}
+
+.artmenu ul ul
+{
+  padding: 30px 30px 30px 10px;
+  margin: -30px 0 0 -10px;
+}
+
+
+/* menu structure */
+
+.nav
+{
+  position: relative;
+  margin: 0  auto;
+  width: 888px;
+  height: 28px;
+  z-index: 100;
+}
+
+.artmenu
+{
+  padding: 0px 0px 0px 0px;
+}
+
+
+.nav .l, .nav .r, .nav .r div
+{
+  top: 0;
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  height: 28px;
+}
+
+.nav .l
+{
+  left: 0;
+  right: 0px;
+}
+
+
+.nav .r
+{
+  right: 0;
+  width: 0px;
+}
+
+
+.nav .r div
+{
+  width: 888px;
+  right: 0;
+}
+
+
+.nav .l, .nav .r div
+{
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-image: url('../images/nav.png');
+}
+
+/* end Menu */
+
+/* begin MenuItem */
+.artmenu ul li
+{
+  clear: both;
+}
+
+.artmenu a , .artmenu a span
+{
+  height: 28px;
+  display: block;
+}
+
+
+.artmenu a
+{
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 0px;
+  margin-left: 0px;
+
+}
+.artmenu a span span
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+  color: #ECF3F9;
+  padding: 0 12px;
+  margin: 0 0px;
+  line-height: 28px;
+  text-align: center;
+  background-image: url('../images/item-center.png');
+  background-position: left top;
+  background-repeat: repeat-x;
+
+}
+
+
+
+
+.artmenu a:hover span span
+{
+  color: #27333A;
+  background-position: left -28px;
+}
+
+.artmenu li:hover a span span
+{
+  color: #27333A;
+  background-position: left -28px;
+}
+
+
+.artmenu a.active span span
+{
+	color: #FFFFFF;
+	background-position: left -56px;
+	background-color: #003399;
+}
+
+/* end MenuItem */
+
+/* begin MenuSeparator */
+.nav .separator
+{
+  display: block;
+  width: 1px;
+  height: 28px;
+  background-image: url('../images/item-separator.png');
+}
+
+/* end MenuSeparator */
+
+/* begin MenuSubItem */
+.artmenu ul a
+{
+  display:block;
+  text-align: center;
+  white-space: nowrap;
+  height: 28px;
+  width: 206px;
+  overflow:hidden;
+  line-height: 28px;
+  margin-right: auto;
+
+
+  background-image: url('../images/subitem-bg.png');
+  background-position: left top;
+  background-repeat: repeat-x;
+
+  border-width: 1px;
+  border-style: solid;
+  border-color: #D7E3EA;
+}
+
+.nav ul.artmenu ul span, .nav ul.artmenu ul span span
+{
+  display: inline;
+  float: none;
+  margin: inherit;
+  padding: inherit;
+  background-image: none;
+  text-align: inherit;
+  text-decoration: inherit;
+}
+
+.artmenu ul a, .artmenu ul a:link, .artmenu ul a:visited, .artmenu ul a:hover, .artmenu ul a:active, .nav ul.artmenu ul span, .nav ul.artmenu ul span span
+{
+  text-align: left;
+  text-indent: 12px;
+  text-decoration: none;
+  line-height: 28px;
+  color: #214763;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.artmenu ul ul a
+{
+  margin-left: auto;
+}
+
+.artmenu ul li a:hover
+{
+  color: #000000;
+  border-color: #95B3C6;
+  background-position: 0 -28px;
+}
+
+.artmenu ul li:hover>a
+{
+  color: #000000;
+  border-color: #95B3C6;
+  background-position: 0 -28px;
+}
+
+.nav .artmenu ul li a:hover span, .nav .artmenu ul li a:hover span span
+{
+  color: #000000;
+}
+
+.nav .artmenu ul li:hover>a span, .nav .artmenu ul li:hover>a span span
+{
+  color: #000000;
+}
+
+
+/* end MenuSubItem */
+
+/* begin ContentLayout */
+.contentLayout
+{
+  margin-bottom: 0px;
+  width: 888px;
+  position: relative;
+}
+/* end ContentLayout */
+
+/* begin Box, Block */
+.Block
+{
+  overflow: hidden;
+  min-width:1px;
+  min-height:1px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+}
+
+
+.Block-body
+{
+  position: relative;
+  z-index: 0;
+  margin: 0px;
+}
+
+
+.Block
+{
+  margin: 5px;
+}
+
+/* end Box, Block */
+
+/* begin BlockHeader */
+.BlockHeader
+{
+  position: relative;
+  overflow: hidden;
+  height: 30px;
+  z-index: 0;
+  line-height: 30px;
+  padding: 0 7px;
+  margin-bottom: 0px;
+
+}
+
+.BlockHeader-text
+{
+  white-space : nowrap;
+  color: #000000;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 30px;
+}
+
+
+.BlockHeader .l, .BlockHeader .r, .BlockHeader .r div
+{
+  top: 0;
+  position: absolute;
+  z-index: -1;
+  overflow: hidden;
+  height: 30px;
+}
+
+.BlockHeader .l
+{
+  left: 0;
+  right: 6px;
+}
+
+
+.BlockHeader .r
+{
+  right: 0;
+  width: 6px;
+}
+
+
+.BlockHeader .r div
+{
+  width: 888px;
+  right: 0;
+}
+
+
+.BlockHeader .l, .BlockHeader .r div
+{
+  background-position: left top;
+  background-repeat: no-repeat;
+  background-image: url('../images/BlockHeader.png');
+}
+
+
+
+.header-tag-icon
+{
+  display:inline-block;
+  background-position:left top;
+  background-image: url('../images/BlockHeaderIcon.png');
+  padding:0 0 0 14px;
+  background-repeat: no-repeat;
+  min-height: 18px;
+  margin: 0 0 0 5px;
+}
+
+
+
+
+/* end BlockHeader */
+
+/* begin Box, BlockContent */
+.BlockContent
+{
+  overflow: hidden;
+  min-width:1px;
+  min-height:1px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+}
+
+
+.BlockContent-body
+{
+  position: relative;
+  z-index: 0;
+  margin: 7px;
+}
+
+
+.BlockContent-body
+{
+	color: #000000;
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+}
+
+.BlockContent-body a:link
+{
+	color: #004080;
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	text-decoration: underline;
+}
+
+.BlockContent-body a:visited, .BlockContent-body a.visited
+{
+  color: #8099A8;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+}
+
+.BlockContent-body a:hover, .BlockContent-body a.hover
+{
+  color: #3B7DB0;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+}
+
+
+.BlockContent-body ul
+{
+	list-style-type: none;
+	color: #000000;
+	margin: 0;
+	padding: 0;
+}
+
+.BlockContent-body li
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.BlockContent-body ul li
+{
+  padding:0px 0 0px 17px;
+  background-image: url('../images/BlockContentBullets.png');
+  background-repeat:no-repeat;
+  margin:0.5em 0 0.5em 0;
+  line-height:1.2em;
+}
+
+/* end Box, BlockContent */
+
+/* begin Box, Post */
+.Post
+{
+  overflow: hidden;
+  min-width:1px;
+  min-height:1px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+}
+
+
+.Post-body
+{
+  position: relative;
+  z-index: 0;
+  margin: 7px;
+}
+
+
+.Post
+{
+  margin: 7px;
+}
+
+/* Start images */
+a img
+{
+  border: 0;
+}
+
+.article img, img.article
+{
+  border-style: solid;
+  border-width: 0px;
+  border-color: #AFC6D4;
+  margin: 1em;
+}
+
+.metadata-icons img
+{
+  border: none;
+  vertical-align: middle;
+  margin:2px;
+}
+/* Finish images */
+
+/* Start tables */
+
+.article table, table.article
+{
+  border-collapse: collapse;
+  margin: 1px;
+  width:auto;
+}
+
+.article table, table.article .article tr, .article th, .article td
+{
+  background-color:Transparent;
+}
+
+.article th, .article td
+{
+  padding: 2px;
+  border: solid 1px #608DA9;
+  vertical-align: top;
+  text-align:left;
+}
+
+.article th
+{
+  text-align:center;
+  vertical-align:middle;
+  padding: 7px;
+}
+
+
+
+/* Finish tables */
+/* end Box, Post */
+
+/* begin PostMetadata */
+
+.PostMetadataHeader
+{
+
+  background-color: #D4E0E8;
+  border-color: #AFC6D4;
+  border-style: dashed;
+  border-width: 0px;
+  padding:3px;
+}
+
+
+
+
+/* end PostMetadata */
+
+/* begin PostHeaderIcon */
+.PostHeaderIcon-wrapper
+{
+  text-decoration:none;
+  margin: 0.2em 0;
+  padding: 0;
+  font-weight:normal;
+  font-style:normal;
+  letter-spacing:normal;
+  word-spacing:normal;
+  font-variant:normal;
+  text-decoration:none;
+  font-variant:normal;
+  text-transform:none;
+  text-align:left;
+  text-indent:0;
+  line-height:inherit;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #183449;
+}
+
+.PostHeaderIcon-wrapper, .PostHeaderIcon-wrapper a, .PostHeaderIcon-wrapper a:link, .PostHeaderIcon-wrapper a:visited, .PostHeaderIcon-wrapper a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #183449;
+}
+
+/* end PostHeaderIcon */
+
+/* begin PostHeader */
+.PostHeader a:link
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+  text-align: left;
+  color: #1F415C;
+}
+
+.PostHeader a:visited, .PostHeader a.visited
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+  text-align: left;
+  color: #324049;
+}
+
+.PostHeader a:hover, .PostHeader a.hovered
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+  text-align: left;
+  color: #183449;
+}
+/* end PostHeader */
+
+/* begin PostContent */
+/* Content Text Font & Color (Default) */
+body
+{
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+}
+
+.PostContent
+{
+	font-family: Georgia, "Times New Roman" , Times, Serif;
+	font-size: 13px;
+	font-style: normal;
+	font-weight: normal;
+	text-align: justify;
+	color: #000000;
+}
+
+/* Start Content link style */
+/*
+The right order of link pseudo-classes: Link-Visited-Hover-Focus-Active.
+http://www.w3schools.com/CSS/css_pseudo_classes.asp
+http://meyerweb.com/eric/thoughts/2007/06/11/who-ordered-the-link-states/
+*/
+a
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+  color: #3B7DB0;
+}
+
+/* Adds special style to an unvisited link. */
+a:link
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+  color: #3B7DB0;
+}
+
+/* Adds special style to a visited link. */
+a:visited, a.visited
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+  color: #303E46;
+}
+
+/* :hover - adds special style to an element when you mouse over it. */
+a:hover, a.hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+  color: #1D3F58;
+}
+
+/* Finish Content link style */
+
+/* Resert some headings default style & links default style for links in headings*/
+h1, h2, h3, h4, h5, h6,
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a
+h1 a:hover, h2 a:hover, h3 a:hover, h4 a:hover, h5 a:hover, h6 a:hover
+h1 a:visited, h2 a:visited, h3 a:visited, h4 a:visited, h5 a:visited, h6 a:visited
+{
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+}
+
+
+/* Start Content headings Fonts & Colors  */
+h1, h1 a, h1 a:link, h1 a:visited, h1 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 31px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #2D5F86;
+}
+
+h2, h2 a, h2 a:link, h2 a:visited, h2 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #2D5F86;
+}
+
+h3, h3 a, h3 a:link, h3 a:visited, h3 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #3E5F74;
+}
+
+h4, h4 a, h4 a:link, h4 a:visited, h4 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #212B31;
+}
+
+h5, h5 a, h5 a:link, h5 a:visited, h5 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #212B31;
+}
+
+h6, h6 a, h6 a:link, h6 a:visited, h6 a:hover
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: bold;
+  text-align: left;
+  color: #212B31;
+}
+/* Finish Content headings Fonts & Colors  */
+
+/* end PostContent */
+
+/* begin PostBullets */
+/* Start Content list */
+
+ul
+{
+  list-style-type: none;
+  color: #111518;
+  margin:0;
+  padding:0;
+}
+
+li
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+}
+
+
+
+.Post ul li
+{
+  padding:0px 0 0px 16px;
+  background-image: url('../images/PostSquare.png');
+  background-repeat:no-repeat;
+  margin:0.5em 0 0.5em 0;
+  line-height:1.2em;
+}
+
+
+/* Finish Content list */
+/* end PostBullets */
+
+/* begin PostQuote */
+/* Start blockquote */
+
+blockquote p
+{
+  color:#0B1014;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-style: italic;
+  font-weight: normal;
+  text-align: left;
+}
+
+blockquote
+{
+  border-color:#AFC6D4;
+  border-width: 0px;
+  border-style: solid;
+
+  margin:10px 10px 10px 50px;
+  padding:5px 5px 5px 37px;
+
+  background-color:#D4E0E8;
+
+  background-image:url('../images/PostQuote.png');
+  background-position:left top;
+  background-repeat:no-repeat;
+}
+
+
+
+/* Finish blockuote */
+/* end PostQuote */
+
+/* begin Button */
+button.Button, a.Button
+{
+  position:relative;
+  display:inline-block;
+  width: auto;
+  outline:none;
+  border:none;
+  background:none;
+  line-height:37px;
+  margin:0;
+  padding:0;
+  overflow: visible;
+  cursor: default;
+  text-decoration: none !important;
+}
+
+
+/*This HACK needed for ie7 (button position)*/
+*:first-child+html button.Button, *:first-child+html a.Button
+{
+  display:list-item;
+  list-style-type:none;
+  float:left;
+}
+
+
+.Button .btn
+{
+  position: relative;
+  overflow: hidden;
+  display: block;
+  width: auto;
+  z-index: 0;
+  height: 37px;
+  color: #224967;
+  white-space: nowrap;
+  float: left;
+}
+
+.Button .t
+{
+  height:37px;
+  white-space: normal;
+  padding: 0 26px;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+  text-align: left;
+  line-height: 37px;
+  text-decoration: none !important;
+}
+
+input, select
+{
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: normal;
+}
+
+.Button .active
+{
+  color: #F0F3F5;
+}
+
+.Button .hover,  a.Button:hover
+{
+  color: #EEF3F6;
+  text-decoration: none !important;
+}
+
+.Button .active .r
+{
+  top: -74px;
+}
+
+.Button .hover .r
+{
+  top: -37px;
+}
+
+.Button .r
+{
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width: 15px;
+  height: 111px;
+}
+
+
+.Button .r span
+{
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  width:419px;
+  height: 111px;
+}
+
+
+.Button .active .l
+{
+  top: -74px;
+}
+
+.Button .hover .l
+{
+  top: -37px;
+}
+
+.Button .l
+{
+  display: block;
+  position: absolute;
+  overflow: hidden;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 15px;
+  height: 111px;
+}
+
+
+.Button .l, .Button .r span
+{
+  background-image: url('../images/Button.png');
+}
+
+/* end Button */
+
+/* begin Footer */
+.Footer
+{
+  position:relative;
+  z-index:0;
+  overflow:hidden;
+  width: 888px;
+  margin: 5px auto 0px auto;
+}
+
+.Footer .Footer-inner
+{
+  height:1%;
+  position: relative;
+  z-index: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+.Footer .Footer-background
+{
+  position:absolute;
+  z-index:-1;
+  background-repeat:no-repeat;
+  background-image: url('../images/Footer.png');
+  width: 888px;
+  height: 100px;
+  bottom:0;
+  left:0;
+}
+
+.rss-tag-icon
+{
+  position: relative;
+  display:block;
+  float:left;
+  background-image: url('../images/rssIcon.png');
+  background-position: center right;
+  background-repeat: no-repeat;
+  margin: 0 5px 0 0;
+  height: 30px;
+  width: 19px;
+}
+
+
+
+
+.Footer .Footer-text p
+{
+  margin: 0;
+}
+
+.Footer .Footer-text
+{
+  display:inline-block;
+  color:#1A364D;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  font-size: 12px;
+}
+
+.Footer .Footer-text a:link
+{
+  text-decoration: none;
+  color: #254F6F;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+}
+
+.Footer .Footer-text a:visited
+{
+  text-decoration: none;
+  color: #516876;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: underline;
+}
+
+.Footer .Footer-text a:hover
+{
+  text-decoration: none;
+  color: #326A95;
+  font-family: Georgia, "Times New Roman", Times, Serif;
+  text-decoration: none;
+}
+/* end Footer */
+
+/* begin PageFooter */
+.page-footer, .page-footer a, .page-footer a:link, .page-footer a:visited, .page-footer a:hover
+{
+  font-family:Arial;
+  font-size:10px;
+  letter-spacing:normal;
+  word-spacing:normal;
+  font-style:normal;
+  font-weight:normal;
+  text-decoration:underline;
+  color:#7DAED4;
+}
+
+.page-footer
+{
+  margin:1em;
+  text-align:center;
+  text-decoration:none;
+  color:#98ADB9;
+}
+/* end PageFooter */
+
+/* begin LayoutCell */
+.contentLayout .sidebar1
+{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  float: left;
+  overflow: hidden;
+  width: 177px;
+}
+
+/* end LayoutCell */
+
+/* begin LayoutCell */
+.contentLayout .content
+{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  float: left;
+  overflow: hidden;
+  width: 533px;
+}
+
+.contentArticle
+{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  float: left;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* end LayoutCell */
+
+/* begin LayoutCell */
+.contentLayout .sidebar2
+{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  float: left;
+  overflow: hidden;
+  width: 177px;
+}
+
+/* end LayoutCell */
+
+.HighlightBlack
+{
+    color: #000000;
+    font-size: large;
+}
+
+.HighlightRed
+{
+    color: red;
+}
+
+.ArticleTable
+{
+	border: thin solid #C0C0C0;
+}
+
+.Highlight
+{
+	font-family: Arial;
+	font-size: medium;
+	font-weight: bold;
+}
+
+.Marker
+{
+	font-family: Arial;
+	font-size: medium;
+	font-weight: bold;
+	background-color: #DEE7ED;
+}
+
+.BlueButton {
+    color: #FF0000;
+}

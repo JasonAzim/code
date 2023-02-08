@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron text-center">
+    <h3 class="bg-primary">Improve Code - Construct better software;</h3>
+
+    <form class="form-inline">
+        <input type="email" class="form-control" size="50" placeholder="Email Address">
+        <button type="button" class="btn btn-danger">Subscribe</button>
+    </form>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>Our Methodology</h2>
+                <h4>Improve Code DNA in 7 Steps</h4>
+                <p>We use a unique development methodology which consists of an inception phase to start the project followed by a model phase in which the design and analysis is done.  Once the requirements have been gathered, we program the solution and then verify it by doing QA and testing. You reach the end of the development life cycle when there are no more refinements remaining...</p>
+            </div>
+            <div class="col-sm-4">
+                <table>
+                    <tr>
+                        <td><img id="imgLogo" class="article" src="images/dna_small.jpg" alt="an image" style="float: left;" /></td>
+                        <td>
+                            <table>
+                                <tr><td><span class="HighlightBlack">I</span></td><td>-</td><td>inception</td></tr>
+                                <tr><td><span class="HighlightBlack">M</span></td><td>-</td><td>model</td></tr>
+                                <tr><td><span class="HighlightBlack">P</span></td><td>-</td><td>program</td></tr>
+                                <tr><td><span class="HighlightBlack">R</span></td><td>-</td><td>define</td></tr>
+                                <tr><td><span class="HighlightBlack">O</span></td><td>-</td><td>output</td></tr>
+                                <tr><td><span class="HighlightBlack">V</span></td><td>-</td><td>verify</td></tr>
+                                <tr><td><span class="HighlightBlack">E</span></td><td>-</td><td>end</td></tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-grey">
+        <h2 class="text-center">CONTACT</h2>
+        <div class="row">
+            <div class="col-sm-5">
+                <p>Contact us and we'll get back to you within 24 hours.</p>
+                <p><span class="glyphicon glyphicon-map-marker"></span> Houston, USA</p>
+                <p><span class="glyphicon glyphicon-phone"></span> 832-675-3213</p>
+                <p><span class="glyphicon glyphicon-envelope"></span> Jason.Azim@hotmail.com</p>
+            </div>
+            <div class="col-sm-7">
+                <div class="row">
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
+                    </div>
+                </div>
+                <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <button class="btn btn-default pull-right" type="submit">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid text-center">
+        <h2>SERVICES</h2>
+        <h4>What we offer</h4>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-wrench"></span>
+                <h4>SUPPORT</h4>
+                <p>Contact us for SQL Server, Oracle, CRM, SharePoint, Biztalk, FileNet, LiveLink, Dot Net Nuke. Expert with server technologies.</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-ok-circle"></span>
+                <h4>INDUSTRY</h4>
+                <p>Develop custom code for any industry like Healthcare, Logistics, Finance, Accounting, Energy and Utilities etc. </p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-certificate"></span>
+                <h4>GUARANTEE</h4>
+                <p>Utilize our seven step process to improve your appliations. We create documentation for everything that we deliver. Satisfaction is guaranteed.</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-new-window"></span>
+                <h4>TUTORIALS</h4>
+                <a class="btn btn-default btn-default" href="~/Home/About">Learn More</a>
+                <p>AngularJS, ExtJS, XCode, WPF, PhoneGap</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-new-window"></span>
+                <h4>CASE STUDIES</h4>
+                <a class="btn btn-default btn-default" href="~/Home/About">Learn More</a>
+                <p>Portal, SOA, ERP, Data Warehouse</p>
+            </div>
+            <div class="col-sm-4">
+                <span class="glyphicon glyphicon-new-window"></span>
+                <h4>DOWNLOADS</h4>
+                <a class="btn btn-default btn-default" href="~/Home/About">Learn More</a>
+                <p>E-Book, White Paper</p>
+            </div>
+        </div>
+    </div>
+
+    <h2>What our customers say</h2>
+    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <h4>"This company is the best. I am so happy with the result!"<br><span style="font-style:normal;">Michael Roe, Vice President, Comment Box</span></h4>
+            </div>
+            <div class="item">
+                <h4>"One word... WOW!!"<br><span style="font-style:normal;">John Doe, Salesman, Rep Inc</span></h4>
+            </div>
+            <div class="item">
+                <h4>"Could I... BE any more happy with this company?"<br><span style="font-style:normal;">Chandler Bing, Actor, FriendsAlot</span></h4>
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
