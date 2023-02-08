@@ -14,6 +14,7 @@ namespace CarDealer.Data
         public static readonly string WHERE = " where ";
         public static readonly string ORDER_BY = " order by ";
 
+        public static readonly string CATEGORY_TABLE_SELECT = "select CategoryNo,[Name] from dbo.Category";
 
         public static readonly string ERRORLOG_VIEW_SELECT = "SELECT ErrorLogID,ErrorClass,ErrorType,Code,Object,Source,SourceLineNo,Message,ReportedDate,UserID,LoginID,DisplayException,Trace,Detail,Debug FROM ErrorLog";
         public static readonly string ERRORLOG_FILTER_BY_ID = "ErrorLogID = {0}";

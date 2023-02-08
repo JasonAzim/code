@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Pharmacy.Repository;
+using CarDealer.Repository;
 
-namespace Pharmacy.Shape
+namespace CarDealer.Shape
 {
     public class PersonShape
     {

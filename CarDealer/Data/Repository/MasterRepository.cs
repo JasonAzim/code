@@ -8,13 +8,13 @@ using CarDealer;
 using CarDealer.Data;
 using CarDealer.Repository;
 
-namespace Pharmacy.Repository
+namespace CarDealer.Repository
 {
-    public sealed class PersonRepository : RepositoryBase, IRepository<PersonEntity>
+    public sealed class MasterRepository : RepositoryBase, IRepository<CategoryEntity>
     {
-        private PersonEntity _Entity = null;
+        private CategoryEntity _Entity = null;
 
-        public PersonEntity Entity
+        public CategoryEntity Entity
         {
             set
             {
@@ -26,7 +26,7 @@ namespace Pharmacy.Repository
             }
         }
 
-        private PersonRepository()
+        private MasterRepository()
         {
             // used by static instance constructor
             DataManager = new SQLManager();
@@ -34,14 +34,14 @@ namespace Pharmacy.Repository
         }
 
         // An entity can be read from a database or it can be created by filling in the properties. 
-        public PersonRepository(PersonEntity entity)
+        public MasterRepository(CategoryEntity entity)
         {
             Entity = entity;
             DataManager = new SQLManager();
             this.ObjectName = Constants.TABLE_COMPANY;
         }
 
-        public static PersonRepository Instance { get { return Nested.instance; } }
+        public static MasterRepository Instance { get { return Nested.instance; } }
 
         private class Nested
         {
@@ -50,15 +50,15 @@ namespace Pharmacy.Repository
             {
             }
 
-            internal static readonly PersonRepository instance = new PersonRepository();
+            internal static readonly MasterRepository instance = new MasterRepository();
         }
 
         #region Common CRUD Functions
-        public List<PersonEntity> GetAll()
+        public List<CategoryEntity> GetAll()
         {
             SQLProxy proxy = new SQLProxy();
-            //string query = SQLUtility.PERSONS_VIEW_SELECT;
-            string query = string.Empty;
+            string query = SQLUtility.CATEGORY_TABLE_SELECT;
+            //string query = string.Empty;
 
             DataSet dsResult = proxy.GetDataSetFromQuery(query);
             //proxy.State.MaskException = true;
@@ -68,7 +68,8 @@ namespace Pharmacy.Repository
                 int ErrorLogId = 0;
                 if (DataManager.State.MaskException)
                 {
-                    ErrorLog = new ErrorLogEntity(){
+                    ErrorLog = new ErrorLogEntity()
+                    {
                         ErrorClass = "Database",
                         ErrorType = "Get",
                         ErrorCode = "1",
@@ -87,19 +88,19 @@ namespace Pharmacy.Repository
 
                     ErrorLogId = ErrorLogRepository.Instance.Create(ErrorLog);
                 }
-                return new List<PersonEntity>() { new PersonEntity(){ Id = 0, reaction = "Err" } };
+                return new List<CategoryEntity>() { new CategoryEntity() { Id = 0, reaction = "Err" } };
             }
 
-            var aList = dsResult.Tables[0].AsEnumerable().Select(dataRow => new PersonEntity {
-                Id = 1,
-                PersonID = dataRow.Field<string>("MRN").ToString(),
-                FirstName = dataRow.Field <string>("First_Name"),
-                LastName = dataRow.Field<string>("Last_Name")
+            var aList = dsResult.Tables[0].AsEnumerable().Select(dataRow => new CategoryEntity
+            {
+                CategoryNo = dataRow.Field<int>("CategoryNo"),
+                Name = dataRow.Field<string>("Name")
             }).ToList();
             return aList;
         }
 
-        public List<PersonEntity> GetPersons()
+
+        public List<CategoryEntity> GetCategories()
         {
             //SQLProxy proxy = new SQLProxy(SettingsHelper.SQLServerDB(SettingsHelper.DBNamePharmacy));
             SQLProxy proxy = new SQLProxy();
@@ -134,52 +135,48 @@ namespace Pharmacy.Repository
 
                     ErrorLogId = ErrorLogRepository.Instance.Create(ErrorLog);
                 }
-                return new List<PersonEntity>() { new PersonEntity() { Id = 0, reaction = "Err" } };
+                return new List<CategoryEntity>() { new CategoryEntity() { Id = 0, reaction = "Err" } };
             }
 
-            var aList = dsResult.Tables[0].AsEnumerable().Select(dataRow => new PersonEntity
+            var aList = dsResult.Tables[0].AsEnumerable().Select(dataRow => new CategoryEntity
             {
-                Id = 1,
-                PersonID = dataRow.Field<string>("PersonID").ToString(),
-                FirstName = dataRow.Field<string>("FirstName"),
-                LastName = dataRow.Field<string>("LastName"),
-                DateOfBirth = dataRow.FieldOrDefault<DateTime>("DateOfBirth"),
-                SSN = dataRow.Field<string>("SSN")
+                CategoryNo = dataRow.Field<int>("CategoryNo"),
+                Name = dataRow.Field<string>("Name")
             }).ToList();
             return aList;
         }
 
-        public PersonEntity GetById(int id)
+        public CategoryEntity GetById(int CategoryNo)
         {
-            PersonEntity aObject = null;
+            CategoryEntity aObject = null;
             return aObject;
         }
 
         public int Create()
         {
-            return Create((PersonEntity)Entity);
+            return Create((CategoryEntity)Entity);
         }
 
-        public int Create(PersonEntity entity)
+        public int Create(CategoryEntity entity)
         {    
             return 0;
         }
 
         public void Delete()
         {
-            Delete((PersonEntity)Entity);
+            Delete((CategoryEntity)Entity);
         }
 
-        public void Delete(PersonEntity entity)
+        public void Delete(CategoryEntity entity)
         {
         }
 
         public void Update()
         {
-            Update((PersonEntity)Entity);
+            Update((CategoryEntity)Entity);
         }
 
-        public void Update(PersonEntity entity)
+        public void Update(CategoryEntity entity)
         {
         }
         #endregion
