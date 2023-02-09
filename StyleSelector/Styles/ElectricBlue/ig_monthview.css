@@ -1,0 +1,195 @@
+.igmv_ElectricBlueControl
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px #052684;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_ElectricBlueWeekNumber
+{
+	background-color:#A6C4E0;
+	font-size:xx-small;
+	border-bottom:solid 1px White;
+}
+
+
+.igmv_ElectricBlueMonthDayOfWeekHeader
+{
+	background-position:right top ;
+	background-image: url(images/bg_top.gif);
+	font-size:8pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	line-height: 30px;
+	cursor:default;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_ElectricBlueCaptionHeader
+{
+	background-color:#CECECE;
+	background-repeat:repeat-x;
+	background-position:center ;
+	background-image: url(images/header.gif);
+	font-weight:bold;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 16px;
+	height: 30px;
+	color:White;
+	text-align:center;
+}
+
+
+.igmv_ElectricBlueDay
+{
+	background-color:#F0F0F0;
+	background-position:top ;
+	background-image: url(images/bg_top.gif);
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_ElectricBlueOtherMonthDay
+{
+	background-color:#226DA7;
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_ElectricBlueToday
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_ElectricBlueActiveDay
+{
+	background-position:bottom ;
+	background-image: url(images/activingbg.jpg);
+}
+
+
+.igmv_ElectricBlueDayHeader
+{
+	background-color:Gainsboro;
+	background-position:center ;
+	background-image: url(images/header.gif);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 17px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_ElectricBlueOtherMonthDayHeader
+{
+	background-color:Gainsboro;
+	background-position:center ;
+	background-image: url(images/header_hover.gif);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 17px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_ElectricBlueTodayHeader
+{
+}
+
+
+.igmv_ElectricBlueActiveDayHeader
+{
+}
+
+
+.igmv_ElectricBlueAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_ElectricBlueAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_ElectricBlueSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_ElectricBlueNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

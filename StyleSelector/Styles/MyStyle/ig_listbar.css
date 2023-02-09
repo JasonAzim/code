@@ -1,0 +1,175 @@
+.iglb_NewStyleSet1Control
+{
+	font-size:medium;
+	border:solid 1px #B4B4B4;
+	margin-bottom:0px;
+}
+
+
+.iglb_NewStyleSet1Control_Exp
+{
+	font-size:medium;
+	border:solid 1px #B4B4B4;
+}
+
+
+.iglb_NewStyleSet1Button
+{
+	background-color:#F0F0F0;
+	font-size:smaller;
+	border-bottom:solid 1px #C3C3C3;
+	padding-top:2px;
+	padding-bottom:1px;
+	padding-left:3px;
+	color:Black;
+}
+
+
+.iglb_NewStyleSet1ButtonHover
+{
+	background-color:#A5A5A5;
+	font-size:smaller;
+	border-bottom:solid 1px #C3C3C3;
+	padding-top:2px;
+	padding-bottom:1px;
+	padding-left:3px;
+	color:White;
+}
+
+
+.iglb_NewStyleSet1ButtonSelected
+{
+	background-color:#969696;
+	font-size:smaller;
+	padding-top:2px;
+	padding-bottom:1px;
+	padding-left:3px;
+	color:White;
+}
+
+
+.iglb_NewStyleSet1HeaderCollapsed
+{
+	background-color:#F0F0F0;
+	font-size:smaller;
+	border-bottom:solid 1px #A5A5A5;
+	padding-top:0px;
+	padding-bottom:3px;
+	padding-left:3px;
+	color:Black;
+}
+
+
+.iglb_NewStyleSet1HeaderExpanded
+{
+	background-color:#F0F0F0;
+	font-size:smaller;
+	border-bottom:solid 1px #B4B4B4;
+	padding-top:0px;
+	padding-bottom:3px;
+	padding-left:3px;
+	color:Black;
+}
+
+
+.iglb_NewStyleSet1HeaderHover
+{
+	background-color:#D2D2D2;
+	font-size:smaller;
+	border-bottom:solid 1px #878787;
+	padding-top:0px;
+	padding-bottom:3px;
+	padding-left:3px;
+	color:White;
+}
+
+
+.iglb_NewStyleSet1Group
+{
+}
+
+
+.iglb_NewStyleSet1Group_Exp
+{
+	margin-bottom:0px;
+}
+
+
+.iglb_NewStyleSet1Item
+{
+	font-size:xx-small;
+	margin-top:8px;
+	margin-bottom:3px;
+	padding-left:4px;
+	color:DimGray;
+	text-align:left;
+}
+
+
+.iglb_NewStyleSet1Item_Exp
+{
+	font-size:xx-small;
+	margin-top:4px;
+	margin-bottom:0px;
+	padding-bottom:3px;
+	padding-left:4px;
+	cursor:hand;
+	color:DimGray;
+	text-align:left;
+}
+
+
+.iglb_NewStyleSet1ItemHover
+{
+	font-size:xx-small;
+	margin-top:8px;
+	margin-bottom:3px;
+	padding-left:4px;
+	cursor:hand;
+	color:Black;
+	text-align:left;
+	text-decoration:underline;
+}
+
+
+.iglb_NewStyleSet1ItemHover_Exp
+{
+	font-size:xx-small;
+	margin-top:4px;
+	margin-bottom:0px;
+	padding-bottom:3px;
+	padding-left:4px;
+	cursor:hand;
+	color:Black;
+	text-align:left;
+	text-decoration:underline;
+}
+
+
+.iglb_NewStyleSet1ItemSelected
+{
+	font-weight:bold;
+	font-size:xx-small;
+	margin-top:8px;
+	margin-bottom:3px;
+	padding-left:4px;
+	cursor:hand;
+	color:Black;
+	text-align:left;
+}
+
+
+.iglb_NewStyleSet1ItemSelected_Exp
+{
+	font-weight:bold;
+	font-size:xx-small;
+	margin-top:4px;
+	margin-bottom:0px;
+	padding-bottom:3px;
+	padding-left:4px;
+	cursor:hand;
+	color:Black;
+	text-align:left;
+}
+
+

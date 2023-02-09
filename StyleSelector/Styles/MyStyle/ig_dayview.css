@@ -1,0 +1,187 @@
+.igdv_NewStyleSet1Control
+{
+	border:solid 1px Silver;
+}
+
+
+.igdv_NewStyleSet1CaptionHeader
+{
+	background-color:Silver;
+	background-repeat:repeat-x;
+	font-weight:bold;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 16px;
+	height: 17px;
+	color:Black;
+	text-align:center;
+}
+
+
+.igdv_NewStyleSet1DayHeader
+{
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px #F4F4F4;
+	border-right-color:#999999;
+	padding-left:2px;
+	height: 20px;
+	white-space: nowrap;
+	color:Black;
+	text-align:center;
+	vertical-align:middle;
+}
+
+
+.igdv_NewStyleSet1NonWorkingTimeSlot
+{
+	background-color:Gainsboro;
+	border-right:solid 1px Silver;
+	border-bottom:solid 1px Silver;
+	height: 20px;
+}
+
+
+.igdv_NewStyleSet1WorkingTimeSlot
+{
+	background-color:White;
+	border-right:solid 1px Silver;
+	border-bottom:solid 1px Silver;
+	height: 20px;
+}
+
+
+.igdv_NewStyleSet1AllDayEventArea
+{
+	background-color:#FAFAFA;
+}
+
+
+.igdv_NewStyleSet1AllDayEvent
+{
+	background-color:WhiteSmoke;
+	font-size:8pt;
+	font-family: Tahoma,Verdana;
+	border-width:1px;
+	border-color:Silver;
+	padding-left:3px;
+	height: 25px;
+	white-space: nowrap;
+	text-align:center;
+}
+
+
+.igdv_NewStyleSet1Appointment
+{
+	background-color:Silver;
+	font-size:8pt;
+	font-family: Tahoma,Verdana;
+	border:solid 1px #999999;
+	line-height: 16px;
+}
+
+
+.igdv_NewStyleSet1ActivityEdge
+{
+	font-size:1px;
+	height: 4px;
+	cursor:n-resize;
+}
+
+
+.igdv_NewStyleSet1ActivityEdgeLeft
+{
+	font-size:2px;
+	width: 6px;
+	cursor:move;
+}
+
+
+.igdv_NewStyleSet1TodayHeader
+{
+	background-color:Gainsboro;
+	background-repeat:repeat-x;
+	border-width:0px;
+	height: 17px;
+	color:Black;
+}
+
+
+.igdv_NewStyleSet1TimeSlotLabel
+{
+	font-size:16pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-right:solid 1px Silver;
+	border-bottom:solid 1px Silver;
+	width: 60px;
+	text-align:center;
+	vertical-align:top;
+}
+
+
+.igdv_NewStyleSet1TimeSlotLabelMinutes
+{
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.igdv_NewStyleSet1AllDayEventSelected
+{
+	background-color:#D0D0D0;
+	border-top-width:2px;
+	border-bottom-width:2px;
+}
+
+
+.igdv_NewStyleSet1AllDayEventAreaSelected
+{
+	background-color:White;
+}
+
+
+.igdv_NewStyleSet1ActivityHover
+{
+	z-index: 10000;
+}
+
+
+.igdv_NewStyleSet1ActivityEdgeBusy
+{
+	background-color:#E6EDF7;
+}
+
+
+.igdv_NewStyleSet1ActivityEdgeTentative
+{
+	background-color:#90C0FF;
+}
+
+
+.igdv_NewStyleSet1ActivityEdgeOutofOffice
+{
+	background-color:#900090;
+}
+
+
+.igdv_NewStyleSet1ActivityEdgeFree
+{
+	background-color:#F0F0F0;
+}
+
+
+.igdv_NewStyleSet1NavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	vertical-align:middle;
+}
+
+
+.igdv_NewStyleSet1SelectedAppointment
+{
+	z-index: 9999;
+}
+
+

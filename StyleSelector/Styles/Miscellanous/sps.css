@@ -1,0 +1,813 @@
+.ms-MenuUILabelFont {
+	FONT-SIZE: 66.67%; FONT-FAMILY: Verdana, sans-serif; TEXT-DECORATION: none
+}
+INPUT {
+	FONT-SIZE: 8pt
+}
+.ms-input {
+	FONT-FAMILY: Verdana, sans-serif
+}
+TABLE.ms-toolbar {
+	BORDER-RIGHT: #dce3eb 1px solid; BORDER-TOP: #dce3eb 1px solid; BACKGROUND-IMAGE: url(/_layouts/images/toolgradp.gif); BORDER-LEFT: #dce3eb 1px solid; BORDER-BOTTOM: #dce3eb 1px solid; BACKGROUND-COLOR: #dce3eb
+}
+.ms-bannerframe {
+	BACKGROUND-IMAGE: none
+}
+.ms-GRHeaderBackground {
+	BACKGROUND-IMAGE: none
+}
+.ms-storMeFree {
+	BACKGROUND-IMAGE: none
+}
+.ms-navframe {
+	BACKGROUND-IMAGE: url(/_layouts/images/vgradp.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #fbfbfd
+}
+.ms-GRStatusBar {
+	BACKGROUND-IMAGE: url(/_layouts/images/vgradp.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #fbfbfd
+}
+.ms-navwatermark {
+	COLOR: #caced5
+}
+.ms-navwatermarktext {
+	WIDTH: 139pt; HEIGHT: 17.25pt; rotation: -90
+}
+.ms-selectednav {
+	BORDER-RIGHT: #b0c0d0 1px solid; BORDER-TOP: #b0c0d0 1px solid; PADDING-BOTTOM: 4px; MARGIN-LEFT: 0px; BORDER-LEFT: #b0c0d0 1px solid; WIDTH: 100%; COLOR: #000000; MARGIN-RIGHT: 4px; PADDING-TOP: 2px; BORDER-BOTTOM: #b0c0d0 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.ms-GRSortFilter {
+	BORDER-RIGHT: #b0c0d0 1px solid; BORDER-TOP: #b0c0d0 1px solid; PADDING-BOTTOM: 4px; MARGIN-LEFT: 0px; BORDER-LEFT: #b0c0d0 1px solid; WIDTH: 100%; COLOR: #000000; MARGIN-RIGHT: 4px; PADDING-TOP: 2px; BORDER-BOTTOM: #b0c0d0 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.ms-selectednav A {
+	OVERFLOW: hidden; TEXT-OVERFLOW: ellipsis
+}
+.ms-GRSortFilter A {
+	OVERFLOW: hidden; TEXT-OVERFLOW: ellipsis
+}
+.ms-unselectednav {
+	BORDER-RIGHT: medium none; BORDER-TOP: medium none; PADDING-BOTTOM: 4px; BORDER-LEFT: medium none; WIDTH: 100%; PADDING-TOP: 1px; BORDER-BOTTOM: medium none
+}
+.ms-unselectednav A:link {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: #003399; TEXT-OVERFLOW: ellipsis
+}
+.ms-unselectednav A:visited {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: #003399; TEXT-OVERFLOW: ellipsis
+}
+DIV.ms-titleareaframe {
+	BORDER-TOP: #4e7dd1 3px solid; BACKGROUND-IMAGE: url(/_layouts/images/headcornerp.gif); BACKGROUND-REPEAT: no-repeat
+}
+.ms-titlearealine {
+	BACKGROUND-COLOR: #d8e0eb
+}
+.ms-storMeEstimated {
+	BACKGROUND-COLOR: #d8e0eb
+}
+.ms-pagetitle {
+	COLOR: #131fa5
+}
+.ms-partline {
+	BACKGROUND-COLOR: #c3d4e6
+}
+.UserToolbar {
+	BORDER-RIGHT: #dce3eb 1px solid; BORDER-TOP: #dce3eb 1px solid; BACKGROUND-IMAGE: url(/_layouts/images/toolgradp.gif); BORDER-LEFT: #dce3eb 1px solid; BORDER-BOTTOM: #dce3eb 1px solid
+}
+.ms-WPBorder {
+	BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px
+}
+.ms-ToolPaneFrame .ms-HoverCellInActiveDark {
+	BORDER-RIGHT: #2254b1 1px solid; BORDER-TOP: #2254b1 1px solid; BORDER-LEFT: #2254b1 1px solid; BORDER-BOTTOM: #2254b1 1px solid
+}
+.ms-PartSpacingVertical {
+	MARGIN-TOP: 12px
+}
+.ms-PartSpacingHorizontal {
+	WIDTH: 22px
+}
+.ms-WPHeader {
+	BORDER-TOP: #fee8ca 1px solid; BACKGROUND-IMAGE: url(/_layouts/images/partgradp.gif); BACKGROUND-COLOR: #ffffff
+}
+.ms-smallheader {
+	COLOR: #000000
+}
+.ms-tabselected {
+	COLOR: #ffffff
+}
+.ms-stylelabel {
+	COLOR: #c0c0c0
+}
+.ms-alternating {
+	BACKGROUND-COLOR: #ecf4fe
+}
+.ms-spaceBetContentAndButton {
+	HEIGHT: 10px
+}
+.ms-ButtonHeightWidth {
+	WIDTH: 100px; HEIGHT: 24px
+}
+.ms-SpaceBetButtons {
+	WIDTH: 10px
+}
+.ms-summarycustombody {
+	MARGIN-TOP: 5px; MARGIN-LEFT: 6px; MARGIN-RIGHT: 6px
+}
+.ms-summarystandardbody {
+	MARGIN-TOP: 5px; MARGIN-LEFT: 2px; MARGIN-RIGHT: 6px
+}
+.ms-custhdr {
+	DISPLAY: none
+}
+.ms-sitehdr {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: left center; PADDING-LEFT: 5px; BACKGROUND-IMAGE: url(/_layouts/images/sitehdr.gif); PADDING-BOTTOM: 4px; WIDTH: 100%; PADDING-TOP: 4px; BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #646464
+}
+.ms-farmhdr {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: left center; PADDING-LEFT: 5px; BACKGROUND-IMAGE: url(/_layouts/images/sitehdr.gif); PADDING-BOTTOM: 4px; WIDTH: 100%; PADDING-TOP: 4px; BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #646464
+}
+.ms-vspacer {
+	BORDER-RIGHT: #d4dce6 1px solid; PADDING-RIGHT: 9px; PADDING-LEFT: 7px; FONT-SIZE: 8pt; WIDTH: 124px; FONT-FAMILY: Verdana, sans-serif
+}
+.ms-vspacer A {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #003399; FONT-FAMILY: Verdana, sans-serif; TEXT-DECORATION: none
+}
+.ms-colspace {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 0px
+}
+.ms-formwidth {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 8px; WIDTH: 400px; PADDING-TOP: 0px
+}
+.ms-formspacer {
+	WIDTH: 20px; HEIGHT: 5px
+}
+.ms-errorinl {
+	FONT-SIZE: 8pt; COLOR: #ff0000; FONT-FAMILY: verdana, sans-serif
+}
+.ms-ptable1 {
+	BORDER-RIGHT: #e1e1e1 1px solid; PADDING-RIGHT: 12px; BORDER-TOP: #e1e1e1 1px solid; PADDING-LEFT: 12px; PADDING-BOTTOM: 15px; BORDER-LEFT: #e1e1e1 1px solid; PADDING-TOP: 10px; BORDER-BOTTOM: #e1e1e1 1px solid; BACKGROUND-COLOR: #f6f6f6
+}
+.ms-ptable2 {
+	BORDER-RIGHT: #efefef 1px solid; PADDING-RIGHT: 4px; BORDER-TOP: #efefef 1px solid; PADDING-LEFT: 4px; PADDING-BOTTOM: 15px; BORDER-LEFT: #efefef 1px solid; PADDING-TOP: 12px; BORDER-BOTTOM: #efefef 1px solid
+}
+.ms-ptabarea {
+	MARGIN-TOP: 4px
+}
+.ms-ptabln {
+	BACKGROUND-IMAGE: url(/_layouts/images/tablnk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptablnb {
+	
+}
+.ms-ptablf {
+	BACKGROUND-IMAGE: url(/_layouts/images/tablfk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptablfb {
+	
+}
+.ms-ptabmff {
+	BACKGROUND-IMAGE: url(/_layouts/images/tabmffk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptabmffb {
+	
+}
+.ms-ptabmfn {
+	BACKGROUND-IMAGE: url(/_layouts/images/tabmfnk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptabmfnb {
+	
+}
+.ms-ptabmnf {
+	BACKGROUND-IMAGE: url(/_layouts/images/tabmnfk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptabmnfb {
+	
+}
+.ms-ptabrn {
+	BACKGROUND-IMAGE: url(/_layouts/images/tabrnk.gif); BACKGROUND-REPEAT: repeat-y
+}
+.ms-ptabrnb {
+	
+}
+.ms-ptabrf {
+	BACKGROUND-IMAGE: url(/_layouts/images/tabrfk.gif); BACKGROUND-REPEAT: repeat-y; BACKGROUND-COLOR: #ffffff
+}
+.ms-ptabrfb {
+	
+}
+.ms-ptabcn {
+	BORDER-RIGHT: #ffffff 0px solid; BORDER-TOP: #b4b4b4 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; VERTICAL-ALIGN: middle; BORDER-LEFT: #ffffff 0px solid; COLOR: #000000; PADDING-TOP: 1px; BORDER-BOTTOM: #ffffff 0px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica; BACKGROUND-COLOR: #ffffff; TEXT-ALIGN: left
+}
+.ms-ptabcn A:link {
+	COLOR: #595959; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.ms-ptabon A:visited {
+	COLOR: #595959; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.ms-ptabcn A:hover {
+	COLOR: #ff0000; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.ms-ptabcnb {
+	BACKGROUND-COLOR: #ffffff
+}
+.ms-ptabcf {
+	BORDER-RIGHT: #ffffff 0px solid; BORDER-TOP: #b4b4b4 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; VERTICAL-ALIGN: middle; BORDER-LEFT: #ffffff 0px solid; COLOR: #000000; PADDING-TOP: 1px; BORDER-BOTTOM: #ffffff 0px solid; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica; BACKGROUND-COLOR: #d9e3e6; TEXT-ALIGN: left
+}
+.ms-ptabcf A:link {
+	COLOR: #595959; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.ms-ptaboff A:visited {
+	COLOR: #595959; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: none
+}
+.ms-ptabcf A:hover {
+	COLOR: #ff0000; FONT-STYLE: normal; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif; TEXT-DECORATION: underline
+}
+.ms-ptabcfb {
+	BACKGROUND-COLOR: #b4b4b4
+}
+.ms-phnav1wrapper {
+	BORDER-TOP: #7795cb 1px solid; BACKGROUND-IMAGE: url(/_layouts/images/topgrad.gif); WIDTH: 100%; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #00248c
+}
+.ms-phnavtableone {
+	PADDING-RIGHT: 4px; PADDING-LEFT: 4px; PADDING-BOTTOM: 5px; PADDING-TOP: 3px
+}
+.ms-phnavtableone A {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; COLOR: #ffffff; FONT-STYLE: normal; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.ms-phnavtableone A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-phnavmidc1 {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; PADDING-BOTTOM: 2px; PADDING-TOP: 1px
+}
+.ms-phnavmidc0 {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 8px; PADDING-BOTTOM: 2px; PADDING-TOP: 1px
+}
+.ms-phnavmidc1sel {
+	BORDER-RIGHT: #578ceb 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #00238b 1px solid; PADDING-LEFT: 8px; BACKGROUND-IMAGE: url(/_layouts/images/navgradp.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #00238b 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #578ceb 1px solid; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #5284de
+}
+.ms-phnavmidc0sel {
+	BORDER-RIGHT: #578ceb 1px solid; PADDING-RIGHT: 8px; BORDER-TOP: #00238b 1px solid; PADDING-LEFT: 8px; BACKGROUND-IMAGE: url(/_layouts/images/navgradp.gif); PADDING-BOTTOM: 2px; BORDER-LEFT: #00238b 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #578ceb 1px solid; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #5284de
+}
+.ms-phnavmidc1sel A {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; COLOR: #131fa5; FONT-STYLE: normal; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.ms-phnavmidc0sel A {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; COLOR: #131fa5; FONT-STYLE: normal; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.ms-phnavmidc1sel A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-phnavmidc0sel A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-phnavtopl1sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavtopr1sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavbotl1sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavbotr1sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavtopl0sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavtopr0sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavbotl0sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-phnavbotr0sel {
+	WIDTH: 2px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 2px
+}
+.ms-pageidi {
+	PADDING-BOTTOM: 2px; VERTICAL-ALIGN: bottom; WIDTH: 125px; HEIGHT: 55px; TEXT-ALIGN: center
+}
+.ms-pageidpt {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; VERTICAL-ALIGN: bottom
+}
+.ms-pageidta {
+	PADDING-TOP: 7px; HEIGHT: 20px
+}
+.ms-sblbcorner {
+	PADDING-RIGHT: 5px; BACKGROUND-POSITION: right top; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(/_layouts/images/cornerbl.gif); PADDING-BOTTOM: 4px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-sblbcornerRTL {
+	PADDING-RIGHT: 5px; BACKGROUND-POSITION: right top; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(/_layouts/images/cornerbRTL.gif); PADDING-BOTTOM: 4px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-sbtopcorner {
+	BACKGROUND-POSITION: left top; BACKGROUND-IMAGE: url(/_layouts/images/cornertop.gif); BORDER-BOTTOM-WIDTH: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-sbtopcornerRTL {
+	BACKGROUND-POSITION: left top; BACKGROUND-IMAGE: url(/_layouts/images/cornertopRTL.gif); BORDER-BOTTOM-WIDTH: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-sbtable {
+	FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #4e7dd1
+}
+.ms-sbtabletransparent {
+	FONT-WEIGHT: normal; FONT-STYLE: normal; FONT-FAMILY: Verdana
+}
+.ms-sbgo {
+	PADDING-RIGHT: 14px; PADDING-LEFT: 4px
+}
+.ms-sbrow {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; MARGIN-TOP: 3px; MARGIN-BOTTOM: 1px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px; HEIGHT: 24px
+}
+.ms-sbdropdown {
+	WIDTH: 128px; HEIGHT: 20px
+}
+.ms-sbkeyword {
+	BORDER-RIGHT: #7f9db9 1px solid; BORDER-TOP: #7f9db9 1px solid; BORDER-LEFT: #7f9db9 1px solid; BORDER-BOTTOM: #7f9db9 1px solid; HEIGHT: 19px
+}
+.ms-sbcellwhite100 {
+	WIDTH: 100%
+}
+.ms-sbcellwhite {
+	
+}
+.ms-sbPropOpDropDown {
+	WIDTH: 100px
+}
+.ms-sbSources1stCell {
+	PADDING-LEFT: 16px; WIDTH: 210px
+}
+.ms-sbSources2ndCell {
+	PADDING-LEFT: 20px; WIDTH: 210px
+}
+.ms-sbSourcesOneCell {
+	PADDING-LEFT: 16px; WIDTH: 440px
+}
+.ms-dmiFirstCell {
+	MARGIN-LEFT: 0px; WIDTH: 128px; MARGIN-RIGHT: 20px; HEIGHT: 21px
+}
+.ms-location {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; MARGIN-LEFT: 6px; WIDTH: 125px; COLOR: #000000; MARGIN-RIGHT: 1px; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.ms-location A:link {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #003399; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.ms-location A:visited {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: #003399; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.ms-location A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-locationhead {
+	BACKGROUND-POSITION: left bottom; FONT-SIZE: 8pt; BACKGROUND-IMAGE: url(/_layouts/images/dot_rule.gif); PADDING-BOTTOM: 2px; COLOR: black; PADDING-TOP: 5px; BACKGROUND-REPEAT: repeat-x; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left; TEXT-DECORATION: none
+}
+.ms-locationicon {
+	PADDING-RIGHT: 7px; BACKGROUND-POSITION: left top; PADDING-LEFT: 4px; BACKGROUND-IMAGE: url(/_layouts/images/arrow.gif); WIDTH: 1px; PADDING-TOP: 5px; BACKGROUND-REPEAT: no-repeat
+}
+.ms-locationbutton {
+	PADDING-BOTTOM: 4px; WIDTH: 100%; PADDING-TOP: 1px
+}
+.ms-locationiconsel {
+	BORDER-RIGHT: #b0c0d0 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: #b0c0d0 1px solid; PADDING-LEFT: 1px; BORDER-LEFT: #b0c0d0 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #b0c0d0 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.ms-locationbuttonsel {
+	BORDER-RIGHT: #b0c0d0 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #b0c0d0 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 4px; MARGIN-LEFT: 0px; BORDER-LEFT: #b0c0d0 0px solid; WIDTH: 100%; COLOR: #000000; MARGIN-RIGHT: 4px; PADDING-TOP: 2px; BORDER-BOTTOM: #b0c0d0 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.ms-locationbuttonsel A {
+	OVERFLOW: hidden; WIDTH: 100px; TEXT-OVERFLOW: ellipsis
+}
+.ms-locationbutton A {
+	OVERFLOW: hidden; WIDTH: 100px; TEXT-OVERFLOW: ellipsis
+}
+.ms-pvnav {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; MARGIN-LEFT: 4px; MARGIN-RIGHT: 0px
+}
+.Ms-pvnavtableone1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 6px
+}
+.ms-navheader {
+	BACKGROUND-POSITION: left bottom; FONT-WEIGHT: bold; FONT-SIZE: 8pt; BACKGROUND-IMAGE: url(/_layouts/images/dot_rule.gif); PADDING-BOTTOM: 2px; COLOR: black; PADDING-TOP: 5px; BACKGROUND-REPEAT: repeat-x; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left
+}
+.ms-pvnavmidL1 {
+	PADDING-RIGHT: 17px; BACKGROUND-POSITION: left top; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(/_layouts/images/vnavicon.gif); PADDING-BOTTOM: 0px; WIDTH: 1px; BACKGROUND-REPEAT: no-repeat
+}
+.ms-pvnavmidC1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 2px; COLOR: #000000; PADDING-TOP: 1px; FONT-STYLE: normal; FONT-FAMILY: Verdana; TEXT-ALIGN: left
+}
+.ms-pvnavmidC1 A:link {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: #003399; TEXT-OVERFLOW: ellipsis; TEXT-DECORATION: none
+}
+.ms-pvnavmidC1 A:visited {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: #003399; TEXT-OVERFLOW: ellipsis; TEXT-DECORATION: none
+}
+.ms-pvnavmidC1 A:hover {
+	COLOR: #003399; TEXT-DECORATION: underline
+}
+.Ms-pvnavmidr1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 0px; PADDING-TOP: 0px
+}
+.Ms-pvnavtopr1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 0px; PADDING-TOP: 0px
+}
+.Ms-pvnavbotr1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 0px; PADDING-TOP: 0px
+}
+.ms-pvtb {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; MARGIN-LEFT: 4px; COLOR: #999999; MARGIN-RIGHT: 0px; FONT-STYLE: normal; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.ms-pvtb A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-pvtb A:visited {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-pvtb A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-pvtbt {
+	PADDING-RIGHT: 6px; BACKGROUND-POSITION: left bottom; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 0.7em; BACKGROUND-IMAGE: url(/_layouts/images/dot_rule.gif); PADDING-BOTTOM: 2px; COLOR: #000000; PADDING-TOP: 12px; BACKGROUND-REPEAT: repeat-x
+}
+.ms-pvtbicon {
+	PADDING-RIGHT: 10px; BACKGROUND-POSITION: left top; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(/_layouts/images/rtbullet.gif); WIDTH: 1px; PADDING-TOP: 5px; BACKGROUND-REPEAT: no-repeat
+}
+.ms-pvtbbutton {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; VERTICAL-ALIGN: top; COLOR: #003399; PADDING-TOP: 2px; FONT-STYLE: normal; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+.ms-pvtbbutton A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-pvtbbutton A:visited {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-pvtbbutton A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-view {
+	MARGIN-LEFT: 4px; WIDTH: 125px; MARGIN-RIGHT: 0px; PADDING-TOP: 14px
+}
+.ms-viewhead {
+	BACKGROUND-POSITION: left bottom; FONT-WEIGHT: bold; FONT-SIZE: 0.7em; BACKGROUND-IMAGE: url(/_layouts/images/dot_rule.gif); MARGIN-BOTTOM: 4px; PADDING-BOTTOM: 2px; BACKGROUND-REPEAT: repeat-x; FONT-STYLE: normal; FONT-FAMILY: Tahoma
+}
+.ms-viewbutton {
+	FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; VERTICAL-ALIGN: top; COLOR: #000000; PADDING-TOP: 1px; FONT-STYLE: normal; FONT-FAMILY: Tahoma
+}
+.ms-viewbutton A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-viewbutton A:visited {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-viewbutton A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-viewicon {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 1px; WIDTH: 7px; PADDING-TOP: 5px
+}
+.ms-viewiconsel {
+	BORDER-RIGHT: #b0c0d0 0px solid; PADDING-RIGHT: 2px; BORDER-TOP: #b0c0d0 1px solid; PADDING-LEFT: 1px; BORDER-LEFT: #b0c0d0 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #b0c0d0 1px solid; BACKGROUND-COLOR: #ffffff
+}
+.ms-viewbuttonsel {
+	BORDER-RIGHT: #b0c0d0 1px solid; BORDER-TOP: #b0c0d0 1px solid; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; BORDER-LEFT: #b0c0d0 0px solid; COLOR: #000000; PADDING-TOP: 2px; BORDER-BOTTOM: #b0c0d0 1px solid; FONT-STYLE: normal; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.ms-viewbuttonsel A {
+	COLOR: #000000; TEXT-DECORATION: none
+}
+.ms-viewbuttonsel A:hover {
+	COLOR: #000000; TEXT-DECORATION: underline
+}
+.ms-catdesc {
+	WIDTH: 100%
+}
+.ms-catdescicon {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 5px; PADDING-BOTTOM: 10px; WIDTH: 1px; PADDING-TOP: 10px
+}
+.ms-catdescimage {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 10px; WIDTH: 1px
+}
+.ms-catdesctext {
+	PADDING-RIGHT: 12px; PADDING-LEFT: 5px; PADDING-BOTTOM: 10px; PADDING-TOP: 10px
+}
+.ms-contactbox {
+	VERTICAL-ALIGN: top; WIDTH: 295px
+}
+.ms-contactboxbg {
+	BORDER-RIGHT: 1px solid; BORDER-TOP: 1px solid; PADDING-BOTTOM: 10px; VERTICAL-ALIGN: top; BORDER-LEFT: 1px solid; WIDTH: 100%; PADDING-TOP: 10px; BORDER-BOTTOM: 1px solid; HEIGHT: 100%; BACKGROUND-COLOR: #f3f3f3
+}
+.ms-catdesccontact {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 6px; WORD-WRAP: break-word
+}
+.ms-srchtzmrdiv {
+	
+}
+.ms-catindent {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px
+}
+.ms-toc {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 0px
+}
+.ms-toccat {
+	PADDING-RIGHT: 20px; PADDING-LEFT: 0px; PADDING-BOTTOM: 20px
+}
+.ms-toccattitle {
+	FONT-WEIGHT: bold; FONT-STYLE: normal; FONT-FAMILY: tahoma; TEXT-DECORATION: none
+}
+.ms-toccattitle A {
+	FONT-SIZE: 0.7em; COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-toccattitle A:hover {
+	FONT-SIZE: 0.7em; COLOR: #003399; TEXT-DECORATION: underline
+}
+.ms-tocitems {
+	FONT-WEIGHT: normal; PADDING-TOP: 0px; FONT-STYLE: normal; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.ms-catlsts {
+	VERTICAL-ALIGN: bottom
+}
+.ms-catlsts A {
+	VERTICAL-ALIGN: bottom
+}
+.ms-catsubcats {
+	VERTICAL-ALIGN: bottom
+}
+.ms-catsubcats A {
+	VERTICAL-ALIGN: bottom
+}
+.ms-newsheadline {
+	FONT-WEIGHT: 900; FONT-SIZE: 14pt; PADDING-BOTTOM: 3px; FONT-FAMILY: Arial, Helvetica, sans-serif
+}
+.ms-newssubhead {
+	FONT-SIZE: 10pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.ms-lswptitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 5px; FONT-WEIGHT: 700; FONT-SIZE: 11pt; PADDING-BOTTOM: 6px; COLOR: #4e7dd1; FONT-FAMILY: Arial
+}
+.ms-ls {
+	MARGIN-LEFT: 4px; MARGIN-RIGHT: 0px
+}
+.ms-lsgrphdg {
+	
+}
+.ms-lsmin {
+	PADDING-BOTTOM: 5px; PADDING-TOP: 3px
+}
+.ms-lscomp {
+	PADDING-BOTTOM: 10px
+}
+.ms-lsnorm {
+	PADDING-BOTTOM: 15px
+}
+.ms-lsexp {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 2px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}
+.ms-lstitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+.ms-sectionheader {
+	FONT-SIZE: 1em; COLOR: #333333; FONT-FAMILY: arial
+}
+.ms-gray {
+	COLOR: #585858
+}
+.ms-white {
+	COLOR: #ffffff
+}
+.ms-gold {
+	COLOR: #ffd700
+}
+.ms-black {
+	COLOR: #000000
+}
+.HtmlMenuButton {
+	CURSOR: hand
+}
+.ElementFrame {
+	
+}
+.Element {
+	BORDER-RIGHT: #ffffff 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; BORDER-LEFT: #ffffff 1px solid; WIDTH: 100%; CURSOR: default; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: #ffffff 1px solid; FONT-STYLE: normal; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #ffffff; TEXT-DECORATION: none
+}
+.Elementdrop {
+	BORDER-RIGHT: #ff9933 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ff9933 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; BORDER-LEFT: #ff9933 1px solid; WIDTH: 100%; CURSOR: default; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: #ff9933 1px solid; FONT-STYLE: normal; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #ffe7be; TEXT-DECORATION: none
+}
+.Elementsel {
+	BORDER-RIGHT: #ebebeb 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #ebebeb 1px solid; PADDING-LEFT: 4px; FONT-WEIGHT: normal; FONT-SIZE: 0.7em; PADDING-BOTTOM: 2px; VERTICAL-ALIGN: middle; BORDER-LEFT: #ebebeb 1px solid; WIDTH: 100%; CURSOR: default; COLOR: black; PADDING-TOP: 2px; BORDER-BOTTOM: #ebebeb 1px solid; FONT-STYLE: normal; FONT-FAMILY: Tahoma; BACKGROUND-COLOR: #ececec; TEXT-DECORATION: none
+}
+.ElementChildren {
+	
+}
+.LayoutIBeam {
+	TABLE-LAYOUT: fixed; DISPLAY: none; WIDTH: 50px; POSITION: absolute; BORDER-COLLAPSE: collapse; HEIGHT: 30px
+}
+.LayoutIBeamTDTop {
+	BORDER-RIGHT: #ff9933 2px solid; BORDER-LEFT: #ff9933 2px solid; BORDER-BOTTOM: #ff9933 2px solid
+}
+.LayoutIBeamTDBottom {
+	BORDER-RIGHT: #ff9933 2px solid; BORDER-LEFT: #ff9933 2px solid
+}
+.LayoutIBeamTR {
+	HEIGHT: 5px
+}
+.LayoutCanvas {
+	BORDER-TOP: #efefef 1px solid; OVERFLOW: scroll; BORDER-LEFT: #efefef 1px solid; WIDTH: 100%
+}
+.NonECBCell {
+	WIDTH: 0px
+}
+.ECBCell {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 10px; WIDTH: 100%
+}
+.ms-pmecbp {
+	PADDING-RIGHT: 25px; PADDING-LEFT: 0px
+}
+.Hidden {
+	DISPLAY: none
+}
+.ToggleIcon {
+	CURSOR: hand
+}
+.Icon {
+	CURSOR: move
+}
+.Iconhome {
+	CURSOR: not-allowed
+}
+.Full {
+	WIDTH: 100%; HEIGHT: 100%
+}
+.ms-odbcell {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 7px; PADDING-TOP: 7px; BACKGROUND-COLOR: #0033cc
+}
+.ms-odbfont {
+	FONT-SIZE: 10px; COLOR: #ffffff; FONT-FAMILY: Verdana
+}
+.ms-odncell {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 7px; PADDING-BOTTOM: 3px; PADDING-TOP: 3px; BACKGROUND-COLOR: #0033cc
+}
+.ms-odnfont {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 6px; FONT-SIZE: 20px; COLOR: #ffffff; FONT-FAMILY: Verdana
+}
+.ms-odccell {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 7px; PADDING-BOTTOM: 3px; PADDING-TOP: 2px; BACKGROUND-COLOR: #316ac5
+}
+.ms-odcfont {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 4px; FONT-SIZE: 10px; COLOR: #000000; FONT-FAMILY: Verdana
+}
+.ms-odtreediv {
+	MARGIN-TOP: 5px; MARGIN-LEFT: 9px; MARGIN-RIGHT: 0px
+}
+.ms-odtree {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+.ms-odtoggleimg {
+	
+}
+.ms-odcatcell {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 3px; FONT-SIZE: 11px; PADDING-BOTTOM: 3px; WIDTH: 100%; PADDING-TOP: 4px; FONT-FAMILY: Tahoma
+}
+.ms-odcatcelltable {
+	
+}
+.ms-odcatcelltdimg {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 0px; WIDTH: 1px
+}
+.ms-odcatcelltdtitle {
+	WIDTH: 100%
+}
+.ms-odcatcelltdtitletable {
+	
+}
+.ms-odcatcelltdtitletd {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 3px; FONT-SIZE: 0.7em; PADDING-BOTTOM: 4px; WIDTH: 100%; COLOR: #000000; PADDING-TOP: 3px; FONT-FAMILY: Tahoma
+}
+.ms-phtb {
+	BORDER-TOP: #ffffff 20px solid; FONT-SIZE: 8pt; BORDER-BOTTOM: #ffffff 10px solid; BACKGROUND-REPEAT: repeat-x; FONT-FAMILY: Verdana; HEIGHT: 20px
+}
+.ms-phtb A:link {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-phtb A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-phtb A:hover {
+	COLOR: red; TEXT-DECORATION: underline
+}
+.ms-smallheader {
+	FONT-WEIGHT: bold; FONT-SIZE: 0.7em; COLOR: #cc6633; FONT-FAMILY: Verdana
+}
+.ms-smallheader A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-smallheader A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-smallheader A:visited {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-srchAlignTop {
+	PADDING-BOTTOM: 0px; VERTICAL-ALIGN: top
+}
+.ms-srchTitle {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #000066; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+.ms-srchTitle A:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: #000066; FONT-FAMILY: verdana; TEXT-DECORATION: none
+}
+.ms-srchTitle A:visited {
+	COLOR: #000066; TEXT-DECORATION: none
+}
+.ms-srchTitle A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-srchTitle A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-srchUrl {
+	FONT-SIZE: 0.68em; VERTICAL-ALIGN: top; COLOR: gray; FONT-FAMILY: verdana
+}
+.ms-srchUrl A:link {
+	COLOR: gray; TEXT-DECORATION: none
+}
+.ms-srchActions {
+	FONT-SIZE: 0.68em; VERTICAL-ALIGN: top; COLOR: gray; FONT-FAMILY: verdana
+}
+.ms-srchActions A:link {
+	COLOR: gray; TEXT-DECORATION: none
+}
+.ms-srchUrl A:visited {
+	COLOR: gray; TEXT-DECORATION: none
+}
+.ms-srchActions A:visited {
+	COLOR: gray; TEXT-DECORATION: none
+}
+.ms-srchUrl A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-srchUrl A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-srchActions A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-srchActions A:hover {
+	COLOR: #ff3300; TEXT-DECORATION: underline
+}
+.ms-bannerframe {
+	PADDING-RIGHT: 14px; PADDING-LEFT: 5px; PADDING-BOTTOM: 4px; WIDTH: 100%; PADDING-TOP: 4px; BORDER-BOTTOM: #4675cb 1px solid; BACKGROUND-COLOR: #4e7dd1
+}
+.ms-banner {
+	TEXT-ALIGN: right
+}
+.ms-portaltitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 700; FONT-SIZE: 11pt; PADDING-BOTTOM: 10px; COLOR: #4e7dd1; FONT-FAMILY: Arial
+}
+.ms-tztop {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px
+}
+.ms-tzmidleft {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px
+}
+.ms-tzmidright {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px
+}
+.ms-tzbottom {
+	PADDING-RIGHT: 6px; PADDING-LEFT: 6px; PADDING-BOTTOM: 6px; PADDING-TOP: 6px
+}
+.ms-tzmrdiv {
+	WIDTH: 295px
+}
+.ms-bbutton {
+	PADDING-RIGHT: 15px; PADDING-LEFT: 15px; OVERFLOW: visible; WIDTH: 100px
+}
+ms-tztable {
+	MARGIN-LEFT: 0px; MARGIN-RIGHT: 12px
+}
+.ms-titlearea A {
+	TEXT-DECORATION: none
+}
+.ms-titlearea A:visited {
+	COLOR: #003399
+}
+.ms-titlearea A:hover {
+	TEXT-DECORATION: underline
+}
+.ms-navaddlink {
+	COLOR: #e57f1a
+}
+.ms-lstopitemdesc {
+	COLOR: #666666
+}
+.ms-catlsts {
+	MARGIN-TOP: 4px
+}
+.ms-toccatitem {
+	VERTICAL-ALIGN: middle; COLOR: #666666; PADDING-TOP: 4px
+}
+.IconBrowse {
+	MARGIN-LEFT: 0px; MARGIN-RIGHT: 6px
+}
+.ms-nav TD {
+	FONT-WEIGHT: bold
+}
+.ms-verticaldots {
+	BORDER-RIGHT: #ffffff 0px solid; BORDER-LEFT: medium none
+}
+.ms-descriptiontext A:link {
+	COLOR: #003399; TEXT-DECORATION: none
+}
+.ms-cadminnav {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px
+}

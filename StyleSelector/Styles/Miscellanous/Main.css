@@ -1,0 +1,26 @@
+﻿body {
+}
+
+.Activate
+{
+	background-color: #ffffcc;
+}
+
+.ActivateOne
+{
+	background-color: #ffffcc;
+	border-right: orange thin double;
+	border-top: orange thin double;
+	border-left: orange thin double;
+	border-bottom: orange thin double;
+	font-style: normal;
+}
+
+.Message
+{
+	background-color: #ffffcc;
+	font-family: 'Arial';
+	color: red;
+}
+
+

@@ -1,0 +1,244 @@
+﻿body
+{
+}
+
+.SizeTen
+{
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.SizeNine
+{
+	font-family: Arial;
+	font-size: 9px;
+}
+
+.HeadingThree
+{
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.HeadingOne
+{
+	font-family: Arial;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.SubHeadingOne
+{
+	font-family: Arial;
+	font-size: 11px;
+}
+
+.SubHeadingTwo
+{
+	font-family: Arial;
+	font-size: 11px;
+    text-decoration : underline;
+    font-weight : bold;
+}
+
+.TableHeadingOne
+{
+	font-family: Arial;
+	font-size: 11px;
+	font-weight: bold;
+	width : 290px;
+}
+
+.HeadingTwo
+{
+	font-family: Arial;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.HeadingBody
+{
+	font-family: Arial;
+	font-size: 12px;
+}
+
+.DateTextBox
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 73px;
+}
+
+.TimeTextBox
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 90px;
+}
+
+.GenericDropDown
+{
+	font-family: Arial;
+	font-size: 11px;
+}
+
+.GenericTextBox
+{
+	font-family: Arial;
+	font-size: 11px;
+}
+
+.GenericButton
+{
+	font-family: Arial;
+	font-size: 11px;
+}
+
+.VPBox
+{
+	font-family: Arial;
+	font-size: 11px;
+}
+
+.TravelMode
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 120px;
+}
+
+.BusinessClass
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 120px;
+}
+
+.PassengerFirstNameBox
+{
+	width: 105px;
+	font-size: 10px;
+}
+
+.PassengerLastNameBox
+{
+	width: 105px;
+	font-size: 10px;
+}
+
+.PassengerManagerNameBox
+{
+	width: 130px;
+	font-size: 10px;
+}
+
+.PassengerManagerEmailBox
+{
+	width: 150px;
+	font-size: 10px;
+}
+
+.SearchTextBox
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 60px;
+}
+
+.AirportTextBox
+{
+	font-family: Arial;
+	font-size: 10px;
+	width: 210px;
+}
+
+.MenuDiv
+{
+	float: left;
+	width: 100px;
+	padding-left: 1px;
+	padding-right: 1px;
+}
+
+.ContentDiv
+{
+	float:left; 
+	width: 680px;
+	padding-right: 0px;
+	padding-left: 1px;
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.ContentDivApprove
+{
+	float:left; 
+	width: 600px;
+	padding-right: 0px;
+	padding-left: 1px;
+	font-family: Arial;
+	font-size: 10px;
+}
+
+.ContentDivBorder
+{
+	float: left;
+	width: 1000px;
+	padding-right: 10px;
+	border-right: #99ccff thin solid;
+	border-top: #99ccff thin solid;
+	border-left: #99ccff thin solid;
+	border-bottom: #99ccff thin solid;
+	padding-left: 10px;
+}
+
+.Activate
+{
+	background-color: #ffffcc;
+}
+
+.ActivateDateTextBox
+{
+	background-color: #ffffcc;
+	width: 75px;
+}
+
+.ActivateOne
+{
+	background-color: #ffffcc;
+	border-right: orange thin double;
+	border-top: orange thin double;
+	border-left: orange thin double;
+	border-bottom: orange thin double;
+	font-style: normal;
+}
+
+.Message
+{
+	font-family: Verdana, Arial;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #ffffcc;
+	color: red;
+}
+
+.TabMenuLink 
+{
+	color:#666666;
+	text-decoration: none;
+}
+
+.SilverDivBorder
+{
+border-right: silver thin solid; 
+border-top: silver thin solid; 
+border-left: silver thin solid; 
+border-bottom: silver thin solid;
+}
+
+.CellOne
+{
+BACKGROUND-IMAGE: url(images/tabStripeOn.gif); 
+WIDTH: 60px; 
+height: 28px;
+}

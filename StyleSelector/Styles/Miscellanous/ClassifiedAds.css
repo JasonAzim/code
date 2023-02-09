@@ -1,0 +1,229 @@
+﻿body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+	color: Black;
+	background-color: White;
+	background-position: left top;
+	margin-left: 0px;
+	margin-top: 0px;
+}
+
+.body_indent {
+	margin-left: 15px;
+}
+
+.footer_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #999999;
+	margin-left: 15px;
+}
+
+.verity_subtext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 7pt;
+	color: #999999;
+}
+
+.verity_toptext {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #CC0033;
+	font-weight: bold;
+}
+
+a.verity:link {
+     color: #CC0033;
+     text-decoration: none;
+     }
+
+a.verity:visited {
+     color: #CC0033;
+     text-decoration: none;
+     }
+
+a.verity:hover {
+     color: #CC0033;
+     text-decoration: underline;
+     }
+
+a.verity:active {
+     color: #CC0033;
+     }
+
+.text_indent {
+	margin-left: 15px;
+}
+
+a {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #0000FF;
+}
+a:visited {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #0000FF;
+}
+a:active {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #FF0000;
+}
+a:hover {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #FF0000;
+}
+a.special:link {
+     color: #999999;
+     text-decoration: none;
+     }
+
+a.special:visited {
+     color: #999999;
+     text-decoration: none;
+     }
+
+a.special:hover {
+     color: #999999;
+     text-decoration: underline;
+     }
+
+a.special:active {
+     color: #999999;
+     }
+
+a.sidemenu:link {
+     color: #000000;
+     text-decoration: none;
+     }
+
+a.sidemenu:visited {
+     color: #000000;
+     text-decoration: none;
+     }
+
+a.sidemenu:hover {
+     color: #000000;
+     text-decoration: underline;
+     }
+
+
+a.home_linx:link {
+     color: #000000;
+     text-decoration: none;
+     }
+
+a.home_linx:visited {
+     color: #000000;
+     text-decoration: none;
+     }
+
+a.home_linx:hover {
+     color: #000000;
+     text-decoration: underline;
+     }
+
+a.home_linx:active {
+     color: #000000;
+     }
+li {
+	font-size: 8pt;
+}
+
+
+td {
+	font-size: 8pt;
+}
+
+.html_menu {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000000;
+}
+
+.body_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000000;
+}
+
+.red_body_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #CC0033;
+	font-weight: bold;
+}
+.body_text_bold {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #000000;
+	font-weight: bold
+}
+.white_body_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #FFFFFF;
+	font-weight: bold;
+}
+.red_subheading {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	color: #CC0033;
+	font-weight: normal;
+}
+.search_text {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 7pt;
+	color: #000000;
+}
+
+.content_title {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18pt;
+	color: #000000;
+	font-weight: bold;
+}
+.print_page {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: normal;
+}
+
+.orgname {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	font-weight: bold;
+	color: #CC0033;
+}
+
+.orgtitle {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+}
+
+li {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	list-style-position: outside;
+	list-style-type: square;
+}
+TR.R1 {
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			font-size : 8pt;
+			background-color : #EBEBEC;
+		}
+TR.R0 {
+			font-family : Verdana, Arial, Helvetica, sans-serif;
+			font-size : 8pt;
+			background-color : transparent;
+		}
+
+.style3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 8pt;
+}
+
+span.hlight {
+	background: #FFFF6C;
+}
+

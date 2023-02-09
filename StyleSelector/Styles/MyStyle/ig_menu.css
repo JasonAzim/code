@@ -1,0 +1,79 @@
+.igmn_NewStyleSet1Control
+{
+	background-color:WhiteSmoke;
+	border-color:Transparent;
+}
+
+
+.igmn_NewStyleSet1Island
+{
+	background-color:#F0F0F0;
+}
+
+
+.igmn_NewStyleSet1Item
+{
+	background-color:Transparent;
+	border:solid 1px Transparent;
+}
+
+
+.igmn_NewStyleSet1Leaf
+{
+}
+
+
+.igmn_NewStyleSet1Parent
+{
+}
+
+
+.igmn_NewStyleSet1TopLevelLeaf
+{
+}
+
+
+.igmn_NewStyleSet1TopLevelParent
+{
+}
+
+
+.igmn_NewStyleSet1Header
+{
+}
+
+
+.igmn_NewStyleSet1Separator
+{
+}
+
+
+.igmn_NewStyleSet1Hover
+{
+	background-color: LightGrey;
+	border-width:1px;
+	border-color:#C3C3C3;
+}
+
+
+.igmn_NewStyleSet1TopLevelHover
+{
+	background-color: LightGrey;
+	border-width:1px;
+	border-color:#C3C3C3;
+}
+
+
+.igmn_NewStyleSet1TopSelected
+{
+}
+
+
+.igmn_NewStyleSet1Disabled
+{
+	font-size:xx-small;
+	font-family: Verdana;
+	color:#D2D2D2;
+}
+
+

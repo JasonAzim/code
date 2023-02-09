@@ -1,0 +1,218 @@
+﻿body
+{
+	font-family: Arial, Helvetica, Verdana, sans-serif;
+	background-color: #DADADA;
+	height: 100%;
+	background-image: url('../images/bg.gif');
+	background-repeat: repeat-y;
+	background-position: center;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+.Caption
+{
+	font-size: 240%;
+	font-weight: bold;
+	vertical-align: baseline;
+	color: #152c60;
+}
+
+.tableHeader
+{
+	background-color: #6DBEEA;
+	text-align: center;
+	font-weight: bold;
+	border: 1px solid black;
+	border-style: solid;
+	height: 30px;
+	color: White;
+}
+
+.disabledTextBox
+{
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-color: Black;
+	font-weight: bold;
+}
+
+.editedTextBox
+{
+	border-style: solid;
+	border-bottom-color: Red;
+	border-width: thin;
+}
+
+.footerContent
+{
+	text-align: center;
+	vertical-align: bottom;
+	height: 45px;
+	background-color:#F0F0F0;
+	padding-top:5px;
+}
+
+.errorMsg
+{
+	font-size: 8.25pt;
+	color: red;
+	font-family: Verdana, Arial;
+	text-decoration: none;
+}
+
+.hilite
+{
+	background-color: #dfe5ff;
+}
+
+.nohilite
+{
+	background-color: #ffffff;
+}
+
+.GenericButton
+{
+	background-image: url('../images/bluebutton.gif');
+}
+
+.PageFooter
+{
+	background-color: #045c97;
+	border-top-width: 2px;
+	border-top-style: solid;
+	padding-top: 5px;
+	text-align: center;
+	font-weight: bold;
+	height: 50px;
+	color: #FFFFFF;
+}
+
+.tdNoBorder
+{
+	border: 0;
+	padding: 0px;
+}
+
+.tdColor
+{
+	border: 0;
+	padding: 0px;
+	background-color: #045c97;
+}
+
+.RightTopMenu
+{
+	vertical-align: top;
+	text-align: right;
+	color: #152f60;
+}
+
+.tableMain
+{
+	width: 100%;
+	border-collapse: collapse;
+	border: 0px;
+}
+
+.divMain
+{
+	width: 1068px;
+	height: 100%;
+	background-color: #FFFFFF;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0px;
+	border: thin #000000;
+	padding-top: 0px;
+	position: relative;
+	top: 0px;
+}
+
+.SubMenu
+{
+}
+
+.Logo
+{
+	width: 54px;
+	height: 71px;
+}
+
+a.signout
+{
+	color: #152c60; /*button text color*/
+}
+
+a:link.signout, singnout:visited.signout, signout:hover.signout, signout:active.signout
+{
+	color: #152c60;
+}
+
+.glossymenu
+{
+	position: relative;
+	margin: 0 auto 0 auto;
+	background: url(../images/menub_bg.gif) repeat-x; /*tab background image path*/
+	height: 46px;
+	list-style: none;
+	top: 0px;
+	left: 0px;
+}
+
+.glossymenu li
+{
+	float: left;
+}
+
+.glossymenu li a
+{
+	float: left;
+	display: block;
+	color: #000;
+	text-decoration: none;
+	font-family: sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 0 0 0 16px; /*Padding to accomodate left tab image. Do not change*/
+	background: url(../images/menub_bg.gif) repeat-x; /*tab background image path*/
+	height: 46px;
+	line-height: 46px;
+	text-align: center;
+	cursor: pointer;
+	width: 56px;
+}
+
+.glossymenu li a b
+{
+	float: left;
+	display: block;
+	padding: 0 15px 0 5px; /*Padding of menu items*/
+}
+
+.glossymenu li.current a, .glossymenu li a:hover
+{
+	color: #fff;
+	background: url(../images/menub_hover_left.gif) no-repeat; /*left tab image path*/
+	background-position: left;
+}
+
+.glossymenu li.current a b, .glossymenu li a:hover b
+{
+	color: #fff;
+	background: url(../images/menub_hover_right.gif) no-repeat right top; /*right tab image path*/
+}
+
+.linkLabelMenu
+{
+	font-size: 13px;
+	font-weight: bold;
+	padding: 5px 10px 5px 10px;
+	color: White;
+}
+
+.PageContent
+{
+}

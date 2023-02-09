@@ -1,0 +1,168 @@
+.igtbl_NewStyleSet1Control
+{
+	border:solid 1px #B4B4B4;
+}
+
+
+.igtbl_NewStyleSet1PagerArea
+{
+	border-width:0px;
+	padding:15px;
+}
+
+
+.igtbl_NewStyleSet1PageCurrent
+{
+	margin-right:10px;
+	color:Gray;
+}
+
+
+.igtbl_NewStyleSet1PageLink
+{
+	margin-right:10px;
+	color:Black;
+}
+
+
+.igtbl_NewStyleSet1GroupByBox
+{
+}
+
+
+.igtbl_NewStyleSet1AddNewBox
+{
+}
+
+
+.igtbl_NewStyleSet1Item
+{
+	border-width:0px;
+	border-color:Transparent;
+	border-top:solid 1px WhiteSmoke;
+	border-right:solid 1px WhiteSmoke;
+}
+
+
+.igtbl_NewStyleSet1FilterOperandButton
+{
+	background-color:Transparent;
+	background-repeat:no-repeat;
+	background-image: url(images/submit_up.gif);
+	border-width:0px;
+	width: 18px;
+}
+
+
+.igtbl_NewStyleSet1Alt
+{
+	background-color:#FCFCFC;
+	border-color:WhiteSmoke;
+	border-top-width:1px;
+}
+
+
+.igtbl_NewStyleSet1Edit
+{
+	font-size:xx-small;
+	font-family: Verdana;
+	padding-top:5px;
+}
+
+
+.igtbl_NewStyleSet1Button
+{
+}
+
+
+.igtbl_NewStyleSet1FxdCell
+{
+}
+
+
+.igtbl_NewStyleSet1Header
+{
+	background-color:Gainsboro;
+	border-width:0px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+
+.igtbl_NewStyleSet1Footer
+{
+}
+
+
+.igtbl_NewStyleSet1Label
+{
+	background-color:#F0F0F0;
+	border-top-width:1px;
+	border-top-color:White;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+
+.igtbl_NewStyleSet1ExpArea
+{
+}
+
+
+.igtbl_NewStyleSet1GrpItem
+{
+}
+
+
+.igtbl_NewStyleSet1FxdHeader
+{
+}
+
+
+.igtbl_NewStyleSet1GroupBandLabel
+{
+}
+
+
+.igtbl_NewStyleSet1FxdFooter
+{
+}
+
+
+.igtbl_NewStyleSet1DropDown
+{
+	background-color:WhiteSmoke;
+	font-size:xx-small;
+	font-family: Verdana;
+	border:solid 1px LightGrey;
+}
+
+
+.igtbl_NewStyleSet1DropDownSel
+{
+}
+
+
+.igtbl_NewStyleSet1Selected
+{
+	background-color:#E1E1E1;
+	border-width:1px 0px 0px 0px;
+	border-left-color:#E1E1E1;
+}
+
+
+.igtbl_NewStyleSet1ActiveBorderTopBottom
+{
+}
+
+
+.igtbl_NewStyleSet1ActiveBorderLeft
+{
+}
+
+
+.igtbl_NewStyleSet1ActiveBorderRight
+{
+}
+
+

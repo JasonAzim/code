@@ -1,0 +1,203 @@
+.igmv_ClaymationControl
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_ClaymationWeekNumber
+{
+	background-color:WhiteSmoke;
+	font-size:xx-small;
+}
+
+
+.igmv_ClaymationMonthDayOfWeekHeader
+{
+	background-color:#F0F0F0;
+	background-image:none;
+	font-size:8pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	line-height: 24px;
+	cursor:default;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_ClaymationCaptionHeader
+{
+	background-color:#CECECE;
+	background-repeat:repeat-x;
+	background-image: url(images/monthview_header.jpg);
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	height: 1%;
+	line-height: 20px;
+	text-align:center;
+}
+
+
+.igmv_ClaymationDay
+{
+	background-color:White;
+	background-position:bottom ;
+	background-image: url(images/addnew.gif);
+	border-left:solid 1px Silver;
+	cursor:hand;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_ClaymationOtherMonthDay
+{
+	background-color:#F6F6F6;
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_ClaymationToday
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_ClaymationActiveDay
+{
+	background-color:#F1F2F4;
+	background-repeat:repeat-x;
+	background-image: url(images/day_bg.gif);
+	border-top-width:0px;
+}
+
+
+.igmv_ClaymationDayHeader
+{
+	background-color:#CECECE;
+	background-repeat:repeat-x;
+	background-image: url(images/monthview_header.jpg);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 15px;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_ClaymationOtherMonthDayHeader
+{
+	background-color:#E1E1E1;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 15px;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_ClaymationTodayHeader
+{
+	background-repeat:repeat-x;
+	background-position:top ;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 0px Silver;
+	margin-top:0px;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_ClaymationActiveDayHeader
+{
+}
+
+
+.igmv_ClaymationAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_ClaymationAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_ClaymationSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_ClaymationNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

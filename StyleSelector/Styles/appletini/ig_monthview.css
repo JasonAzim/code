@@ -1,0 +1,206 @@
+.igmv_AppletiniControl
+{
+	font-size:x-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px #4F7600;
+	overflow: auto;
+	position: relative;
+}
+
+
+.igmv_AppletiniWeekNumber
+{
+	background-color:#D5E670;
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	padding-right:1px;
+	width: 20px;
+	text-align:center;
+}
+
+
+.igmv_AppletiniMonthDayOfWeekHeader
+{
+	background-color:#DAE980;
+	background-position:bottom ;
+	background-image: url(images/footer.gif);
+	font-size:8pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px #D2D2D2;
+	border-bottom:solid 1px #D2D2D2;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	height: 4%;
+	line-height: 14px;
+	cursor:default;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_AppletiniCaptionHeader
+{
+	background-position:center ;
+	background-image: url(images/header_large.gif);
+	font-size:x-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	height: 30px;
+	line-height: 20px;
+	text-align:center;
+}
+
+
+.igmv_AppletiniDay
+{
+	background-color:White;
+	background-position:bottom ;
+	background-image: url(images/footer.gif);
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-left:solid 1px Silver;
+	height: 10%;
+	overflow-x: hidden;
+	cursor:hand;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_AppletiniOtherMonthDay
+{
+	background-position:bottom ;
+	background-image: url(images/item_bg.gif);
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 1px Transparent;
+	border-left:solid 1px Silver;
+	height: 12%;
+	overflow-x: hidden;
+	cursor:hand;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_AppletiniToday
+{
+	background-image: url(images/alt_item.gif);
+}
+
+
+.igmv_AppletiniActiveDay
+{
+	background-color:White;
+	background-position:bottom ;
+	background-image: url(images/alt_item.gif);
+	border-width:1px;
+}
+
+
+.igmv_AppletiniDayHeader
+{
+	background-color:#7CB700;
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	padding-top:0px;
+	padding-right:2px;
+	height: 3%;
+	line-height: 15px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_AppletiniOtherMonthDayHeader
+{
+	background-color:#DAE980;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 15px;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_AppletiniTodayHeader
+{
+}
+
+
+.igmv_AppletiniActiveDayHeader
+{
+}
+
+
+.igmv_AppletiniAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_AppletiniAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_AppletiniSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_AppletiniNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="BlueTab.master.cs" Inherits="BlueTab" %>
+
+<%@ Register Src="UserControls/Footer.ascx" TagName="Footer" TagPrefix="uc1" %>
+<%@ Register Src="UserControls/MenuControl.ascx" TagName="MenuControl" TagPrefix="uc2" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/common.css" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="divMain">
+        <table class="tableMain">
+            <tr>
+                <td class="RightTopMenu">
+                    <b>Logged in as: </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b> 
+                    <a href="Logout.aspx" class="signout">Log out</a></b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img class="Logo" alt="Logo" src="images/bp-logo_trans.gif" />
+                    <span class="Caption">Application</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdNoBorder">
+                    <uc2:MenuControl ID="MenuControl1" runat="server" />
+                </td>
+            </tr>
+            <tr>
+                <td class="tdColor" align="left">
+                    <table class="SubMenu">
+                        <tr>
+                            <td>
+                                <a class="linkLabelMenu">Home</a>
+                            </td>
+                            <td>
+                                <a class="linkLabelMenu">|</a>
+                            </td>
+                            <td>
+                                <a class="linkLabelMenu" href="Explorer.aspx">Upload</a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdNoBorder">
+                    <div class="PageContent">
+                        <asp:ContentPlaceHolder ID="DivPageContent" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="tdNoBorder">&nbsp;</td>
+            </tr>
+            <tr>
+                <td class="footerContent" valign="middle">
+                    <uc1:Footer ID="Footer1" runat="server" />
+                </td>
+            </tr>
+        </table>
+    </div>
+    </form>
+</body>
+</html>

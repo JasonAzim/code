@@ -1,0 +1,1362 @@
+/**
+ * =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+ * MapQuest Content Stylesheet 
+ * =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+ * common presentation styles
+ * =~=~=~=~=~=~=~=~=~=~=~=~=~=~=
+ * TOC
+ * - html elements
+ * - forms
+ * - common presentation
+ * - headers and footers
+ * - global layout
+ * - alerts, notifications, and messages
+ * - ambiguity-error pages
+ * - form pages
+ * - results pages
+ * - settings page
+ * - driving directions and maneuver maps
+ * - subpages
+ * - ads and promos
+ *
+ */
+
+/**
+ * HTML ELEMENTS
+ */
+/* reset browser spacing defaults for cross-browser consistency */
+*
+
+.mqAddress, li, input, label, p, select, textarea, th, .para
+{	/* restate font and color for browsers who have trouble remembering td, etc */
+	color: 	#000;
+	font:	1.2em verdana, arial, helvetica, sans-serif;
+
+}
+blockquote p, li li, li input, li p, th p, td td
+{	/* offset relative scaling of nested sized elements */
+	font-size:	1em;
+}
+
+/* assign element defaults */
+
+
+abbr, acronym
+{
+	border:				none;
+    font-style:         normal;
+	text-decoration:	none;
+	cursor:				help;
+}
+
+address, cite
+{
+	font-style: normal;
+}
+
+fieldset
+{
+	margin:	0 0 10px;
+	border:	none;
+}
+
+
+img
+{
+	border:	0;
+}
+
+ol, ul
+{
+	padding-left:	0;
+}
+
+li
+{
+	margin-left:    1.2em;
+}
+
+ul
+{
+	list-style: disc;
+}
+
+/**
+ * FORMS
+ */
+
+form.mqDefault input, form.mqDefault select, form.mqDefault textarea
+{
+	border:		1px solid #ccc;
+	background:	#fff;
+}
+form.mqDefault input:focus, form.mqDefault textarea:focus
+{
+	border-style:	inset;
+    /*border-top: 1px solid #333;
+    border-bottom: 1px solid #a4a794;*/
+	background:		#ffffcf;
+}
+form.mqDefault input[type^="hidden"]
+{
+	padding:    0;
+	border:     none;
+}
+form.mqDefault input[disabled^="disabled"], form.mqDefault select[disabled^="disabled"]
+{
+	background:	#ddd;
+	color:		#333;
+}
+
+form.mqDefault input.check
+{
+	padding:        0;  /*prevents ns7-mac from having check obscured*/
+    border:		    none;
+	background:     transparent;
+    font-weight:    bold;
+}
+input.buttonWide, input.buttonWide:focus
+{
+	width: 200px;
+}
+
+.mqCsz div
+{
+	/* float: left; */
+	color: #cce;
+}
+
+.mqDcity
+{
+	width: 212px;
+}
+.mqDcity input, input.phone
+{
+	width: 198px;
+}
+
+.dcity2
+{	/* address form 2*/
+	width: 180px;
+}
+.dcity2 input
+{
+	width: 166px;
+}
+
+.dtown
+{	/* also address form 4 */
+	width: 254px;
+}
+.dtown input
+{
+	width: 240px;
+}
+
+.mqDstate
+{
+	width: 42px;
+}
+.mqDstate input
+{
+	width: 28px;
+}
+
+.dstate2
+{
+	width: 74px;
+}
+.dstate2 input
+{
+	width: 60px;
+}
+
+.mqDzip, .dzip2, .dpostal
+{
+	width: 80px;
+}
+.mqDzip input, .dpostal input, select.tofrom
+{
+	width:  78px;
+	margin: 0;
+}
+
+input.fmedium, select.fmedium
+{
+	width:	200px;
+}
+
+
+.addressamb, .cityamb
+{
+	width:	302px;
+}
+
+select.near
+{
+	width: 282px;
+}
+
+.mqDsubmit
+{
+	width: 		332px;
+	text-align:	center;
+	padding:	3px 0 11px;
+}
+
+form.mqDefault .mqDsubmit input, form.mqDefault .submit, form.mqDefault .search, .search2, form.mqDefault .button, form.mqDefault .buttonWide, .submit, .search, .buttonWide,
+form.mqDefault .mqDsubmit input:focus, form.mqDefault .submit:focus, form.mqDefault .search:focus, .search:focus, .search2:focus, form.mqDefault .button:focus, form.mqDefault .buttonWide:focus, .submit:focus, .search:focus, .buttonWide:focus
+{
+	width:		140px;
+	margin:		0 5px;
+	/* padding:	0; */
+	border:		1px outset #999;
+	color:		#272750;
+	font-size:	1.1em;
+	text-align:	center;
+}
+.dsubmit input:focus
+{
+	border-style:	solid;
+	background:		#f3f4e6 url(none);
+}
+
+.search, .search:focus
+{
+	width:	75px;
+}
+
+.search2
+{
+    margin-left: 0;
+}
+
+#adStack .search, #adStack .search2
+{
+    margin-top: 6px;
+}
+
+/**
+ * COMMON PRESENTATION
+ */
+
+.mainwrapper b, .mainwrapper strong, .mainwrapper .b
+{
+	color:		    #272750;
+	font-weight:	bold;
+}
+
+/* backgrounds */
+
+.mqBgacrv
+{	/*dk beige*/
+	padding:		2px 3px;
+	border-bottom:  1px solid #f8f8f1;
+	background:	    #e3e5c7 url(http://cdn.mapquest.com/mqsite/bg-curve-a) no-repeat right top;
+}
+.bgb
+{
+	background: #f4f6e5;
+}
+.bgbcrv
+{	/*lt beige*/
+	padding:	2px 3px;
+	background: #f0f3dc url(http://cdn.mapquest.com/mqsite/bg-curve-b) no-repeat right top;
+}
+
+.mqBgdirs
+{
+	background:	#fefefc url(http://cdn.mapquest.com/mqsite/background-dirs) no-repeat right bottom;
+}
+.bge
+{	/*light beige*/
+	background: #fdfdf7;
+}
+.bgfindit
+{
+	background:	#fefefc url(http://cdn.mapquest.com/mqsite/background-findit) no-repeat right bottom;
+}
+.bgj
+{	/*lt blue*/
+	background: #bfe8ff;
+}
+.bgk
+{	/*ed grey*/
+	background: #ededed;
+}
+.bgmaps
+{
+	background:	#fefefc url(http://cdn.mapquest.com/mqsite/background-maps) no-repeat right bottom;
+}
+
+/* disclaimer info */
+.disclaimer
+{	/* disclaimer-legal usually listed under maps */
+	margin: 10px 10px 0 10px;
+}
+.disclaimer p
+{
+	font-size:	0.9em;
+	/*width:		90%;*/
+}
+.disclaimer img
+{
+	margin-right:	5px;
+	vertical-align: middle;
+}
+.disclaimer a img
+{
+	display:			block;
+	text-align:		right;
+	vertical-align: middle;
+}
+
+
+/* display */
+.disb
+{
+	display:    block;
+}
+.disi
+{
+	display:    inline;
+}
+.disn, .hide, .print
+{
+	display:    none;
+}
+
+.height1
+{   /* for IE5.0 spacing issues */
+    height: 1px;
+}
+
+.tb0, .tb0
+{
+    margin:     0 auto;
+    padding:    0 auto;
+}
+
+.indent
+{
+	margin-left:    10px;
+}
+
+.nowrap
+{
+	white-space:	nowrap;
+}
+
+.sectionbar
+{
+	padding: 4px;
+}
+
+/* font resizing */
+.f08
+{
+    font-size:  0.8em;
+}
+.f09
+{
+    font-size:  0.9em;
+}
+.f10
+{
+    font-size:  1em;
+}
+.f11
+{
+    font-size:  1.1em;
+}
+.f12
+{
+    font-size:  1.2em;
+}
+.f13
+{
+    font-size:  1.3em;
+}
+.f14
+{
+    font-size:  1.4em;
+}
+
+.smaller
+{	/*1.2em to 1em*/
+	font-size:  0.8333em;
+}
+
+/* text position */
+
+.textl
+{
+	text-align: left;
+}
+.textr
+{
+	text-align: right;
+}
+
+/**
+ * HEADERS AND FOOTERS
+ */
+#footer, #providers
+{
+	padding-left:	7px;
+	background:		#e3e5c7;
+}
+#footer h5, #providers
+{ 
+	margin:         0;
+	padding:	    0;
+	font-weight:	normal;
+	letter-spacing: normal;
+}
+
+#providers img
+{
+	margin:			1px 10px 1px 0;
+	vertical-align:	middle;
+}
+
+#titlebar
+{
+	margin:		2px 0 5px;
+	padding:	0 0 0 9px;
+	background: #e3e5c7 url(http://cdn.mapquest.com/mqsite/bg-curve-a) no-repeat right top;
+}
+#titlebar div
+{
+	display:	inline;
+	font-size:	1.2em;
+	padding:	5px;
+	position:	relative;
+	top:		-0.25em;
+}
+#titlebar h1
+{
+	display:	inline;
+	margin:	    5px 10px 6px 0;
+}
+#titlebar img
+{
+	float:	left;
+	margin:	2px 3px 0 1px;
+}
+
+/**
+ * GLOBAL LAYOUT
+ */
+
+.mqPanel
+{
+	/* margin:     1px 0 10px 0;
+	border:     1px solid #ccc;
+    padding:    20px;
+    height:     130px; */
+}
+.panel ul
+{
+	margin:	0;
+}
+
+/**
+ * ALERTS, NOTIFICATIONS, AND MESSAGES
+ */
+.alert
+{
+	color: #900;
+}
+ 
+.alertinfo
+{	/* [i] info circle */
+	position:		relative;
+    padding:		3px 0 7px 25px;
+	background:		transparent url(http://cdn.mapquest.com/mqsite/icon-alert-info-18) 0 15% no-repeat;
+	color:			#900;
+}
+
+.alertwarning, form h3.alertwarning
+{	/* [!]triangle */
+	position:			relative;
+	/* hide from mac ie \*/
+    margin-bottom:		7px;
+    /* end */
+	padding:			3px 0 7px 28px;
+    background:		    transparent url(none); /* mac ie ghosting? 143775 */
+	color:				#900;
+	font-weight:		bold;
+}
+.alertwarning img, form h3.alertwarning img
+{
+    float:          left;
+    margin-left:    -25px;
+}
+#dirs #formpage form .alertwarning, #dirs #formpage form .alertinfo
+{
+    padding-right:  10px;
+}
+
+.alert label
+{
+	color:			#900;
+	font-weight:	bold;
+}
+.alert input
+{
+	border: 1px solid #900;
+}
+
+.redstar
+{
+	position:       relative;
+	padding-left:	25px;
+	padding-bottom: 2px;
+	padding-top:	3px;
+}
+.redstar img
+{
+    float:          left;
+    margin-left:    -25px;
+}
+
+#redstar
+{
+    vertical-align: middle;
+}
+
+/**
+ * AMBIGUITY-ERROR PAGES
+ */
+
+#ambError ol, #ambError ul
+{
+	margin-left:	5px;
+	padding-left:	5px;
+}
+
+#ambPicker
+{
+	margin-top: -9px;
+}
+#ambPicker form
+{
+	width:  444px;
+}
+#ambPicker fieldset
+{
+	margin: 2px 0 6px;
+}
+#ambPicker label
+{
+	margin:	    0;
+	font-size:	1em;
+}
+#ambPicker .address
+{
+	width:  192px;
+}
+#ambPicker .address select
+{
+	width:	180px;
+}
+#ambPicker .csorz
+{
+	width:	172px;
+}
+#ambPicker .csorz input
+{
+	width:	160px;
+}
+#ambPicker .dsubmit	{
+	width:      80px;
+	padding:    0;
+}
+#ambPicker .dsubmit input
+{
+	width:	75px;
+}
+
+/**
+ * FORM PAGES
+ * total interior container/content is 745px
+ */
+
+h2 span
+{	/* options in heading bar */
+	padding-left:	5px;
+	color:			#000;
+	font-weight:	normal;
+	font-size:		0.8333em;
+
+}
+
+/* option lists in form panels */
+.panel .options
+{
+    margin-top: 12px;
+}
+ 
+/* dirs form */
+#dirs #formpage h2 img
+{
+	vertical-align: middle;
+	margin-left:	-2px;
+}
+#dirs #formpage .dsubmit input
+{	/* levels panel bottoms for IE */
+	margin-bottom:	.85em;
+}
+#dirs #formpage .panel
+{	/* levels panel bottoms for real browsers */
+	min-height:		190px;
+	margin-bottom:	5px;
+    padding-right:  0;
+}
+#dirs #formpage input.address, #dirs select.cityamb, #dirs select.country, #dirs select.category, #dirs select.dcategory
+{
+	width: 322px;
+}
+#dirs #formpage .dcity
+{
+	width: 202px;
+}
+#dirs #formpage .dcity input
+{
+	width: 188px;
+}
+#dirs #formpage .dtown
+{
+	width: 216px;
+}
+#dirs #formpage .dtown input
+{
+	width: 202px;
+}
+#dirs #formpage .dpostal
+{
+	width: 108px;
+}
+#dirs #formpage .dpostal input
+{
+	width: 106px;
+}
+
+#dirs #footer
+{
+	margin-top:	10px;
+}
+
+/* lat/long map form */
+.ll div
+{
+    float:  left;
+    width:  74px;
+}
+.ll div input
+{
+    display:    block;
+    width:      60px;
+}
+.ll div.dlabel, #decimalForm .ll div.dlabel
+{
+    width:  110px;
+}
+
+#decimalForm .ll div
+{
+    width:  222px;
+}
+#decimalForm .ll div input
+{
+    width:      208px;
+    margin-top: 4px;
+}
+#decimalForm h4 label
+{
+    font-size:      1em;
+    font-weight:    bold;
+}
+
+/* maps pages */
+* html #maps #formpage .main .panel
+{
+    padding-top:    5px;
+}
+
+/* mqmobile page */
+#mobile form div
+{
+	margin-bottom: 6px;
+}
+
+/* pda */
+#pda input
+{
+    margin: 6px 5px;
+}
+
+/* side well recent searches */
+.side h2
+{
+	margin-right:	5px;
+}
+.side .bgbcrv span.fltr
+{
+    margin: 0px 20px 0 5px;
+}
+.side ul.searches li
+{
+	margin:		0 0 1em 2.5em;
+	font-size:	1em;
+}
+.side ul.searches li h3
+{
+	display:		inline;
+	margin-right:	5px;
+}
+.side ul.searches li span
+{
+	font-size:      1.2em;
+    /*white-space:	nowrap;*/ 
+}
+
+/**
+ * RESULTS PAGES
+ */
+
+/* find nearby bar */
+#dirs #nearby img
+{
+	float:  left;
+	margin: 0 5px 0 8px;
+}
+#dirs #nearby h2
+{
+	margin:     0;
+	display:	inline;
+}
+#dirs #nearby div
+{
+	margin-left:    25px;
+}
+
+#dirs #nearby input, #dirs #nearby select
+{
+	width: 124px;
+	font-size:	1em;
+}
+#dirs #nearby input.search
+{
+	width: 55px;
+}
+ 
+#mapi td input
+{
+	margin:     0;
+	padding:	0;
+	border:     none;
+} 
+
+#maps #results .redstar
+{
+	margin-top:	0;
+}
+
+#maps #nearby img
+{
+	float:  left;
+	margin: 3px 3px 0 0;
+}
+#maps #nearby div.fine
+{
+	width:  90px;
+	float:  left;
+}
+#maps #nearby div.form
+{
+	width:      417px;
+	margin-top: 3px;
+	float:      right;
+}
+#maps #nearby input, #maps #nearby select
+{
+	width:  150px;
+}
+#maps #nearby input.search
+{
+	width: 65px;
+}
+
+#maps .panel
+{
+	margin: 1px 0 10px;
+}
+
+/* to-from form below map on results page */
+
+#maps #tofrom
+{
+	margin-top: 10px;
+}
+#maps #tofrom .dirwrapper
+{
+	float: left;
+	width: 335px;
+}
+
+#ddFromMap .bgacrv span.h2
+{
+	margin-left:	9px;
+}
+
+/* form.mqDefault select.tofrom
+{
+	margin:     0;
+    padding:    0;
+    font-size:  1em;
+} */
+
+#maps #tofrom .searchwrapper
+{
+	width: 200px;
+	float: left;
+}
+#maps #tofrom .searchwrapper h4
+{
+	margin:		0;
+	font-size:	1.2em;
+}
+#maps #tofrom .searchwrapper .content
+{
+	margin-left: 10px;
+}
+#maps #tofrom .searchwrapper .content .bgacrv
+{
+    padding-bottom: 5px;
+}
+#maps #tofrom .searchwrapper .content .panel
+{
+    min-height: 181px;
+}
+* html #maps #tofrom .searchwrapper .content .panel
+{
+    height: 186px;
+}
+
+#maps #tofrom ul
+{
+	margin:     0;
+	padding:	0;
+}
+#maps #tofrom ul li
+{
+	margin-left:	5px;
+	padding-left:	5px;
+}
+
+#maps #tofrom p
+{
+	margin: 15px 10px 15px 10px;
+}
+
+#seicon
+{
+    margin:         1px 5px 1px 0;
+    padding:        1px 0;
+	vertical-align: middle;
+}
+
+/* to-from directions under map */
+#ddFromMap .section .address
+{
+	width:		288px;
+}
+
+#ddFromMap .near
+{
+    margin-bottom:  0;
+}
+
+#ddFromMap .dcity
+{
+	width: 172px;
+}
+#ddFromMap .dcity input
+{
+	width: 158px;
+}
+#ddFromMap .dstate
+{
+	width: 48px;
+}
+#ddFromMap .dstate input
+{
+	width: 34px;
+}
+#ddFromMap .dzip
+{
+	width: 70px;
+}
+#ddFromMap .dzip input
+{
+	width: 68px;
+}
+#ddFromMap input.submit
+{
+	margin-top:	10px;
+}
+#ddFromMap .eg
+{
+    margin-top: 0;
+}
+
+.startend b, .indent .redstar b
+{
+	font-weight: bold;
+	font-size: 1.166em;
+}
+.startend img
+{
+	float:          left; 
+	margin-right:   5px;
+	margin-left:    10px;
+}
+.startend p
+{
+	margin: 0 0 10px 46px;
+}
+
+/* find-it search results */
+#sortby
+{
+    font-size:  1em;
+}
+
+/**
+ * SETTINGS PAGE
+ */
+#settings .bga
+{
+    padding:    2px 0;
+}
+ 
+#settings .label
+{
+	padding-top:	2px;
+	text-align:		right;
+}
+#settings .label p label
+{
+	font-size:	1em;
+}
+#settings .label p
+{
+	margin:			0;
+	padding-right:	20px;
+}
+#settings .options input, #settings form .options select
+{
+	width:			200px;
+	margin-bottom:	5px;
+}
+#settings .options input.check
+{
+	width:			auto;
+	margin-bottom:	4px;
+	vertical-align: middle;
+}
+#settings .options label
+{
+	margin-right:   10px;
+}
+
+#settings .eg
+{
+	margin-bottom:	0;
+}
+
+#settings fieldset
+{
+	margin-top:	10px;
+}
+
+#settings .fltr
+{
+	margin-right:	5px;
+	font-weight:	normal;
+}
+
+
+
+col.loc
+{
+	width:	85px;
+}
+col.saved
+{ 
+	width:	200px;
+}
+col.addEdit
+{
+	width:	150px;
+}
+
+/**
+ * DRIVING DIRECTIONS AND MANEUVER MAPS
+ */
+
+
+#dirman th h3
+{
+	display:	inline;
+	margin:	0 10px 0 5px;
+	font-size:	1em;
+}
+#dirman th p
+{
+	display:		inline;
+	font-weight:	normal;
+	font-size:		1em;
+}
+
+.mqNowrap
+{
+	text-align:	right;
+}
+#dirman td.totals b
+{
+	margin-left:	10px;
+}
+#dirman td.totals span
+{
+	margin-left:	25px;
+    font-size:      1em;
+}
+
+/**
+ * SUBPAGES (POP-UPS)
+ */
+#subpage ul
+{
+	margin-bottom:	10px;
+	margin-left:	5px;
+	padding-bottom: 10px;
+	padding-left:	5px;
+}
+#subpage ul li
+{
+	font-weight: bold;
+}
+#subpage ul li ul, #subpage ul.states
+{
+	list-style:		none;
+	margin:			0;
+	padding-left:	0;
+	text-indent:	0;
+}
+#subpage ul li ul li
+{
+	font-size:		0.8333em;
+	font-weight:	normal;
+}
+#subpage ul.states li
+{
+	margin-bottom:	4px;
+	font-weight:	normal;
+}
+#subpage ul.states a
+{
+	float:	right;
+}
+
+/**
+ * ADS AND PROMOS
+ */
+/* under map-ddir text ads*/
+#adStack b
+{
+    color:  #272750;
+}
+#adStack font b
+{
+    color:  inherit;
+}
+
+table#googleadsa td
+{
+	padding:	1px;
+}
+table#googleadsa td font
+{
+	padding:	3px;
+}
+
+#googleadb
+{
+	margin-bottom: 5px;
+	padding: 5px 10px;
+}
+#googleadb div
+{
+	margin: 5px 0;
+}
+#googleadb u b
+{
+	color:	#00f;
+}
+
+.promo
+{
+	margin: 5px 0;
+}
+
+.main .promo, .side .promo
+{
+	margin-bottom:	0px;
+}
+/**
+ * =FORM PANELS
+ * @ directions, maps and refine your search
+ */
+.mqformpanel
+{
+    /*position:   relative;*/
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dircntr-dir) 0 100% repeat-y;
+}
+.mqformpanel .top
+{
+    /* hide from mac ie \*/
+    height:     1%;
+    /* end */
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dirtop-dir) 0 0 no-repeat;
+}
+.mqformpanel .btm
+{
+    /*position:   relative;*/
+    /* hide from mac ie \*/
+    height:     1%;
+    /* end */
+    padding:    15px;
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dirmain-dir) 0 100% no-repeat;
+}
+#formpage .mqformpanel .btm
+{
+    position:   relative;
+}
+.mqformpanel h1, #maps .mqformpanel h1
+{
+    margin:     0 0 0px;
+    font-size:  1.6em;
+}
+.mqformpanel h1 img, .mqformpanel h2 img, .mqformpanel h3 img
+{
+    margin-right:   0;
+    vertical-align: middle;
+}
+#dirs .mqformpanel h1
+{
+    margin-bottom:  5px;
+}
+.mqformpanel h2
+{
+    margin:     0;
+    font-size:  1.2em;
+}
+.mqformpanel h3.alertwarning
+{
+    position:   relative;
+    margin:     5px 0 5px -25px;
+}
+.mqformpanel h3.alertwarning img
+{
+    position:       relative;
+    float:          left;
+    margin-left:    0;
+    margin-right:   5px;
+}
+.mqformpanel fieldset
+{
+    margin-top: .5em;
+}
+.mqformpanel .address, .mqformpanel select.cityamb
+{
+    width:  260px;
+}
+.mqformpanel .address1
+{
+    width:  322px;
+}
+.mqformpanel input.category, .mqformpanel select.country, .mqformpanel select.category, .mqformpanel select.dcategory
+{
+    width:  322px;
+}
+.mqformpanel .dcity
+{
+    width:  197px;
+}
+.mqformpanel .dcity input, .mqformstatic .dcity div
+{
+    width:  183px;
+}
+.mqformpanel .dstate
+{
+    width: 42px;
+}
+.mqformpanel .dstate input, .mqformstatic .dstate div
+{
+    width: 28px;
+}
+.mqformpanel .dtown
+{
+    width:  216px;
+}
+.mqformpanel .dtown input, .mqformstatic .dtown div
+{
+    width:  202px;
+}
+.mqformpanel .dzip
+{
+    width: 85px /*60px;*/
+}
+.mqformpanel .dzip input, .mqformpanel .dpostal input, select.tofrom,
+.mqformstatic .dzip div
+{
+    width:  85px;
+    /* margin: 0; */
+}
+.mqformpanel .dpostal
+{
+    width:  108px;
+}
+.mqformpanel .dpostal input, .mqformstatic .dpostal div
+{
+    width:  106px;
+}
+/* .mqformpanel .csz div
+{
+    float:  left;
+} */
+.mqformpanel h3
+{
+    margin:     0;
+    font-size:  1.1em;
+}
+.mqformpanel .height1
+{
+	height: 1px;
+}
+.mqformpanel .plain
+{
+	margin-top:	15px;
+}
+.mqformpanel .plain li
+{
+    font-size:  1.1em;
+}
+.mqformpanel .plain li b
+{
+    color:  #272750;
+}
+#dirs .mqformpanel .plain
+{
+    margin:  0 0 43px;
+}
+#dirs .mqformpanel input#submit1
+{
+    margin-bottom:  10px;
+}
+#dirs .mqformpanel .dsubmit>input#submit1
+{   /* non-ie */
+    margin-bottom:  11px;
+}
+/* =refine your search */
+.refinepanel
+{
+    position:   relative;
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dircntr-dir) 0 100% repeat-y;
+}
+.refinepanel .top
+{
+    padding-top: 15px;
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dirtop-dir) 0 0 no-repeat;
+}
+.refinepanel .btm
+{
+    padding:    0 15px 15px;
+    background: transparent url(http://img.mqcdn.com/mqsite/frmp-bg-dirmain-dir) 0 100% no-repeat;
+}
+.refinepanel ul
+{
+    margin-top: 10px;
+}
+.refinepanel li
+{
+    list-style-type:    none;
+    font-size:          1.1em;
+    margin-left:        0;
+}
+.refinepanel h3
+{
+    margin-bottom:  5px;
+}
+.refinepanel select
+{
+    margin-bottom:  0;
+}
+
+/**
+ * =DIRECTIONS PANEL
+ */
+#mqdirspanel
+{
+    margin-bottom:  10px;
+}
+#mqdirspanel .formcontentbottom
+{
+    padding-bottom:   15px;
+    background:       transparent url(images/frmp-bg-dirfrmlgmain.gif) 0 100% no-repeat;
+}
+#mqdirspanel .formcontent
+{
+    width:         615px; 
+    background:    transparent url(images/frmp-bg-dirfrmlgcntr.gif)  0 100% repeat-y;
+}
+#mqdirspanel .formcontenttop
+{
+    padding-top:   15px;
+    background:    transparent url(images/frmp-bg-dirfrmlgtop.gif) 0 0 no-repeat;
+}
+#mqdirspanel .main
+{
+   /* float:          left; */
+    width:          300px;
+    padding-left:   15px;
+}
+#mqdirspanel .side
+{
+    float:  left;
+    width:  290px;
+}
+#mqdirspanel dl.advoptions
+{
+    margin:  7px 0 0;
+}
+
+#mqheader
+{
+    position:   relative;
+    width:      100%;
+    background: transparent url(http://img.mqcdn.com/mqsite/hdr-bg-gradient) 0 100% repeat-x;
+}
+
+* html #mqheader
+{
+    margin-top: 5px;
+}
+#mqheader div
+{
+    width:      755px;
+    margin:     0 0 7px 10px;
+}

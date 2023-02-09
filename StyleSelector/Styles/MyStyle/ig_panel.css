@@ -1,0 +1,40 @@
+.igpnl_NewStyleSet1Control
+{
+	border:solid 1px #B4B4B4;
+}
+
+
+.igpnl_NewStyleSet1Panel
+{
+	background-color:#F0F0F0;
+}
+
+
+.igpnl_NewStyleSet1HeaderExpanded
+{
+	background-color:#C3C3C3;
+	font-size:xx-small;
+	font-family: Verdana;
+	padding-top:3px;
+	padding-bottom:3px;
+	color:Black;
+}
+
+
+.igpnl_NewStyleSet1HeaderCollapsed
+{
+}
+
+
+.igpnl_NewStyleSet1HeaderHover
+{
+	background-color:#D2D2D2;
+}
+
+
+.igpnl_NewStyleSet1GroupBoxControl
+{
+	border:solid 1px #B4B4B4;
+}
+
+

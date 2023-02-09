@@ -1,0 +1,112 @@
+﻿body
+{
+    color: #5D7B9D;
+    background-color: #cccccc;
+    background-image: url(1lines.gif);
+}
+DIV
+{
+	
+}
+.panel
+{
+    border-right: #5D7B9D thin solid;
+    border-top: #5D7B9D thin solid;
+    border-left: #5D7B9D thin solid;
+    border-bottom: #5D7B9D thin solid;
+    left: 300px;
+    position: absolute;
+    top: 100px;
+    color: white;
+    background-color: #5d7b9d;
+}
+.detailsview
+{
+	color: #5d7b9d;
+	font-family: 'Times New Roman';
+	font-weight: bold;
+	text-align: right;
+	border-right: #5d7b9d 1px solid;
+	border-top: #5d7b9d 1px solid;
+	border-left: #5d7b9d 1px solid;
+	border-bottom: #5d7b9d 1px solid;
+}
+.detailsviewheader
+{
+	font-weight: bold;
+	font-size: 12pt;
+	color: #ffffff;
+	background-color: #5d7b9d;
+	text-align: center;
+}
+.detailsviewitemstyle
+{
+	text-align: left;
+	border-right: #5d7b9d 1px solid;
+	border-top: #5d7b9d 1px solid;
+	border-left: #5d7b9d 1px solid;
+	border-bottom: #5d7b9d 1px solid;
+}
+
+.panel1
+{
+	background-color: #5d7b9d;
+	border-right: #ffffff 1px solid;
+	border-top: #ffffff 1px solid;
+	border-left: #ffffff 1px solid;
+	border-bottom: #ffffff 1px solid;
+	color: #ffffff;
+}
+.detailsviewheaderstyle
+{
+	border-right: #5d7b9d 1px solid;
+	border-top: #5d7b9d 1px solid;
+	border-left: #5d7b9d 1px solid;
+	border-bottom: #5d7b9d 1px solid;
+}
+.title
+{
+	border-right: #5d7b9d 2px double;
+	border-top: #5d7b9d 2px double;
+	border-left: #5d7b9d 2px double;
+	border-bottom: #5d7b9d 2px double;
+}
+.pic
+{
+	border-right: #5d7b9d 2px solid;
+	border-top: #5d7b9d 2px solid;
+	border-left: #5d7b9d 2px solid;
+	border-bottom: #5d7b9d 2px solid;
+}
+.detailsview1
+{
+    color: #5d7b9d;
+	font-family: 'Times New Roman';
+	font-weight: bold;
+	text-align: left;
+	border-right: #5d7b9d 1px solid;
+	border-top: #5d7b9d 1px solid;
+	border-left: #5d7b9d 1px solid;
+	border-bottom: #5d7b9d 1px solid;
+}
+.gridview
+{
+    color: #5d7b9d;
+    font-family: 'Times New Roman';
+}
+.gridviewheader
+{font-weight: bold;
+	font-size: 12pt;
+	color: #ffffff;
+	background-color: #5d7b9d;
+	text-align: center;
+}
+.textbox
+{font-weight: normal;
+    font-size: 12pt;
+    color: #5d7b9d;
+    background-color: #ffffff;
+    text-align:justify;
+    border-color: #5d7b9d;
+    border-style: double;
+}

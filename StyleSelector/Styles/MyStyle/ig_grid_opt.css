@@ -1,0 +1,168 @@
+.igtbl_NewStyleSet1Control
+{
+	border:solid 1px #B4B4B4;
+}
+
+
+.igtbl_NewStyleSet1PagerArea
+{
+	border-width:0px;
+	padding:15px;
+}
+
+
+.igtbl_NewStyleSet1PageCurrent
+{
+	margin-right:10px;
+	color:Gray;
+}
+
+
+.igtbl_NewStyleSet1PageLink
+{
+	margin-right:10px;
+	color:Black;
+}
+
+
+.igtbl_NewStyleSet1GroupByBox
+{
+}
+
+
+.igtbl_NewStyleSet1AddNewBox
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR TD, THEAD.igtbl_NewStyleSet1Item TR TH, TFOOT.igtbl_NewStyleSet1Item TR TH, TBODY.igtbl_NewStyleSet1Item TR TH
+{
+	border-width:0px;
+	border-color:Transparent;
+	border-top:solid 1px WhiteSmoke;
+	border-right:solid 1px WhiteSmoke;
+}
+
+
+.igtbl_NewStyleSet1FilterOperandButton
+{
+	background-color:Transparent;
+	background-repeat:no-repeat;
+	background-image: url(images/submit_up.gif);
+	border-width:0px;
+	width: 18px;
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR.igtbl_NewStyleSet1Alt TD
+{
+	background-color:#FCFCFC;
+	border-color:WhiteSmoke;
+	border-top-width:1px;
+}
+
+
+.igtbl_NewStyleSet1Edit
+{
+	font-size:xx-small;
+	font-family: Verdana;
+	padding-top:5px;
+}
+
+
+.igtbl_NewStyleSet1Button
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR TD.igtbl_NewStyleSet1FxdCell
+{
+}
+
+
+THEAD.igtbl_NewStyleSet1Header TR TH, TFOOT.igtbl_NewStyleSet1Header TR TH, TBODY.igtbl_NewStyleSet1Header TR TH
+{
+	background-color:Gainsboro;
+	border-width:0px;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+
+TFOOT.igtbl_NewStyleSet1Footer TR TH
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1Label
+{
+	background-color:#F0F0F0;
+	border-top-width:1px;
+	border-top-color:White;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+
+TBODY.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1ExpArea, TFOOT.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1ExpArea
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1GrpItem
+{
+}
+
+
+THEAD.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1FxdHeader
+{
+}
+
+
+.igtbl_NewStyleSet1GroupBandLabel
+{
+}
+
+
+TFOOT.igtbl_NewStyleSet1Header TR TH.igtbl_NewStyleSet1FxdFooter
+{
+}
+
+
+.igtbl_NewStyleSet1DropDown
+{
+	background-color:WhiteSmoke;
+	font-size:xx-small;
+	font-family: Verdana;
+	border:solid 1px LightGrey;
+}
+
+
+.igtbl_NewStyleSet1DropDownSel
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR.igtbl_NewStyleSet1Selected TD, TBODY.igtbl_NewStyleSet1Item TR TD.igtbl_NewStyleSet1Selected, .igtbl_NewStyleSet1Selected
+{
+	background-color:#E1E1E1;
+	border-width:1px 0px 0px 0px;
+	border-left-color:#E1E1E1;
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR TD.igtbl_NewStyleSet1ActiveBorder_TB, .igtbl_NewStyleSet1ActiveBorder_TB
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR TD.igtbl_NewStyleSet1ActiveBorder_L, .igtbl_NewStyleSet1ActiveBorder_L
+{
+}
+
+
+TBODY.igtbl_NewStyleSet1Item TR TD.igtbl_NewStyleSet1ActiveBorder_R, .igtbl_NewStyleSet1ActiveBorder_R
+{
+}
+
+

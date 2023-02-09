@@ -1,0 +1,215 @@
+.igmv_Office2007SilverControl
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_Office2007SilverWeekNumber
+{
+	background-color:#C7CBD1;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-right:solid 0px #666666;
+	border-top-width:0px;
+	border-top-style:outset;
+	border-bottom-width:0px;
+	border-bottom-style:outset;
+	width: 20px;
+	color:#616A84;
+	text-align:center;
+}
+
+
+.igmv_Office2007SilverMonthDayOfWeekHeader
+{
+	background-color:#C7CBD1;
+	background-image:none;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-style:solid;
+	border-width:1px;
+	border-right-width:0px;
+	border-bottom-width:0px;
+	border-bottom-color:#ACA899;
+	border-left-width:0px;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	padding:3px 2px 1px 0px;
+	height: 20px;
+	cursor:default;
+	color:#5A5A5A;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_Office2007SilverCaptionHeader
+{
+	background-color:#DCE1E8;
+	background-repeat:repeat-x;
+	background-image: url(images/monthheadercaption_bg.png);
+	font-size:small;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 16px;
+	height: 35px;
+	color:Black;
+	text-align:center;
+}
+
+
+.igmv_Office2007SilverDay
+{
+	background-color:White;
+	border-top:solid 1px Silver;
+	border-left:solid 1px Silver;
+	color:Black;
+}
+
+
+.igmv_Office2007SilverOtherMonthDay
+{
+	background-color:#C7CBD1;
+	border-top:solid 1px #9199A4;
+	border-left:solid 1px #9199A4;
+	color:Black;
+}
+
+
+.igmv_Office2007SilverToday
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_Office2007SilverActiveDay
+{
+	background-color:#E6EDF7;
+}
+
+
+.igmv_Office2007SilverDayHeader
+{
+	background-color:#DAEAFF;
+	background-repeat:repeat-x;
+	background-image: url(images/day_header1.gif);
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 1px #B6BAC0;
+	padding:0px 2px 0px 0px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_Office2007SilverOtherMonthDayHeader
+{
+	background-color:#DAEAFF;
+	background-repeat:repeat-x;
+	background-image: url(images/day_header1.gif);
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 1px #B6BAC0;
+	padding:0px 2px 0px 0px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_Office2007SilverTodayHeader
+{
+	background-color:#FFFFD5;
+	background-repeat:repeat-x;
+	background-position:top ;
+	background-image: url(images/day_header_active.jpg);
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 0px #6693C0;
+	margin-top:0px;
+	padding:0px 2px 0px 0px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_Office2007SilverActiveDayHeader
+{
+}
+
+
+.igmv_Office2007SilverAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_Office2007SilverAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_Office2007SilverSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_Office2007SilverNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 30px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

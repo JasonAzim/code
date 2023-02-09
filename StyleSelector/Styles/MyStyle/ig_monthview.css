@@ -1,0 +1,211 @@
+.igmv_NewStyleSet1Control
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_NewStyleSet1WeekNumber
+{
+	background-color:WhiteSmoke;
+	font-size:xx-small;
+}
+
+
+.igmv_NewStyleSet1MonthDayOfWeekHeader
+{
+	background-color:WhiteSmoke;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-style:solid;
+	border-width:1px;
+	border-right-width:0px;
+	border-bottom-width:0px;
+	border-bottom-color:#ACA899;
+	border-left-width:0px;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	padding:3px 2px 1px 0px;
+	height: 20px;
+	cursor:default;
+	color:Black;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_NewStyleSet1CaptionHeader
+{
+	background-color:#CECECE;
+	background-repeat:repeat-x;
+	font-weight:bold;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height: 16px;
+	height: 17px;
+	color:Black;
+	text-align:center;
+}
+
+
+.igmv_NewStyleSet1Day
+{
+	background-color:WhiteSmoke;
+	border-top:solid 1px Silver;
+	border-left:solid 1px Silver;
+	color:Black;
+}
+
+
+.igmv_NewStyleSet1OtherMonthDay
+{
+	background-color:White;
+	border-top:solid 1px Silver;
+	border-left:solid 1px Silver;
+	color:Black;
+}
+
+
+.igmv_NewStyleSet1Today
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_NewStyleSet1ActiveDay
+{
+	background-color:#E6EDF7;
+}
+
+
+.igmv_NewStyleSet1DayHeader
+{
+	background-color:Gainsboro;
+	background-repeat:repeat-x;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_NewStyleSet1OtherMonthDayHeader
+{
+	background-color:#F0F0F0;
+	background-repeat:repeat-x;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:#CCCCCC;
+	text-align:right;
+}
+
+
+.igmv_NewStyleSet1TodayHeader
+{
+	background-repeat:repeat-x;
+	background-position:top ;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 0px Silver;
+	margin-top:0px;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_NewStyleSet1ActiveDayHeader
+{
+	background-color:DarkGray;
+	background-repeat:repeat-x;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:White;
+	text-align:right;
+}
+
+
+.igmv_NewStyleSet1Appointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_NewStyleSet1AllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_NewStyleSet1SelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_NewStyleSet1NavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

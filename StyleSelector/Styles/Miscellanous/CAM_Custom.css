@@ -1,0 +1,174 @@
+.ms-banner A:link {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana, serif
+}
+.ms-banner A:visited {
+	FONT-WEIGHT: bold; FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana, serif
+}
+.ms-WPTitle {
+	PADDING-RIGHT: 7px; PADDING-LEFT: 6px; FONT-WEIGHT: bold; FONT-SIZE: 8pt; PADDING-BOTTOM: 2px; COLOR: black; PADDING-TOP: 2px; FONT-FAMILY: verdana, arial, helvetica, sans-serif; BACKGROUND-COLOR: #d2ceb3
+}
+.ms-WPTitle A:link {
+	CURSOR: hand; COLOR: black; BACKGROUND-COLOR: #d2ceb3; TEXT-DECORATION: none
+}
+.ms-WPTitle A:visited {
+	CURSOR: hand; COLOR: black; BACKGROUND-COLOR: #d2ceb3; TEXT-DECORATION: none
+}
+.ms-WPTitle A:hover {
+	CURSOR: hand; COLOR: #979580; BACKGROUND-COLOR: #d2ceb3; TEXT-DECORATION: underline
+}
+.ms-bannerframe {
+	BACKGROUND-COLOR: white
+}
+.ms-GRHeaderBackground {
+	BACKGROUND-COLOR: white
+}
+.ms-storMeFree {
+	BACKGROUND-COLOR: white
+}
+.ms-navwatermark {
+	COLOR: #d2ceb3
+}
+.ms-navframe {
+	BORDER-RIGHT: medium none; BACKGROUND: #d2ceb3; BORDER-LEFT: 0px
+}
+.ms-GRStatusBar {
+	BORDER-RIGHT: medium none; BACKGROUND: #d2ceb3; BORDER-LEFT: 0px
+}
+.ms-searchbox {
+	FONT-SIZE: 8pt; FONT-FAMILY: verdana; BACKGROUND-COLOR: #d2ceb3
+}
+.ms-searchform {
+	FONT-SIZE: 8pt; FONT-FAMILY: verdana; BACKGROUND-COLOR: #d2ceb3
+}
+.ms-searchcorner {
+	BACKGROUND-POSITION: left top; BACKGROUND-IMAGE: url(/_layouts/images/SRCHCRNR.gif); BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d2ceb3
+}
+.ms-sbtopcorner {
+	BACKGROUND-POSITION: left top; BACKGROUND-IMAGE: url(/_layouts/images/CAM_cornertop.jpg); BORDER-BOTTOM-WIDTH: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-sblbcorner {
+	PADDING-RIGHT: 5px; BACKGROUND-POSITION: right top; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(/_layouts/images/CAM_cornerbl.jpg); PADDING-BOTTOM: 4px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #ffffff
+}
+.ms-nav A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-nav A:visited {
+	COLOR: black
+}
+.ms-nav TD {
+	FONT-SIZE: 8pt; FONT-FAMILY: Verdana, sans-serif; BACKGROUND-COLOR: whitesmoke
+}
+.ms-nav .ms-SPZoneLabel {
+	FONT-SIZE: 8pt; FONT-FAMILY: Verdana, sans-serif; BACKGROUND-COLOR: whitesmoke
+}
+.ms-input {
+	FONT-SIZE: 8pt; FONT-FAMILY: Verdana, sans-serif; BACKGROUND-COLOR: whitesmoke
+}
+.ms-nav TH {
+	FONT-WEIGHT: normal; FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana, sans-serif; TEXT-ALIGN: left
+}
+.ms-toccattitle A {
+	FONT-SIZE: 0.7em; COLOR: black; TEXT-DECORATION: none
+}
+.ms-toccattitle A:hover {
+	FONT-SIZE: 0.7em; COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb2 A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-GRStatusText A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb-user A {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb2 A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb-user A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb2 A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-GRStatusText A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb-user A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-vb A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb2 A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-vb-user A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-portaltitle {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-WEIGHT: 700; FONT-SIZE: 11pt; PADDING-BOTTOM: 10px; COLOR: black; FONT-FAMILY: Arial
+}
+.ms-pagetitle {
+	COLOR: #979580
+}
+DIV.ms-titleareaframe {
+	BORDER-TOP: #979580 3px solid
+}
+.ms-pvnavmidC1 A:link {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: black; TEXT-OVERFLOW: ellipsis; TEXT-DECORATION: none
+}
+.ms-pvnavmidC1 A:visited {
+	OVERFLOW: hidden; WIDTH: 100px; COLOR: black; TEXT-OVERFLOW: ellipsis; TEXT-DECORATION: none
+}
+.ms-pvnavmidC1 A:hover {
+	COLOR: black; TEXT-DECORATION: underline
+}
+.ms-phnavmidc1 {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px
+}
+.ms-phnavmidc0 {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; PADDING-BOTTOM: 1px; PADDING-TOP: 1px
+}
+.ms-phnavmidc1sel {
+	BORDER-RIGHT: #578ceb 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #00238b 1px solid; PADDING-LEFT: 3px; BACKGROUND-IMAGE: url(/_layouts/images/navgradp.gif); PADDING-BOTTOM: 1px; BORDER-LEFT: #00238b 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #578ceb 1px solid; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #5284de
+}
+.ms-phnavmidc0sel {
+	BORDER-RIGHT: #578ceb 1px solid; PADDING-RIGHT: 3px; BORDER-TOP: #00238b 1px solid; PADDING-LEFT: 3px; BACKGROUND-IMAGE: url(/_layouts/images/navgradp.gif); PADDING-BOTTOM: 1px; BORDER-LEFT: #00238b 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #578ceb 1px solid; BACKGROUND-REPEAT: repeat-x; BACKGROUND-COLOR: #5284de
+}
+.ms-pvtb A:link {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-pvtb A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-pvtbbutton A:link {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-pvtbbutton A:visited {
+	COLOR: black; TEXT-DECORATION: none
+}
+.ms-viewselect A:link {
+	FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana, sans-serif
+}
+.ms-GRFontSize {
+	FONT-SIZE: 8pt; COLOR: black; FONT-FAMILY: Verdana, sans-serif
+}
+.ms-phnavtableone A {
+	FONT-WEIGHT: bold; FONT-SIZE: 70%; COLOR: black; FONT-STYLE: normal; FONT-FAMILY: Tahoma; TEXT-DECORATION: none
+}
+.ms-phnav1wrapper {
+	BORDER-RIGHT: medium none; BACKGROUND: #d2ceb3; BORDER-LEFT: 0px
+}
+.ms-gb {
+	FONT-WEIGHT: bold; FONT-SIZE: 0.68em; COLOR: #000000; FONT-FAMILY: verdana; HEIGHT: 18px; BACKGROUND-COLOR: #ffffd9
+}

@@ -1,0 +1,221 @@
+.igmv_SpringGreenControl
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px #4C7B04;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_SpringGreenWeekNumber
+{
+	background-color:#8DA96F;
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	width: 20px;
+	color:White;
+	text-align:left;
+}
+
+
+.igmv_SpringGreenMonthDayOfWeekHeader
+{
+	background-image: url(images/tab_top_normal_f.gif);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	height: 35px;
+	line-height: 14px;
+	cursor:default;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_SpringGreenCaptionHeader
+{
+	background-color:#CECECE;
+	background-position:center ;
+	background-image: url(images/header_hover.gif);
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	height: 25px;
+	line-height: 20px;
+	text-align:center;
+}
+
+
+.igmv_SpringGreenDay
+{
+	background-color:White;
+	background-position:bottom ;
+	background-image: url(images/addnew.jpg);
+	border-left:solid 1px Silver;
+	cursor:hand;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_SpringGreenOtherMonthDay
+{
+	background-color:#F0F0F0;
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_SpringGreenToday
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_SpringGreenActiveDay
+{
+	background-color:White;
+	background-image: url(images/vertical.gif);
+}
+
+
+.igmv_SpringGreenDayHeader
+{
+	background-color:Gainsboro;
+	background-position:center ;
+	background-image: url(images/header.gif);
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 17px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_SpringGreenOtherMonthDayHeader
+{
+	background-position:center ;
+	background-image: url(images/header_hover.gif);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	height: 17px;
+	line-height: 15px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_SpringGreenTodayHeader
+{
+	background-repeat:repeat-x;
+	background-position:top ;
+	font-size:8pt;
+	font-family: Arial, Helvetica, sans-serif;
+	border-bottom:solid 0px Silver;
+	margin-top:0px;
+	padding:0px 2px 0px 0px;
+	height: 16px;
+	line-height: 16px;
+	color:Black;
+	text-align:right;
+}
+
+
+.igmv_SpringGreenActiveDayHeader
+{
+	background-color:DarkGray;
+	background-repeat:repeat-x;
+	font-weight:bold;
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	padding-top:0px;
+	padding-right:2px;
+	color:White;
+	text-align:right;
+}
+
+
+.igmv_SpringGreenAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_SpringGreenAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_SpringGreenSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_SpringGreenNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

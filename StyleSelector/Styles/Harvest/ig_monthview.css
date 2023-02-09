@@ -1,0 +1,203 @@
+.igmv_HarvestControl
+{
+	font-weight:bold;
+	font-size:x-small;
+	font-family: Arial, Helvetica, sans-serif;
+	border:solid 1px #97462C;
+	border-collapse:Collapse;
+	margin-top:5px;
+	line-height: 16px;
+	table-layout: fixed;
+	overflow: hidden;
+	color:Black;
+}
+
+
+.igmv_HarvestWeekNumber
+{
+	background-color:#FFFDF9;
+	background-repeat:repeat-x;
+	background-position:top bottom ;
+	background-image: url(images/addnew.jpg);
+	font-size:xx-small;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	width: 20px;
+	text-align:left;
+}
+
+
+.igmv_HarvestMonthDayOfWeekHeader
+{
+	background-position:top ;
+	background-image: url(images/itembg.jpg);
+	font-size:8pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border-top:solid 1px Silver;
+	margin-top:1px;
+	margin-right:1px;
+	margin-left:1px;
+	line-height: 30px;
+	cursor:default;
+	text-align:center;
+}
+
+
+.igmv_monthheader
+{
+	height: 16px;
+	width: 100%;
+	text-align:center;
+}
+
+
+.igmv_HarvestCaptionHeader
+{
+	background-color:#CECECE;
+	background-position:center ;
+	background-image: url(images/header.gif);
+	font-size:xx-small;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	border-width:0px;
+	line-height: 30px;
+	color:White;
+	text-align:center;
+}
+
+
+.igmv_HarvestDay
+{
+	background-color:#FFFDF9;
+	background-repeat:repeat-x;
+	background-position:top bottom ;
+	background-image: url(images/addnew.jpg);
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_HarvestOtherMonthDay
+{
+	border-left:solid 1px Silver;
+	color:Black;
+	vertical-align:top;
+}
+
+
+.igmv_HarvestToday
+{
+	background-color:White;
+	border:solid 1px Black;
+}
+
+
+.igmv_HarvestActiveDay
+{
+	background-color:#97462C;
+	background-image:none;
+	color:White;
+}
+
+
+.igmv_HarvestDayHeader
+{
+	background-color:Gainsboro;
+	background-position:center ;
+	background-image: url(images/header.gif);
+	font-size:xx-small;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 17px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_HarvestOtherMonthDayHeader
+{
+	background-color:Gainsboro;
+	background-position:center ;
+	background-image: url(images/header_hover.gif);
+	font-size:xx-small;
+	padding-top:0px;
+	padding-right:2px;
+	line-height: 17px;
+	color:White;
+	text-align:right;
+	vertical-align:top;
+}
+
+
+.igmv_HarvestTodayHeader
+{
+	background-position:center ;
+	background-image: url(images/active_hatch.gif);
+	color:Black;
+}
+
+
+.igmv_HarvestActiveDayHeader
+{
+	background-position:center ;
+	background-image: url(images/header_hover.gif);
+}
+
+
+.igmv_HarvestAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+}
+
+
+.igmv_HarvestAllDayEvent
+{
+	background-color:LightYellow;
+	font-size:7pt;
+	font-family: Tahoma, Verdana, Arial, Helvetica, sans-serif;
+	border:solid 1px Silver;
+	margin-right:2px;
+	margin-left:2px;
+	cursor:hand;
+	text-align:left;
+}
+
+
+.igmv_HarvestSelectedAppointment
+{
+	font-size:7pt;
+	font-family: Arial, Helvetica, sans-serif;
+	margin-top:1px;
+	margin-right:2px;
+	margin-left:2px;
+	padding-left:1px;
+	line-height: 15px;
+	height: 15px;
+	position: relative;
+	top: 0;
+	cursor:hand;
+	color:Black;
+}
+
+
+.igmv_HarvestNavigationButton
+{
+	background-color:Transparent;
+	border-width:0px;
+	width: 17px;
+	cursor:hand;
+	vertical-align:middle;
+}
+
+

@@ -1,0 +1,88 @@
+.igcal_NewStyleSet1Control
+{
+	border:solid 1px Silver;
+	text-align:center;
+}
+
+
+.igcal_NewStyleSet1Calendar
+{
+	border-style:solid;
+	border-width:0px;
+	border-bottom-width:1px;
+	border-bottom-color:Silver;
+}
+
+
+.igcal_NewStyleSet1DOW
+{
+	font-size:xx-small;
+	border-width:0px;
+	border-bottom:solid 1px Silver;
+	padding:5px 0px 0px 0px;
+}
+
+
+.igcal_NewStyleSet1Day
+{
+	font-size:xx-small;
+	border-width:0px;
+}
+
+
+.igcal_NewStyleSet1NextPrev
+{
+	background-color:Gainsboro;
+	padding-right:0px;
+	padding-left:0px;
+}
+
+
+.igcal_NewStyleSet1Footer
+{
+	padding-top:5px;
+	text-align:center;
+}
+
+
+.igcal_NewStyleSet1Header
+{
+	background-color:Gainsboro;
+	font-size:10px;
+	height: 16px;
+}
+
+
+.igcal_NewStyleSet1DropDown
+{
+}
+
+
+.igcal_NewStyleSet1WeekendDay
+{
+}
+
+
+.igcal_NewStyleSet1OtherMonthDay
+{
+	color:#B3B3B3;
+}
+
+
+.igcal_NewStyleSet1WeekendDayMajor
+{
+}
+
+
+.igcal_NewStyleSet1TodayDay
+{
+	border:solid 1px Black;
+}
+
+
+.igcal_NewStyleSet1SelectedDay
+{
+	background-color:WhiteSmoke;
+}
+
+

@@ -1,0 +1,513 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px Tahoma,sans-serif; COLOR: #333; PADDING-TOP: 0px
+}
+IMG {
+	BORDER-RIGHT: 0px; BORDER-TOP: 0px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+A {
+	FONT-WEIGHT: bold; COLOR: #069; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 15px; MARGIN: 0px; PADDING-TOP: 0px; FONT-FAMILY: Tahoma,sans-serif
+}
+H1 {
+	MARGIN: 0px
+}
+H2 {
+	MARGIN: 0px
+}
+H3 {
+	MARGIN: 0px
+}
+UL {
+	MARGIN: 0px
+}
+OL {
+	MARGIN: 0px
+}
+H1 {
+	FONT-WEIGHT: bold
+}
+H2 {
+	FONT-WEIGHT: bold
+}
+H3 {
+	FONT-WEIGHT: bold
+}
+H1 {
+	COLOR: #069
+}
+H2 {
+	COLOR: #069
+}
+H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 17px; PADDING-BOTTOM: 15px; PADDING-TOP: 0px
+}
+H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 13px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+H3 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 11px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+HR {
+	CLEAR: both; BORDER-RIGHT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 15px 0px; BORDER-LEFT: 0px; WIDTH: 100%; COLOR: #99c2d6; PADDING-TOP: 0px; BORDER-BOTTOM: 0px; HEIGHT: 1px; BACKGROUND-COLOR: #99c2d6
+}
+UL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; PADDING-BOTTOM: 15px; PADDING-TOP: 15px; LIST-STYLE-TYPE: disc
+}
+OL {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 30px; PADDING-BOTTOM: 15px; PADDING-TOP: 15px
+}
+DIV.listDepartmentLinks {
+	WIDTH: 95%; LINE-HEIGHT: 15px
+}
+DIV.listDepartmentLinks H2 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+DIV.listDepartmentLinks H2 IMG {
+	VERTICAL-ALIGN: middle; WIDTH: 15px; HEIGHT: 7px
+}
+DIV.listDepartmentLinks P {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px 0px 15px 15px; WIDTH: 95%; PADDING-TOP: 0px
+}
+DIV.genHeader {
+	FONT-SIZE: 11px; BACKGROUND: url(//images.delta.com/delta/backgrounds/headers/header.jpg) no-repeat; OVERFLOW: hidden; WIDTH: 750px; COLOR: #69c; POSITION: relative; HEIGHT: 123px; TEXT-ALIGN: right
+}
+DIV.genHeader DIV {
+	LEFT: 315px; WIDTH: 425px; POSITION: absolute; TOP: 11px; TEXT-ALIGN: right
+}
+DIV.genHeader A {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; MARGIN: 0px 4px; COLOR: #fff
+}
+DIV.genHeader IMG {
+	LEFT: 29px; WIDTH: 161px; POSITION: absolute; TOP: 16px; HEIGHT: 32px
+}
+DIV.genHeader IMG#logo {
+	LEFT: 29px; WIDTH: 122px; POSITION: absolute; TOP: 16px; HEIGHT: 32px
+}
+DIV.genHeader IMG#skyteam {
+	LEFT: 151px; WIDTH: 39px; POSITION: absolute; TOP: 16px; HEIGHT: 32px
+}
+DIV.genHeader INPUT.genHeaderInput {
+	MARGIN: 0px 3px 0px 16px; FONT: 11px Tahoma,Arial,sans-serif; VERTICAL-ALIGN: middle; WIDTH: 82px; HEIGHT: 18px
+}
+DIV.genHeader INPUT.genHeaderSubmit {
+	VERTICAL-ALIGN: middle; WIDTH: 68px; HEIGHT: 18px
+}
+DIV.genFooter {
+	CLEAR: both; PADDING-RIGHT: 10px; PADDING-LEFT: 0px; FONT-SIZE: 10px; BACKGROUND: #eee; PADDING-BOTTOM: 6px; WIDTH: 750px; COLOR: #069; PADDING-TOP: 6px; POSITION: relative; HEIGHT: 29px; TEXT-ALIGN: right
+}
+UNKNOWN {
+	WIDTH: 740px; HEIGHT: 16px
+}
+DIV.genFooter A {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; COLOR: #069
+}
+FORM {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 10px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px
+}
+FORM P {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; LINE-HEIGHT: normal; FONT-STYLE: normal; FONT-VARIANT: normal
+}
+INPUT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; FONT: 11px Tahoma,sans-serif; PADDING-TOP: 0px
+}
+SELECT {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 2px 0px 4px; FONT: 11px Tahoma,sans-serif; PADDING-TOP: 0px
+}
+#popHeader {
+	BACKGROUND: url(//images.delta.com/delta/backgrounds/headers/popup_header_center.jpg) repeat-x; OVERFLOW: hidden; POSITION: relative; HEIGHT: 31px
+}
+#popHeader TD.left {
+	WIDTH: 600px
+}
+#popHeader TD.right {
+	PADDING-RIGHT: 8px; PADDING-LEFT: 25px; BACKGROUND: url(//images.delta.com/delta/backgrounds/headers/popup_header_right.jpg) no-repeat; PADDING-BOTTOM: 6px; WIDTH: 100px; PADDING-TOP: 6px
+}
+#popHeader TD.right A {
+	FONT-WEIGHT: normal; COLOR: #fff; TEXT-DECORATION: none
+}
+DIV.popContainer {
+	MARGIN: 15px 0px 0px 20px; WIDTH: 420px; POSITION: relative
+}
+.cpyPageTitle {
+	FONT-WEIGHT: bold
+}
+.cpyHeader1 {
+	FONT-WEIGHT: bold
+}
+.cpyHeader2 {
+	FONT-WEIGHT: bold
+}
+.cpyBold {
+	FONT-WEIGHT: bold
+}
+.cpyPageTitle {
+	FONT-SIZE: 17px; COLOR: #069
+}
+.cpyHeader1 {
+	FONT-SIZE: 13px; COLOR: #069
+}
+.cpyHeader2 {
+	FONT-SIZE: 11px
+}
+.cpyBody {
+	FONT-SIZE: 11px
+}
+.cpySmall {
+	FONT-SIZE: 10px
+}
+.cpySmall B {
+	FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #333
+}
+.cpySmall A {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; TEXT-DECORATION: underline
+}
+.cpyAdvisory {
+	COLOR: #069
+}
+.tblborder {
+	BACKGROUND-COLOR: #cfd9e3
+}
+.tblheader {
+	FONT-WEIGHT: bold; COLOR: #fff; BACKGROUND-COLOR: #069
+}
+.tblSubHeader {
+	COLOR: #333; BACKGROUND-COLOR: #9dc6db
+}
+.tblSubHeader A {
+	COLOR: #333; TEXT-DECORATION: underline
+}
+A.tblHdrLink:link {
+	FONT-WEIGHT: bold; COLOR: #ffffff
+}
+A.tblHdrLink:visited {
+	FONT-WEIGHT: bold; COLOR: #ffffff
+}
+A.tblHdrLink:active {
+	FONT-WEIGHT: bold; COLOR: #ffffff
+}
+TD.tblContent1 {
+	BACKGROUND-COLOR: #fff
+}
+TD.tblContent2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+TD.tblFootnote {
+	COLOR: #333; BACKGROUND-COLOR: #9dc6db
+}
+TD.tblFootnote A {
+	COLOR: #333; TEXT-DECORATION: underline
+}
+TD {
+	FONT: 11px Tahoma,sans-serif; VERTICAL-ALIGN: top; COLOR: #333
+}
+TH {
+	FONT: 11px Tahoma,sans-serif; VERTICAL-ALIGN: top; COLOR: #333
+}
+.mktBoxBorder {
+	BACKGROUND-COLOR: #ccc
+}
+TD.mktBoxSeparator {
+	BACKGROUND-COLOR: #0b0b83
+}
+TD.mktBoxSubhdrSeparator {
+	BACKGROUND-COLOR: #000
+}
+TD.mktBoxSubheaderSmall {
+	FONT-SIZE: 11px; BACKGROUND-COLOR: #dbdbed
+}
+TD.mktBoxContent {
+	BACKGROUND-COLOR: #fff
+}
+TD.mktBoxContentSmall {
+	FONT-SIZE: 11px; BACKGROUND-COLOR: #fff
+}
+.mktBoxWhite {
+	BACKGROUND-COLOR: #fff
+}
+.appBoxBorder {
+	BACKGROUND-COLOR: #ccc
+}
+TD.appBoxContent {
+	BACKGROUND-COLOR: #e6ebef
+}
+TD.appBoxContentSmall {
+	FONT-SIZE: 11px; BACKGROUND-COLOR: #e6ebef
+}
+.appBoxWhite {
+	BACKGROUND-COLOR: #ffffff
+}
+.cpyError {
+	COLOR: #c00
+}
+.cpyAdvisory {
+	COLOR: #069
+}
+DIV#tabs {
+	
+}
+DIV#tabContent {
+	CLEAR: both; BORDER-TOP: #069 2px solid
+}
+DIV#tabs DIV.tabActive {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: url(//images.delta.com/delta/navigation/tab_active.gif) no-repeat; FLOAT: left; PADDING-BOTTOM: 5px; MARGIN: 0px 2px 0px 0px; WIDTH: 95px; COLOR: #fff; PADDING-TOP: 5px
+}
+DIV#tabs DIV.tabInActive {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: url(//images.delta.com/delta/navigation/tab_inactive.gif) no-repeat; FLOAT: left; PADDING-BOTTOM: 5px; MARGIN: 0px 2px 0px 0px; WIDTH: 95px; CURSOR: hand; COLOR: #069; PADDING-TOP: 5px
+}
+DIV#tabs DIV.tabDisabled {
+	PADDING-RIGHT: 13px; PADDING-LEFT: 13px; FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: url(//images.delta.com/delta/navigation/tab_unavailable.gif) no-repeat; FLOAT: left; PADDING-BOTTOM: 5px; MARGIN: 0px 2px 0px 0px; WIDTH: 95px; COLOR: #999; PADDING-TOP: 5px
+}
+TD.border {
+	FONT-SIZE: 1px; BORDER-BOTTOM: #cccccc 1px solid
+}
+TD.leftBorder {
+	FONT-SIZE: 1px; BORDER-LEFT: #cccccc 1px solid
+}
+TD.rightBorder {
+	BORDER-RIGHT: #cccccc 1px solid; FONT-SIZE: 1px
+}
+TD.leftRightBorder {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid
+}
+TD.roundTopRight {
+	BACKGROUND: url(//images.delta.com/delta/booking/misc/top_right.gif) no-repeat; WIDTH: 9px; POSITION: relative; TOP: -1px; HEIGHT: 8px
+}
+TD.roundBottomLeft {
+	FONT-SIZE: 1px; BACKGROUND: url(//images.delta.com/delta/booking/flex/flex_bottomleft_roundcorner.gif) no-repeat; WIDTH: 7px; HEIGHT: 9px
+}
+TD.roundBottomRight {
+	FONT-SIZE: 1px; BACKGROUND: url(//images.delta.com/delta/booking/flex/flex_bottomright_roundcorner.gif) no-repeat; WIDTH: 9px; HEIGHT: 9px
+}
+TD.bottomRoundedLeftRight {
+	BACKGROUND: url(//images.delta.com/delta/booking/flex/flex_bottomleft_roundcorner.gif) no-repeat; BORDER-BOTTOM: #cccccc 1px solid; POSITION: relative; TOP: -1px; HEIGHT: 9px
+}
+.tabBody {
+	POSITION: relative; TOP: -1px
+}
+.grayRowTop {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(//images.delta.com/images/solid_rounded_lefttop.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d8d8d8
+}
+.grayRowBottom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(//images.delta.com/images/solid_rounded_leftbottom.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d8d8d8
+}
+.blueBarHeader {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: right 50%; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND-IMAGE: url(//images.delta.com/images/blue_bar_right.gif); PADDING-BOTTOM: 0px; WIDTH: 704px; COLOR: #ffffff; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 25px; BACKGROUND-COLOR: #006599
+}
+.sideGray {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; BACKGROUND: #d8d8d8; PADDING-BOTTOM: 0px; WIDTH: 2px; PADDING-TOP: 0px
+}
+.tabBody {
+	POSITION: relative; TOP: -1px
+}
+.grayRowTop {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/pitins/solid_rounded_lefttop.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d8d8d8
+}
+.grayRowBottom {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/pitins/solid_rounded_leftbottom.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d8d8d8
+}
+.sideGray {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; BACKGROUND: #d8d8d8; PADDING-BOTTOM: 0px; WIDTH: 2px; PADDING-TOP: 0px
+}
+.blueBarHeader {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: right 50%; PADDING-LEFT: 0px; FONT-WEIGHT: bold; FONT-SIZE: 14px; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/pitins/blue_bar_right.gif); PADDING-BOTTOM: 0px; WIDTH: 704px; COLOR: #ffffff; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; HEIGHT: 25px; BACKGROUND-COLOR: #006599
+}
+.grayRow {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 1px; BACKGROUND: #d8d8d8; PADDING-BOTTOM: 0px; PADDING-TOP: 0px; HEIGHT: 5px
+}
+.grayRowHeader {
+	BORDER-RIGHT: #cccccc 1px solid; FONT-WEIGHT: bold; BACKGROUND: #d8d8d8; VERTICAL-ALIGN: top
+}
+.grayRowSubHeader {
+	BORDER-RIGHT: #cccccc 1px solid; FONT-WEIGHT: bold; BACKGROUND: #389ed1; VERTICAL-ALIGN: top; COLOR: #ffffff
+}
+.grayRowFooter {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 10px; FONT-WEIGHT: bold; BACKGROUND: #d8d8d8; PADDING-BOTTOM: 0px; PADDING-TOP: 10px; TEXT-ALIGN: right
+}
+.grayRowHeaderSorted {
+	BORDER-RIGHT: #cccccc 1px solid; FONT-WEIGHT: bold; VERTICAL-ALIGN: top
+}
+.orangeTop {
+	PADDING-RIGHT: 0px; BACKGROUND-POSITION: right 50%; PADDING-LEFT: 0px; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/pitins/orange_small_right.gif); PADDING-BOTTOM: 0px; PADDING-TOP: 0px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-COLOR: #d98e01
+}
+.tableCell {
+	BORDER-RIGHT: #d8d8d8 1px solid; BORDER-TOP: #d8d8d8 1px solid; FONT-SIZE: 10px
+}
+.lowestCell {
+	BORDER-RIGHT: #d8d8d8 1px solid; PADDING-RIGHT: 0px; BORDER-TOP: #d8d8d8 1px solid; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px
+}
+.card {
+	BACKGROUND: #063868; VERTICAL-ALIGN: middle; WIDTH: 17px
+}
+.cardBody {
+	BORDER-RIGHT: #063868 2px solid; PADDING-LEFT: 5px; FONT-SIZE: 10px; BACKGROUND: #e6ebef; VERTICAL-ALIGN: top; WIDTH: 180px
+}
+.rowBanner TH {
+	BORDER-RIGHT: #d8d8d8 1px solid; FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #389ed1; BORDER-LEFT: #d8d8d8 1px solid; COLOR: #ffffff
+}
+.tblContent1 {
+	BACKGROUND-COLOR: #fff
+}
+.tblContent2 {
+	BACKGROUND-COLOR: #eaeaea
+}
+.farePricing {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 5px; PADDING-TOP: 0px
+}
+.rtrHeader {
+	BACKGROUND: url(//images.delta.com/delta/booking/pitins/rtr_top.gif); WIDTH: 704px; HEIGHT: 21px
+}
+.rtrHeader H1 {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 15px; FONT-SIZE: 11px; PADDING-BOTTOM: 0px; COLOR: #fff; PADDING-TOP: 6px
+}
+.longRTR {
+	BACKGROUND: url(//images.delta.com/delta/booking/pitins/rtr_body.gif) 50% bottom; WIDTH: 704px
+}
+.connections {
+	PADDING-BOTTOM: 5px
+}
+.flightGroupContainer {
+	CLEAR: both; DISPLAY: block
+}
+.cabinUpgrade {
+	FLOAT: left; WIDTH: 49%
+}
+.cabin {
+	PADDING-LEFT: 5px; FLOAT: right; WIDTH: 100%
+}
+.upgrade {
+	FLOAT: right; WIDTH: 49%
+}
+DIV.flightCabinUpgrade_Cabin {
+	FLOAT: left; PADDING-BOTTOM: 5px; WIDTH: 60%
+}
+DIV.flightCabin_Cabin {
+	FLOAT: left; PADDING-BOTTOM: 5px; WIDTH: 40%
+}
+DIV.flightCabin_Flight {
+	FLOAT: left; PADDING-BOTTOM: 5px; WIDTH: 60%
+}
+DIV.flightCabinUpgrade_Flight {
+	FLOAT: left; PADDING-BOTTOM: 5px; WIDTH: 40%
+}
+DIV.clear {
+	CLEAR: both; LINE-HEIGHT: 0px; HEIGHT: 0px
+}
+DIV.messageBox {
+	BORDER-RIGHT: #006699 2px solid; PADDING-RIGHT: 8px; BORDER-TOP: #006699 2px solid; PADDING-LEFT: 8px; FONT-SIZE: 11px; LEFT: 0px; PADDING-BOTTOM: 8px; BORDER-LEFT: #006699 2px solid; COLOR: #333; PADDING-TOP: 8px; BORDER-BOTTOM: #006699 2px solid; POSITION: absolute; TOP: 0px; BACKGROUND-COLOR: #fff; TEXT-ALIGN: left
+}
+.leftside_label {
+	FONT-WEIGHT: normal; FONT-SIZE: 11px; FLOAT: left; WIDTH: 100px; COLOR: #000; FONT-FAMILY: Tahoma
+}
+.rightside_label {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; FLOAT: left; COLOR: #000; FONT-FAMILY: Tahoma; TEXT-ALIGN: left
+}
+DIV.confPromo {
+	FLOAT: right; MARGIN-BOTTOM: 8px; TEXT-ALIGN: right
+}
+DIV.confPromo IMG {
+	DISPLAY: block
+}
+DIV.confPromo DIV {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 15px; FONT-SIZE: 9px; BACKGROUND: url(//images.delta.com/delta/backgrounds/tables/table_small_body.gif) #fff repeat-y; PADDING-BOTTOM: 0px; MARGIN: 0px; LINE-HEIGHT: 11px; PADDING-TOP: 0px; TEXT-ALIGN: left
+}
+DIV.confPromo DIV IMG {
+	DISPLAY: block; MARGIN-BOTTOM: 3px
+}
+DIV.confPromo A {
+	FONT-WEIGHT: normal; FONT-SIZE: 9px; TEXT-DECORATION: underline
+}
+DIV.confPromo A:hover {
+	TEXT-DECORATION: underline
+}
+TH.leaveHeader {
+	BORDER-RIGHT: #feb 1px solid; PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; VERTICAL-ALIGN: bottom; WIDTH: 55px; COLOR: #fff; PADDING-TOP: 5px; BORDER-BOTTOM: #feb 1px solid; BACKGROUND-COLOR: #389ed1; TEXT-ALIGN: left
+}
+TH.returnHeader {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; COLOR: #fff; PADDING-TOP: 5px; BACKGROUND-COLOR: #006699; TEXT-ALIGN: left
+}
+TH.returnDates {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: normal; FONT-SIZE: 10px; PADDING-BOTTOM: 5px; BORDER-LEFT: #feb 1px solid; PADDING-TOP: 5px; BACKGROUND-COLOR: #d8d8d8; TEXT-ALIGN: left
+}
+TH.returnDates-requested {
+	PADDING-RIGHT: 5px; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; BORDER-LEFT: #feb 1px solid; PADDING-TOP: 5px; BACKGROUND-COLOR: #d8d8d8; TEXT-ALIGN: left
+}
+TH.returnDates-requested A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+TH.leaveDates {
+	PADDING-RIGHT: 5px; BORDER-TOP: #feb 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: normal; FONT-SIZE: 10px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; BACKGROUND-COLOR: #d9e6f4; TEXT-ALIGN: left
+}
+TH.leaveDates-requested {
+	PADDING-RIGHT: 5px; BORDER-TOP: #feb 1px solid; PADDING-LEFT: 5px; FONT-WEIGHT: bold; FONT-SIZE: 12px; PADDING-BOTTOM: 5px; PADDING-TOP: 5px; BACKGROUND-COLOR: #d9e6f4; TEXT-ALIGN: left
+}
+TH.leaveDates-requested A {
+	FONT-WEIGHT: bold; FONT-SIZE: 12px
+}
+TD.fareBox {
+	BORDER-RIGHT: #d8d8d8 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #d8d8d8 1px solid; PADDING-LEFT: 5px; FONT-SIZE: 9px; PADDING-BOTTOM: 5px; VERTICAL-ALIGN: top; BORDER-LEFT: #d8d8d8 1px solid; WIDTH: 78px; CURSOR: hand; COLOR: #666; PADDING-TOP: 5px; BORDER-BOTTOM: #d8d8d8 1px solid; HEIGHT: 58px
+}
+TD.lowestFareBox {
+	BORDER-RIGHT: #d8d8d8 1px solid; BORDER-TOP: #d8d8d8 1px solid; PADDING-LEFT: 22px; FONT-SIZE: 9px; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/lowest_trans.gif); VERTICAL-ALIGN: top; BORDER-LEFT: #d8d8d8 1px solid; WIDTH: 66px; CURSOR: hand; COLOR: #666; BORDER-BOTTOM: #d8d8d8 1px solid; BACKGROUND-REPEAT: no-repeat; HEIGHT: 58px; BACKGROUND-COLOR: #e6ebef
+}
+DIV.days {
+	DISPLAY: none; FONT-SIZE: 9px
+}
+DIV.fares {
+	DISPLAY: inline; FONT-SIZE: 11px; COLOR: #009; TEXT-DECORATION: underline
+}
+DIV.fares-requested {
+	DISPLAY: inline; FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #009; TEXT-DECORATION: underline
+}
+#subTabsText {
+	FONT-SIZE: 12px
+}
+TD.tabDisabled {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled.gif); COLOR: #999
+}
+TD.tabDisabledLeft {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled_left.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabDisabledDisabled {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled_disabled.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabDisabledActive {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled_active.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabDisabledInactive {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled_inactive.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabDisabledEnd {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/disabled_end.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabActive {
+	FONT-WEIGHT: bold; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/active.gif)
+}
+TD.tabActiveLeft {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/active_left.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabActiveInactive {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/active_inactive.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabActiveEnd {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/active_end.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabInactive {
+	FONT-WEIGHT: bold; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/inactive.gif); CURSOR: hand; COLOR: #006699
+}
+TD.tabInactiveInactive {
+	FONT-WEIGHT: bold; BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/inactive_inactive.gif); CURSOR: hand; COLOR: #006699
+}
+TD.tabInactiveLeft {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/inactive_left.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabInactiveActive {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/inactive_active.gif); BACKGROUND-REPEAT: no-repeat
+}
+TD.tabInactiveEnd {
+	BACKGROUND-IMAGE: url(//images.delta.com/delta/booking/flex/tabs/inactive_end.gif); BACKGROUND-REPEAT: no-repeat
+}

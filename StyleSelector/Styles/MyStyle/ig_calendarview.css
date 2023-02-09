@@ -1,0 +1,96 @@
+.igcv_NewStyleSet1Control
+{
+	border:solid 1px #B4B4B4;
+}
+
+
+.igcv_NewStyleSet1CaptionHeader
+{
+	background-color:Gainsboro;
+	font-size:8pt;
+	padding:3px;
+	width: 100%;
+	white-space: nowrap;
+	color:Black;
+	text-align:center;
+}
+
+
+.igcv_NewStyleSet1DayHeader
+{
+	background-color:White;
+	background-repeat:repeat-x;
+	font-size:10px;
+	border-bottom:solid 1px Silver;
+	height: 16px;
+	color:Black;
+}
+
+
+.igcv_NewStyleSet1Day
+{
+	background-color:White;
+	font-size:11px;
+	border-width:0px;
+}
+
+
+.igcv_NewStyleSet1Footer
+{
+	background-color:#EEEEEE;
+	font-size:8pt;
+	padding:3px;
+	white-space: nowrap;
+	cursor:pointer;
+	text-align:center;
+}
+
+
+.igcv_NewStyleSet1DropDown
+{
+	font-size:8pt;
+}
+
+
+.igcv_NewStyleSet1OtherMonthDay
+{
+	background-color:White;
+	color:#B3B3B3;
+}
+
+
+.igcv_NewStyleSet1WeekendDay
+{
+	background-color:#FAFAFA;
+}
+
+
+.igcv_NewStyleSet1NavigationButton
+{
+	background-color:Gainsboro;
+	padding-right:3px;
+	padding-left:3px;
+	cursor:pointer;
+}
+
+
+.igcv_NewStyleSet1TodayDay
+{
+	border:solid 1px #000000;
+}
+
+
+.igcv_NewStyleSet1ActivityDay
+{
+	font-weight:bold;
+}
+
+
+.igcv_NewStyleSet1ActiveDay
+{
+	background-color:#C3C3C3;
+	background-image:none;
+	border-color:Black;
+}
+
+

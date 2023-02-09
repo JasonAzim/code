@@ -1,0 +1,20 @@
+﻿.style3 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; }
+.style7 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #666666; }
+.style9 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #000000; }
+.style1 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: small; color: #000000; font-weight: bold;}
+
+.error {font-family: Arial, Helvetica, sans-serif; font-size: 9pt; color:Red; font-weight:bold }
+.myLabel {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #000000; }
+.myDetails {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #000000; }
+.myPageTitle {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: medium; color: #000000; font-weight: bold; }
+.myHeader {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: small; color: #000000; font-weight: bold; }
+.myLink {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #000000; text-decoration: underline; }
+.myFormInput {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: x-small; color: #000000; }
+.myFormInputTT {font-family: Courier New, Courier, Verdana, Arial, Helvetica; font-size: small; color: #000000; }
+.box	{BORDER-RIGHT: black 1px solid; BORDER-TOP: black 1px solid; BORDER-LEFT: black 1px solid; BORDER-BOTTOM: black 1px solid;}
+
+p {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; }
+li {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; }
+td {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 8pt; }
+
+.white { color: white; }

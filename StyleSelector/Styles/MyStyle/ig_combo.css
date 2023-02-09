@@ -1,0 +1,98 @@
+.igcmb_NewStyleSet1Control
+{
+	border:solid 1px #B4B4B4;
+}
+
+
+.igcmb_NewStyleSet1EditWithButtons
+{
+	border:solid 1px #E1E1E1;
+}
+
+
+.igcmb_NewStyleSet1PagerArea
+{
+	border-width:0px;
+	padding:15px;
+}
+
+
+.igcmb_NewStyleSet1PageCurrent
+{
+	margin-right:10px;
+	color:Gray;
+}
+
+
+.igcmb_NewStyleSet1PageLink
+{
+	margin-right:10px;
+	color:Black;
+}
+
+
+.igcmb_NewStyleSet1Item
+{
+	border-width:0px;
+	border-color:Transparent;
+	border-top:solid 1px WhiteSmoke;
+}
+
+
+.igcmb_NewStyleSet1Alt
+{
+}
+
+
+.igcmb_NewStyleSet1Header
+{
+	background-color:Gainsboro;
+	border-width:0px;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+
+.igcmb_NewStyleSet1Footer
+{
+}
+
+
+.igcmb_NewStyleSet1Label
+{
+	background-color:#F0F0F0;
+	border-top-width:1px;
+	border-top-color:White;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+
+.igcmb_NewStyleSet1Selected
+{
+	background-color:#E1E1E1;
+	border-width:1px 0px 0px 0px;
+	border-left-color:#E1E1E1;
+}
+
+
+.igcmb_NewStyleSet1EditSelected
+{
+}
+
+
+.igcmb_NewStyleSet1ActiveBorderTopBottom
+{
+}
+
+
+.igcmb_NewStyleSet1ActiveBorderLeft
+{
+}
+
+
+.igcmb_NewStyleSet1ActiveBorderRight
+{
+}
+
+
