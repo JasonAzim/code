@@ -1,0 +1,121 @@
+﻿<div class="configurator">
+    <div class="header">@Header</div>
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Header { get; set; } = "Configurator";
+}
+
+<!-- Full implementation code is here https://demos.telerik.com/blazor-ui/grid/columns -->
+
+<style>
+    .configurator {
+        margin: -18px -14px 18px -14px;
+        display: flex;
+        flex-wrap: wrap;
+        background: #EFEFEF;
+        box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.16);
+    }
+
+        .configurator .header {
+            padding: 5px 12px;
+            border-bottom: 1px solid #DEDEDE;
+            background-color: #fff;
+            display: flex;
+            flex: 0 0 100%;
+            justify-content: center;
+            position: relative;
+            font: 500 16px/24px Metric;
+            letter-spacing: 0.35px;
+            text-transform: uppercase;
+            color: #3D57D8;
+        }
+
+        .configurator .box-col {
+            padding: 16px 0 16px 16px;
+            background-color: #EFEFEF;
+        }
+
+        .configurator ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+            .configurator ul li {
+                margin-bottom: 16px;
+            }
+
+                .configurator ul li:last-child {
+                    margin-bottom: 0;
+                }
+
+        .configurator h4 {
+            margin: 0 0 10px 0;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.12px;
+            color: #454545;
+        }
+
+        .configurator input:not([type=checkbox]):not([type=radio]):not(.k-input) {
+            padding: 6.5px 8px;
+            background: #fff;
+            border-radius: 2px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,.08);
+            color: #656565;
+            background-color: #fff;
+            outline: 0;
+        }
+
+        .configurator input:not([type=checkbox]):not([type=radio]):not([role=combobox]):not([role=listbox]) {
+            width: auto;
+        }
+
+        .configurator input:hover,
+        .configurator input:focus {
+            border-color: rgba(0,0,0,.15);
+        }
+
+        .configurator .k-picker-wrap input {
+            width: 100% !important;
+        }
+
+        .configurator button:not(.k-button) {
+            min-width: 90px;
+            padding: 6.5px 8px;
+            border-width: 1px;
+            border-style: solid;
+            border-color: rgba(0,0,0,.08);
+            border-radius: 2px;
+            color: #656565;
+            background-color: #f6f6f6;
+            background-image: linear-gradient(#f6f6f6,#f1f1f1);
+            cursor: pointer;
+        }
+
+            .configurator button:not(.k-button):hover {
+                border-color: rgba(0,0,0,.15);
+                background-color: #ededed;
+                background-image: linear-gradient(#ededed,#e8e8e8);
+                outline: none;
+            }
+
+            .configurator button:not(.k-button):focus {
+                box-shadow: 0 3px 4px 0 rgba(0,0,0,.06);
+                outline: none;
+            }
+
+        .configurator .checkbox-label {
+            cursor: pointer;
+        }
+</style>

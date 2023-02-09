@@ -1,0 +1,134 @@
+﻿@page "/ProfitabilityReportPartials"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+
+<form>
+    <div class="form-group">
+        <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords("Billable"))">Refresh</button>
+    </div>
+
+    @if (Entities != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Remove</th>
+                    <th>Refill No</th>
+                    <th>Invoice No</th>
+                    <th>Date Filled</th>
+                    <th>Ticket No</th>
+                    <th>Ticket Conf. Date</th>
+                    <th>Quantity</th>
+                    <th>Drug Name</th>
+                    <th>TP Revenue</th>
+                    <th>Copay</th>
+                    <th>TP Revenue + Patient Copay</th>
+                    <th>COGS</th>
+                    <th>COGS Adjusted</th>
+                    <th>Gross Profit</th>
+                    <th>Gross Profit Adjusted</th>
+                    <!--<th>Primary Claim Billed</th>
+                    <th>Secondary Claim Paid</th>-->
+                    <th>Delivery Instructions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Entities == null || Entities.Count == 0)
+                {
+                    <tr>
+                        <td colspan="3">No Records to display</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var entity in Entities)
+                    {
+                        <tr class="@entity.RowClass">
+                            <td><input type="checkbox" value="@entity.LABLOGNO" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" /></td>
+                            <td>@entity.ncpdp_quantity_new_refill_code</td>
+                            <td>@entity.ncpdp_invoice_number</td>
+                            <td>@entity.ncpdp_date_filled_timestamp?.ToShortDateString()</td>
+                            <td>@entity.TICKNO</td>
+                            <td>@entity.ticket_confirmation_date?.ToShortDateString()</td>
+                            <td>@entity.ticket_quantity</td>
+                            <td>@entity.ticket_item_name</td>
+                            <td class="@entity.PrimaryTPPaid_class">@entity.ncpdp_primary_claim_paid</td>
+                            <td class="@entity.SecondaryTPPaid_class">@entity.ncpdp_secondary_claim_paid</td>
+                            <td class="@entity.Copay_class">@entity.Copay</td>
+                            <td>@entity.TPRevenuePlusPatientCopay</td>
+                            <td class="@entity.ticket_cost_class">@entity.COGS</td>
+                            <td>@entity.COGSAdjusted</td>
+                            <td>@entity.GrossProfit</td>
+                            <td>@entity.GrossProfitAdjusted</td>
+                            <!--<td class="@entity.primary_claim_billed_class">@entity.ncpdp_primary_claim_billed</td>
+                            <td class="@entity.secondary_claim_billed_class">@entity.ncpdp_secondary_claim_billed</td>-->
+                            <td>@entity.ticket_item_delivins</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+</form>
+
+
+@code {
+
+    List<ProfitabilityNCPDPModel> Entities;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await refreshRecords("Billable");
+        await Task.CompletedTask;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            StateHasChanged();
+        }
+        await Task.CompletedTask;
+    }
+
+    public async Task refreshRecords(string searchType)
+    {
+        toastService.ShowInfo("Searching...");
+        await Task.Delay(1);
+        if (searchType == "Billable")
+        {
+            Entities = await cprsqlService.GetProfitabilityReportDuplicate(searchType,"None",DateTime.Now, DateTime.Now);
+        }
+        else
+        {
+            //Entities = await cprsqlService.GetByRXNO(searchValue);
+        }
+
+        if (cprsqlService.DBState.ErrorOccurred) toastService.ShowError(cprsqlService.DBState.ErrorMessage);
+
+        if (Entities == null)
+
+        {
+            toastService.ShowInfo("No record(s) found");
+        }
+        else
+        {
+            toastService.ShowInfo("record was found");
+        }
+    }
+
+    //public event Action<ProfitabilityNCPDPModel> RecordSelectedEvent;
+
+
+    private void RecordSelectedHandler(ProfitabilityNCPDPModel entity, ChangeEventArgs e)
+    {
+        entity.DELFLAG = (entity.RecordSelected == true) ? 1 : 0;
+        toastService.ShowInfo("Ticket " + entity.TICKNO + entity.DELFLAG);
+        //int result = Task.Run(() => cprsqlService.TICKC_UpdateDelFlag(entity)).Result;
+
+        //RecordSelectedEvent?.Invoke(entity);
+    }
+}

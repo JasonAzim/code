@@ -1,0 +1,17 @@
+﻿<div class="box-col">
+    @if (!string.IsNullOrEmpty(Description))
+    {
+        <h4>
+            @Description
+        </h4>
+    }
+    @ChildContent
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+    [Parameter]
+    public string Description { get; set; }
+
+}

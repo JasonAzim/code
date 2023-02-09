@@ -1,0 +1,66 @@
+﻿@page "/"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+<h1 class="text-danger">ISHUB</h1>
+
+<p>
+    Welcome to <strong>ISHUB</strong> portal which is an application written by the IS Department to provide reporting, data analysis and data correction capabilities.
+    The application contains pages which provide different features which are explained below:
+</p>
+
+<h2 class="text-danger">Ambrisentan REMS Submission</h2>
+
+<ul>
+    <li>This page is used to the change the status of transactions. The transactions can be marked as Accepted, Rejected or Deferred.</li>
+    <li>Allows editting of external data for Ambrisentan and tracks which user made the change.</li>
+</ul>
+
+<!--
+<h3>Details</h3>
+
+<p>
+    <strong>Profitability Report Editor</strong> is used to modify cost and fix data discrepancies.
+</p>
+-->
+
+<h2 class="text-danger">URAC Turn Around Time</h2>
+
+<ul>
+    <li>Use this page to schedule and run a URAC Turn Around Time calculation job.</li>
+    <li>The page can be used to monitor currently running jobs.</li>
+    <li>Once the jobs are completed, you can view the results and export them to excel for various steps.</li>
+</ul>
+
+<h2 class="text-danger">FedEx POD Repository</h2>
+
+<ul>
+    <li>The BackOffice server downloads FedEx Proof Of Delivery documents every week and this tool is used to search for the documents using a Tracking Number.</li>
+    <li>We can search for documents in Alphascript or Hoover.</li>
+    <li>The page allows searching of one record or many records using RXNumber or tracking number. Enter comma separated values to perform a search for multipe records.</li>
+</ul>
+
+<h2 class="text-danger">BackOffice</h2>
+
+<ul>
+    <li>This page is used to monitor the jobs that are currently running on the SSIS server and on the BackOffice Server in realtime.</li>
+    <li>The page can be used to schedule a job</li>
+</ul>
+
+<h2 class="text-danger">Profitability Report Editor</h2>
+
+<ul>
+    <li>Use this tool to edit the accounting issues that cannot be resolved within CPR+.</li>
+    <li>Due to limited resources the maximum date range search should be one month. Ideally, if you are using the column sort and filter features, the smaller data (shorter date range), the better.</li>
+    <li>Each columns can be sorted and filtered similar to Excel.</li>
+    <li>Large data extraction (several months to years worth of data) should be done from CareTend BI.</li>
+    <li>Datagrid "Adjudicated NCPDP Report with Overlay" [0041JA] data is updated as soon as changes are made from the editor. This Datagrid was created to resemble the profitability report.</li>
+    <li>Datagrid "NCPDP_for_DRL with overlay" [0046JA] is the master template datagrid for the MAHA/DRL Excel file for Alphascript. Just like 0041JA, this Datagrid will contain all the edits made from the editor.</li>
+</ul>
+
+<h2 class="text-danger">Master Dispense Editor</h2>
+
+<ul>
+    <li>This page is used to edit accounting data discrepancies for Hoover and Alphascript.</li>
+</ul>

@@ -1,0 +1,234 @@
+﻿@page "/AmbrisentanRems"
+@inject IAmbrisentanREMService ambrisentanService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+    .sort-th {
+        cursor: pointer;
+    }
+
+    .fa {
+        float: right;
+    }
+
+    .btn-custom {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 2px solid #000;
+        margin: 0px 5px 0px 5px;
+    }
+</style>
+
+<!--
+<div>
+    <a class="btn btn-primary" href='/AmbrisentanREMSAdd'>Add</a>
+</div>
+-->
+<br />
+
+@if (entities == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row col-md-3 pull-right">
+        <!--
+        <button type="button" class="btn btn-danger" @onclick="() => refreshRecords()">Search</button>&nbsp;&nbsp;
+        <input type="text" id="txtSearch" placeholder="Search Ship Date" @bind="SearchTerm" @bind:event="oninput" />
+        -->
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TransactionID"))">
+                    Transaction ID
+                    <span class="fa @(SetSortIcon("TransactionID"))"></span>
+                </th>
+                <th class="gridColumnSort-th-100" @onclick="@(() => SortTable("MRN"))">
+                    MRN
+                    <span class="fa @(SetSortIcon("MRN"))"></span>
+                </th>
+                <th class="gridColumnSort-th-100" @onclick="@(() => SortTable("ShipDate"))">
+                    Ship Date
+                    <span class="fa @(SetSortIcon("ShipDate"))"></span>
+                </th>
+                <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("Restatement"))">
+                    Restatement
+                    <span class="fa @(SetSortIcon("Restatement"))"></span>
+                </th>
+                <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("SubmitToUBC"))">
+                    Submit To UBC
+                    <span class="fa @(SetSortIcon("SubmitToUBC"))"></span>
+                </th>
+                <th class="gridColumnSort-th-100" @onclick="@(() => SortTable("Created"))">
+                    Created
+                    <span class="fa @(SetSortIcon("Created"))"></span>
+                </th>
+                <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("UpdatedBy"))">
+                    Updated By
+                    <span class="fa @(SetSortIcon("UpdatedBy"))"></span>
+                </th>
+                <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("FinalStatus"))">
+                    Status
+                    <span class="fa @(SetSortIcon("FinalStatus"))"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (entities == null || entities.Count == 0)
+            {
+                <tr>
+                    <td colspan="3">
+                        No Records to display
+                    </td>
+                </tr>
+            }
+            else
+            {
+                foreach (var entity in entities)
+                {
+                    <tr>
+                        <td>@entity.TransactionID</td>
+                        <td>@entity.SPPatientID</td>
+                        <td>@entity.ShipDate</td>
+                        <td>@entity.RestatementFlag</td>
+                        <td>@entity.SubmitToUBC</td>
+                        <td>@entity.CreatedTimestamp</td>
+                        <td>@entity.UpdatedBy</td>
+                        <td>
+                            <select id="FinalStatus" value="@entity.FinalStatus" disabled="@entity.StatusControlDisabled" @onchange="@((ChangeEventArgs e) => OnValueChanged(e, entity))">
+                                <option>None</option>
+                                <option>Accepted</option>
+                                <option>Rejected</option>
+                                <option>Deferred</option>
+                            </select>
+                            &nbsp;
+                            &nbsp;
+                            @if (@entity.StatusControlDisabled == true)
+                            {
+                                <button type="button" class="btn btn-primary" @onclick="() => Update(entity)">Edit</button>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private string searchTerm = "05/28/2020";
+    private string SearchTerm
+    {
+        get { return searchTerm; }
+        set { searchTerm = value; FilterRecords(); }
+    }
+
+    List<AmbrisentanREMSModel> entities;
+    AmbrisentanREMSModel Entity = new AmbrisentanREMSModel();
+
+    List<string> FinalStatusList = new List<string>() { "None", "Approved", "Rejected", "Deferred" };
+
+    private void OnValueChanged(ChangeEventArgs e, AmbrisentanREMSModel UpdateEntity)
+    {
+        string DisplayMessage = "Saved record as " + e.Value.ToString();
+        UpdateEntity.UpdatedBy = StateHelper.Items["UserIdentityName"].ToString();
+        toastService.ShowInfo(DisplayMessage);
+        UpdateEntity.FinalStatus = e.Value.ToString();
+        UpdateEntity.StatusControlDisabled = (UpdateEntity.FinalStatus == "None") ? false : true;
+        ambrisentanService.Update(UpdateEntity);
+    }
+
+    protected async Task Update(AmbrisentanREMSModel UpdateEntity)
+    {
+        //UpdateEntity.FinalStatus = "None";
+        UpdateEntity.StatusControlDisabled = !UpdateEntity.StatusControlDisabled;
+        await Task.CompletedTask;
+        //await ambrisentanService.Update(UpdateEntity);
+        //navigationManager.NavigateTo("/AmbrisentanRems");
+    }
+
+    #region Pagination
+
+    string sortColumnName = "ShipDate";
+    string sortDir = "DESC";
+
+    #endregion
+
+    protected override async Task OnInitializedAsync()
+    {
+        //display total page buttons
+        entities = await ambrisentanService.GetAll(sortColumnName, sortDir, searchTerm);
+    }
+
+    private bool isSortedAscending;
+    private string activeSortColumn;
+
+    private async Task<List<AmbrisentanREMSModel>> SortRecords(string columnName, string dir)
+    {
+        return await ambrisentanService.GetAll(columnName, dir, searchTerm);
+    }
+
+    private async Task SortTable(string columnName)
+    {
+        if (columnName != activeSortColumn)
+        {
+            entities = await SortRecords(columnName, "ASC");
+            isSortedAscending = true;
+            activeSortColumn = columnName;
+        }
+        else
+        {
+            if (isSortedAscending)
+            {
+                entities = await SortRecords(columnName, "DESC");
+            }
+            else
+            {
+                entities = await SortRecords(columnName, "ASC");
+            }
+
+            isSortedAscending = !isSortedAscending;
+        }
+        sortColumnName = columnName;
+        sortDir = isSortedAscending ? "ASC" : "DESC";
+    }
+
+    private string SetSortIcon(string columnName)
+    {
+        if (activeSortColumn != columnName)
+        {
+            return string.Empty;
+        }
+        if (isSortedAscending)
+        {
+            return "fa-sort-up";
+        }
+        else
+        {
+            return "fa-sort-down";
+        }
+    }
+
+    public async Task refreshRecords()
+    {
+        entities = await ambrisentanService.GetAll(sortColumnName, sortDir, searchTerm);
+        this.StateHasChanged();
+    }
+
+    public void FilterRecords()
+    {
+        this.OnInitializedAsync().Wait();
+    }
+
+}

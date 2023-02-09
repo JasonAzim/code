@@ -1,0 +1,99 @@
+﻿@page "/Document"
+@inject ISqlService SqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject DocumentService DocumentService
+
+@if (!string.IsNullOrEmpty(DocumentContent))
+{
+    <embed src="@DocumentContent#toolbar=0&navpanes=0&scrollbar=0" type="application/pdf" d width="800" height="1200" />
+
+    <!-- Uncomment to display in an IFrame
+    <iframe src="@DocumentContent" width="800px" height="2100px" />
+    -->
+
+    <!-- Uncomment to display as an inline embedded object
+    <object data="@DocumentContent" width="500" height="200"></object>
+    -->
+
+}
+
+@code {
+
+    private string UserID;
+    private string Database;
+    private string RXNO;
+    private string TrackingNO;
+    private string REFNO;
+    private string DispenseDate;
+    private string ShipDate;
+    private string URI;
+    private string DOCID;
+
+    private string DocumentContent { get; set; } = "";
+    private DocumentModel SPOD { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // https://beta-web-01.alphascript.local/ISHUBDev/Document?UserID=ALPHASCRIPT\jazim&Database=1&URI=&DOCID=5a6fa053-1929-4e97-84f5-14aa9d88be8e
+        navigationManager.TryGetQueryString<string>("URI", out URI);
+        navigationManager.TryGetQueryString<string>("DOCID", out DOCID);
+        navigationManager.TryGetQueryString<string>("UserID", out UserID);
+        navigationManager.TryGetQueryString<string>("Database", out Database);
+
+        if ((string.IsNullOrEmpty(DOCID)) || (DOCID == "0"))
+        {
+            navigationManager.TryGetQueryString<string>("RXNO", out RXNO);
+            navigationManager.TryGetQueryString<string>("TrackingNO", out TrackingNO);
+            navigationManager.TryGetQueryString<string>("REFNO", out REFNO);
+            navigationManager.TryGetQueryString<string>("DispenseDate", out DispenseDate);
+            navigationManager.TryGetQueryString<string>("ShipDate", out ShipDate);
+        }
+
+        await Task.CompletedTask;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if ((string.IsNullOrEmpty(DOCID)) || (DOCID == "0"))
+            {
+                //var document = await DocumentService.TestDocumentSearchAsync(DatabaseUID, RXNO, REFNO);
+
+                var documents = await SqlService.DocumentRead(TrackingNO, int.Parse(Database));
+                DocumentService.LogDocumentAccess(documents.FirstOrDefault().DocumentGUID, DateTime.Now, 1, 1, UserID, Database);
+                //var document = await DocumentService.ReadFileAsync(Database, RXNO, REFNO, DATE);
+                var file = await DocumentService.ReadFileAsync(documents.FirstOrDefault().DownloadPath);
+                DocumentContent = "data:application/pdf;base64," + System.Convert.ToBase64String(file);
+            }
+            else
+            {
+                Guid DocumentGUID = Guid.Parse(DOCID);
+                var documents = await SqlService.DocumentRead(DocumentGUID, int.Parse(Database));
+
+                if (SqlService.DBState.ErrorOccurred)
+                {
+                    toastService.ShowError(SqlService.DBState.ErrorMessage);
+                    return;
+                }
+
+                DocumentService.LogDocumentAccess(DocumentGUID, DateTime.Now, 1, 1, UserID, Database);
+                URI = DocumentService.GetDocumentDownloadServerPath(documents.FirstOrDefault().DownloadPath);
+                var file = await DocumentService.ReadFileAsync(URI);
+
+                if (DocumentService.State.ErrorOccurred)
+                {
+                    toastService.ShowError(SqlService.DBState.ErrorMessage);
+                    return;
+                }
+
+                //DocumentContent = "data:application/pdf;header:filename='123.pdf';base64," + System.Convert.ToBase64String(file);
+                DocumentContent = "data:application/pdf;base64," + System.Convert.ToBase64String(file);
+            }
+
+            StateHasChanged();
+        }
+    }
+}

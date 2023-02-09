@@ -1,0 +1,76 @@
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">IS HUB</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <ul class="nav flex-column">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="Help" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>Home
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="AmbrisentanRemsT" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>Ambrisentan REMS Submission
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="FedExSearch" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>FedEx POD Repository
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="CuresReport" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>PDMP File Submission Log
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="ProfitabilityReportEditor" Match=@NavLinkMatch.All>
+                <span class="oi oi-plus" aria-hidden="true"></span>Profitability Report Editor
+            </NavLink>
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" target="_blank" href="https://alphascriptrx.sharepoint.com/sites/ISDepartment/SitePages/Profitability-Report-Editor.aspx">
+                        <span class="oi oi-plus" aria-hidden="true"></span>Development History
+                    </NavLink>
+                </li>
+            </ul>
+            <ul class="nav flex-column">
+                <li class="nav-item px-3">
+                    <NavLink class="nav-link" target="_blank" href="https://alphascriptrx.sharepoint.com/sites/ISDepartment/SitePages/Profitability-Report-Editor-User-Guide.aspx">
+                        <span class="oi oi-plus" aria-hidden="true"></span>User Guide
+                    </NavLink>
+                </li>
+            </ul>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="masterDispenseEditor" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>Master Dispense Editor
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="URACTat" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>URAC Turn Around Time
+            </NavLink>
+        </li>
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="BackOffice" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span>BackOffice
+            </NavLink>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

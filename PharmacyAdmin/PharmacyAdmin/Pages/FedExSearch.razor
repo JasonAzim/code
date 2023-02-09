@@ -1,0 +1,674 @@
+﻿@page "/FedExSearch"
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject ISqlService SqlService
+@inject IToastService toastService
+@inject IUserService UserService
+@inject StateHelper StateHelper
+@inject IJSRuntime JSRuntime
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+    .sort-th {
+        cursor: pointer;
+    }
+
+    .fa {
+        float: right;
+    }
+
+    .DatePanel {
+        border: 2px solid #000;
+        width: 500px;
+        height: 100%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+</style>
+
+<form>
+    @if (ViewModel.ShowSearch)
+    {
+        <!-- Begin Search Form -->
+        <div class="form-group">
+            Select Pharmacy:
+            @foreach (var item in Enum.GetNames(typeof(FedExViewModel.Databases)))
+            {
+                <input type="radio" name="radioDatabase" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnDatabaseItemChanged(e))" checked=@(ViewModel.SelectedDatabase.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+                <label for="@item">@item</label>
+            }
+        </div>
+
+        <div class="form-group">
+            Select Search Type:
+            @foreach (var item in Enum.GetNames(typeof(FedExViewModel.SearchTypes)))
+            {
+                @if ((ViewModel.SelectedDatabase == "Hoover") && (item == "TicketNo"))
+                {
+                    // Do nothing.
+                }
+                else
+                {
+                    <input type="radio" name="radioSearchType" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchTypeItemChanged(e))" checked=@(ViewModel.SelectedSearchType.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+                    <label for="@item">@item</label>
+                }
+            }
+        </div>
+
+        <div class="form-group">
+            <label for="txtSearchValues" class="control-label">@ViewModel.SearchMessage</label><br />
+            <textarea rows="5" cols="100" id="txtOutput" @bind="ViewModel.SearchValues"></textarea>
+        </div>
+
+        <div class="DatePanel">
+            <div class="form-group">
+                Select the Date Range to search with:
+                @foreach (var item in Enum.GetNames(typeof(FedExViewModel.SearchDates)))
+                {
+                    <input type="radio" name="radioSearchDate" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchDateItemChanged(e))" checked=@(ViewModel.SelectedSearchDate.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+                    <label for="@item">@item</label>
+                }
+            </div>
+            @if (ViewModel.SelectedSearchDate != "None")
+            {
+                <ComponentDate Title="Start Date" @bind-Value="@ViewModel.SearchStartDate" />@ViewModel.SearchStartDate<br>
+                <ComponentDate Title="End Date" @bind-Value="@ViewModel.SearchEndDate" />@ViewModel.SearchEndDate
+            }
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords("RxNumber:ASC"))">Search</button>
+        </div>
+        <!-- End Search Form -->
+    }
+    else
+    {
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" @onclick="@(() => ShowSearchForm())">Back to Search</button>
+            <!--&nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(() => DownloadDocuments())">Download Documents</button>-->
+        </div>
+    }
+    <br>
+
+    <!-- Begin Search Results -->
+    @if (ViewModel.SelectedDatabase == "Alphascript")
+    {
+        @if (Entities != null)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("RxNumber"))" data-toggle="tooltip" data-placement="right" title="Sort">Rx Number<span class="fa @(SetSortIcon("RxNumber"))"></span></th>
+                        <th>Refill No</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("DispenseDate"))" data-toggle="tooltip" data-placement="right" title="Sort">Dispense Date<span class="fa @(SetSortIcon("DispenseDate"))"></span></th>
+                        <th>Patient</th>
+                        <th>NDC</th>
+                        <th>Drug</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TickNO"))" data-toggle="tooltip" data-placement="right" title="Sort">TickNO<span class="fa @(SetSortIcon("TickNO"))"></span></th>
+                        <th>Ship Method</th>
+                        <th>Service</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("ShipDate"))" data-toggle="tooltip" data-placement="right" title="Sort">Ship Date<span class="fa @(SetSortIcon("ShipDate"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TrackingNo"))" data-toggle="tooltip" data-placement="right" title="Sort">Tracking No<span class="fa @(SetSortIcon("TrackingNo"))"></span></th>
+                        <th>Signature?</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("Status"))" data-toggle="tooltip" data-placement="right" title="Sort">Status<span class="fa @(SetSortIcon("Status"))"></span></th>
+                        <th>Note</th>
+                        <th>POD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Entities == null || Entities.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="3">No Records to display</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var entity in Entities)
+                        {
+                            <tr class="@entity.CssClassName">  
+                                <td><!--<input type="checkbox" value="@entity.RecordID" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" />&nbsp;-->@entity.rx_number</td>
+                                <td>@entity.refillnum</td>
+                                <!--<td>@entity.dispense_prescription_sys_id</td>-->
+                                <td>@entity.dispense_date_timestamp?.ToShortDateString()</td>
+                                <!--<td>@entity.mrn</td>-->
+                                <td>@entity.patient_full_name</td>
+                                <td>@entity.ndc</td>
+                                <td>@entity.drug_name</td>
+                                <td>@entity.ticket_sys_id</td>
+                                <td>@entity.ticket_shipping_method</td>
+                                <td>@entity.ticket_service_type</td>
+                                <td>@entity.ticket_confirmation_date?.ToShortDateString()</td>
+                                <td>@entity.ticket_shipping_tracking_number</td>
+                                @if (string.IsNullOrEmpty(@entity.ImageAvailability))
+                                {
+                                    <td>Not Required</td>
+                                }
+                                else
+                                {
+                                    <td>YES</td>
+                                }   
+                                <td>@entity.TrackStatus</td>                                
+                                <td>@entity.GetDocumentNote()</td>
+                                @if (!string.IsNullOrEmpty(@entity.Code) && (@entity.Code == "0"))
+                                {
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><a href="" @onclick="@(() => DownloadDocument(@entity.rx_number, @entity.ticket_shipping_tracking_number, @entity.ticket_sys_id.ToString(), @entity.dispense_date_timestamp, @entity.ticket_confirmation_date))" @onclick:preventDefault title="Download Document"><img src="assets/images/file-earmark-arrow-down.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                                <td><a href="" @onclick="@(() => ViewDocument(@entity.rx_number, @entity.ticket_shipping_tracking_number, @entity.ticket_sys_id.ToString(), @entity.dispense_date_timestamp, @entity.ticket_confirmation_date))" @onclick:preventDefault title="View Document"><img src="assets/images/file-earmark-pdf.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                }
+                                else if (!string.IsNullOrEmpty(@entity.Code) && (@entity.Code != "0"))
+                                {
+                                <td><a href="" @onclick="@(() => ViewDocumentTrackInfo(@entity.rx_number, @entity.ticket_shipping_tracking_number, @entity.ticket_sys_id.ToString(), @entity.dispense_date_timestamp, @entity.ticket_confirmation_date))" @onclick:preventDefault title="View Document">Call FedEx</a></td>
+                                }
+                                else
+                                {
+                                <td></td>
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+    }
+    else
+    {
+        @if (PioneerEntities != null)
+        {
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-primary">
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("RxNumber"))" data-toggle="tooltip" data-placement="right" title="Sort">Rx Number<span class="fa @(SetSortIcon("RxNumber"))"></span></th>
+                        <th>Refill No</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("DateFilled"))" data-toggle="tooltip" data-placement="right" title="Sort">Date Filled<span class="fa @(SetSortIcon("DateFilled"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("MRN"))" data-toggle="tooltip" data-placement="right" title="Sort">MRN<span class="fa @(SetSortIcon("MRN"))"></span></th>
+                        <th>Patient</th>
+                        <th>NDC</th>
+                        <th>Drug Name</th>
+                        <th>Shipper</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("ShipDate"))" data-toggle="tooltip" data-placement="right" title="Sort">Ship Date<span class="fa @(SetSortIcon("ShipDate"))"></span></th>
+                        <th class="gridColumnSort-th-150">Card Ticket</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("SaleReceipt"))" data-toggle="tooltip" data-placement="right" title="Sort">Sale Receipt<span class="fa @(SetSortIcon("SaleReceipt"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TrackingNo"))" data-toggle="tooltip" data-placement="right" title="Sort">Tracking No<span class="fa @(SetSortIcon("TrackingNo"))"></span></th>
+                        <th>Signature?</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("Status"))" data-toggle="tooltip" data-placement="right" title="Sort">Status<span class="fa @(SetSortIcon("Status"))"></span></th>
+                        <th>Note</th>
+                        <th>POD</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (PioneerEntities == null || PioneerEntities.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="3">No Records to display</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var entity in PioneerEntities)
+                        {
+                            <tr>
+                                <td><!--<input type="checkbox" value="@entity.RecordID" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" />&nbsp;-->@entity.RxNumber</td>
+                                <!--<td>@entity.RxID</td>-->
+                                <!--<td>@entity.RxTransactionID</td>-->
+                                <td>@entity.RefillNumber</td>
+                                <td>@entity.DateFilled?.ToShortDateString()</td>
+                                <!--<td>@entity.DispensedQuantity</td>-->
+                                <td>@entity.PatientSerialNumber</td>
+                                <td>@entity.PatientFullName</td>
+                                <td>@entity.DispensedItemNdcFormatted</td>
+                                <td>@entity.DispensedItemName</td>
+                                <td>@entity.ShipperName</td>
+                                <td>@entity.CreatedOn?.ToShortDateString()</td>
+                                <td>@entity.CardTicketNumber</td>
+                                <td>@entity.SaleReceiptString</td>
+                                <td>@entity.TrackingNumber</td>
+                                @if (string.IsNullOrEmpty(@entity.ImageAvailability))
+                                {
+                                    <td>Not Required</td>
+                                }
+                                else
+                                {
+                                    <td>YES</td>
+                                }
+                                <td>@entity.TrackStatus</td>
+                                <td>@entity.GetDocumentNote()</td>
+                                @if (!string.IsNullOrEmpty(@entity.Code) && (@entity.Code == "0"))
+                                {
+                                    <td>
+                                        <table>
+                                            <tr>
+                                                <td><a href="" @onclick="@(() => DownloadDocument(@entity.RxNumber.ToString(), @entity.TrackingNumber, @entity.RxTransactionID.ToString(), @entity.DateFilled, @entity.CreatedOn))" @onclick:preventDefault title="Download Document"><img src="assets/images/file-earmark-arrow-down.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                                <td><a href="" @onclick="@(() => ViewDocument(@entity.RxNumber.ToString(), @entity.TrackingNumber, @entity.RxTransactionID.ToString(), @entity.DateFilled, @entity.CreatedOn))" @onclick:preventDefault title="View Document"><img src="assets/images/file-earmark-pdf.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                }
+                                else if (!string.IsNullOrEmpty(@entity.Code) && (@entity.Code != "0"))
+                                {
+                                <td><a href="" @onclick="@(() => ViewDocumentTrackInfo(@entity.RxNumber.ToString(), @entity.TrackingNumber, @entity.RxTransactionID.ToString(), @entity.DateFilled, @entity.CreatedOn))" @onclick:preventDefault title="View Document">Call FedEx</a></td>
+                                }
+                                else
+                                {
+                                <td></td>
+                                }
+                                <!--<td>@entity.OtherIdentifier</td> Matches SaleReceiptNumber--> 
+                                <!--<td>@entity.DocumentID?.ToString()</td>-->
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+    }
+</form>
+
+
+@code {
+
+    private FedExViewModel ViewModel;
+    private TableSortModel FedExCPRSQLTableSort = TableSortModel.ConstructFedExCPRSQLTable();
+    private TableSortModel FedExPioneerRXTableSort = TableSortModel.ConstructFedExPioneerRXTable();
+
+    private List<FedExCPRSQLDispenseModel> Entities;
+    private List<FedExPioneerRXDispenseModel> PioneerEntities;
+
+    protected override void OnInitialized()
+    {
+        ViewModel = new FedExViewModel() { SelectedDatabase = FedExViewModel.Databases.Alphascript.ToString(), SelectedSearchType = FedExViewModel.SearchTypes.RxNumber.ToString(), ShowSearch = true, UserID = StateHelper.Items["UserIdentityName"].ToString() };
+        if (UserService.CheckUserAccess("FedExSearch", ViewModel.UserID).Result == false)
+        {
+            navigationManager.NavigateTo("event/2", true);
+        }
+    }
+
+    private void OnDatabaseItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedDatabase = e.Value.ToString();
+    }
+
+    private void OnSearchTypeItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchType = e.Value.ToString();
+    }
+
+    private void OnSearchDateItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchDate = e.Value.ToString();
+    }
+
+    private void ShowSearchForm()
+    {
+        ViewModel.ShowSearch = true;
+        PioneerEntities = null;
+        Entities = null;
+    }
+
+    private void RecordSelectedHandler(FedExCPRSQLDispenseModel entity, ChangeEventArgs e)
+    {
+        entity.RecordSelected = !entity.RecordSelected;
+        string CheckValue = e.Value.ToString();
+    }
+
+    private void RecordSelectedHandler(FedExPioneerRXDispenseModel entity, ChangeEventArgs e)
+    {
+        entity.RecordSelected = !entity.RecordSelected;
+        string CheckValue = e.Value.ToString();
+    }
+
+    private void DownloadDocuments()
+    {
+        string uri = string.Empty;
+
+        if (ViewModel.SelectedDatabase == FedExViewModel.Databases.Alphascript.ToString())
+        {
+            for (int i = 0; i < Entities.Count; i++)
+            {
+                if (Entities[i].RecordSelected)
+                {
+                    uri = ViewModel.GetDocumentUri("DOWNLOAD", "0", Entities[i].rx_number, Entities[i].ticket_shipping_tracking_number, Entities[i].ticket_sys_id.ToString(), Entities[i].dispense_date_timestamp?.ToShortDateString(), Entities[i].ticket_confirmation_date?.ToShortDateString());
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < PioneerEntities.Count; i++)
+            {
+                if (PioneerEntities[i].RecordSelected)
+                {
+                    uri = ViewModel.GetDocumentUri("DOWNLOAD", "0", PioneerEntities[i].RxNumber.ToString(), PioneerEntities[i].TrackingNumber, PioneerEntities[i].RxTransactionID.ToString(), PioneerEntities[i].DateFilled?.ToShortDateString(), PioneerEntities[i].CREATEDON?.ToShortDateString());
+                }
+            }
+        }
+    }
+
+    private async void ViewDocumentTrackInfo(string RxNumber, string TrackingNumber, string ReferenceNumber, DateTime? DispenseDate, DateTime? ShipDate)
+    {
+        string error = string.Empty;
+        var documents = await SqlService.DocumentRead(TrackingNumber, ViewModel.SelectedDatabaseInt);
+        if ((documents == null) || (documents.Count == 0) || (documents.FirstOrDefault().DocumentGUID == null))
+        {
+            toastService.ShowInfo("Document was not found in the database.");
+            return;
+        }
+        else
+        {
+            toastService.ShowInfo(documents.FirstOrDefault().DocumentGUID + " had FedEx Document Service Error Code #" + documents.FirstOrDefault().Code + " and Track Error Code #" + documents.FirstOrDefault().TrackCode);
+        }
+    }
+
+    private async void ViewDocument(string RxNumber, string TrackingNumber, string ReferenceNumber, DateTime? DispenseDate, DateTime? ShipDate)
+    {
+        string uri = string.Empty;
+
+        try
+        {
+            // uri = "Document?Database=1&RXNO=583514&REFNO=377435&DATE=2021-10";
+            // var documents = await SqlService.DocumentRead("285070558905", ViewModel.SelectedDatabaseInt);
+            var documents = await SqlService.DocumentRead(TrackingNumber, ViewModel.SelectedDatabaseInt);
+            if ((documents == null) || (documents.Count == 0) || (documents.FirstOrDefault().DocumentGUID == null))
+            {
+                toastService.ShowInfo("Document was not found in the database.");
+                return;
+            }
+
+            //uri = ViewModel.GetDocumentUri("VIEW", documents.FirstOrDefault().DocumentGUID.ToString(), RxNumber, TrackingNumber, ReferenceNumber, DispenseDate?.ToShortDateString());
+            //uri = ViewModel.GetDocumentUri("VIEW", documents.FirstOrDefault().DocumentGUID.ToString(), documents.FirstOrDefault().DownloadPath);
+            uri = ViewModel.GetDocumentUri("VIEW", documents.FirstOrDefault().DocumentGUID.ToString(), "0");
+            //Console.WriteLine("DOCID={0} DownloadPath={1}", documents.FirstOrDefault().DocumentGUID.ToString(), documents.FirstOrDefault().DownloadPath);
+            await JSRuntime.InvokeVoidAsync("open", uri, "_blank");
+            //await JSRuntime.InvokeAsync<object>("open", uri, "_blank");
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+    private async void DownloadDocument(string RxNumber, string TrackingNumber, string ReferenceNumber, DateTime? DispenseDate, DateTime? ShipDate)
+    {
+        string uri = string.Empty;
+        // uri = "api/download?DocumentGUID=F3BAA641-6914-4EE5-8FCD-0C57C1F43A65&UserID=@UserID&Database=@ViewModel.SelectedDatabase";
+
+        try
+        {
+            var documents = await SqlService.DocumentRead(TrackingNumber, ViewModel.SelectedDatabaseInt);
+            if ((documents == null) || (documents.Count == 0) || (documents.FirstOrDefault().DocumentGUID == null))
+            {
+                toastService.ShowInfo("Document was not found in the database.");
+                return;
+            }
+            else
+            {
+                uri = ViewModel.GetDocumentUri("DOWNLOAD", documents.FirstOrDefault().DocumentGUID.ToString(), RxNumber, TrackingNumber, ReferenceNumber, DispenseDate?.ToShortDateString(), ShipDate?.ToShortDateString());
+            }
+            //navigationManager.NavigateTo(uri, true);
+            //await JSRuntime.InvokeVoidAsync("open", uri, "_blank");
+            var result = await JSRuntime.InvokeAsync<string>("open", uri, "_blank");
+
+            //await JSRuntime.InvokeVoidAsync("DocModule.downloadDocument", uri);
+        }
+        catch (Exception)
+        {
+        }
+    }
+
+    private async Task SortTable(string columnName)
+    {
+        if (ViewModel.SelectedDatabase == FedExViewModel.Databases.Alphascript.ToString())
+        {
+            System.Diagnostics.Debug.WriteLine("Current Sort:" + FedExCPRSQLTableSort.SortColumnName + FedExCPRSQLTableSort.SortDirection);
+            if (columnName != FedExCPRSQLTableSort.SortColumnName) // This will execute when SortColumnName is null or empty or changed
+            {
+                FedExCPRSQLTableSort.IsAscending = true;  // since we changed to a new column so we will default it to ascending sort
+            }
+            else
+            {
+                // It is the same column but sort order has been changed
+                FedExCPRSQLTableSort.IsAscending = !FedExCPRSQLTableSort.IsAscending;
+            }
+            FedExCPRSQLTableSort.SortColumnName = columnName;
+            System.Diagnostics.Debug.WriteLine("New Sort:" + FedExCPRSQLTableSort.SortColumnName + FedExCPRSQLTableSort.SortDirection);
+
+            if (Entities == null || Entities.Count == 0)
+            {
+                toastService.ShowInfo("Please wait refreshing and sorting by  " + columnName);
+                await refreshRecords(columnName + ":" + FedExCPRSQLTableSort.SortDirection);
+            }
+
+            if (FedExCPRSQLTableSort.IsAscending)
+            {
+                if (FedExCPRSQLTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderBy(x => x.rx_number).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "DispenseDate")
+                {
+                    Entities = Entities.OrderBy(x => x.dispense_date_timestamp).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "TickNO")
+                {
+                    Entities = Entities.OrderBy(x => x.ticket_sys_id).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "TrackingNo")
+                {
+                    Entities = Entities.OrderBy(x => x.ticket_shipping_tracking_number).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "ShipDate")
+                {
+                    Entities = Entities.OrderBy(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "Status")
+                {
+                    Entities = Entities.OrderBy(x => x.TrackStatus).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+            else
+            {
+                if (FedExCPRSQLTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderByDescending(x => x.rx_number).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "DispenseDate")
+                {
+                    Entities = Entities.OrderByDescending(x => x.dispense_date_timestamp).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "TickNO")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ticket_sys_id).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "TrackingNo")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ticket_shipping_tracking_number).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "ShipDate")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (FedExCPRSQLTableSort.SortColumnName == "Status")
+                {
+                    Entities = Entities.OrderByDescending(x => x.TrackStatus).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("Current Sort:" + FedExPioneerRXTableSort.SortColumnName + FedExPioneerRXTableSort.SortDirection);
+            if (columnName != FedExPioneerRXTableSort.SortColumnName)
+            {
+                FedExPioneerRXTableSort.IsAscending = true;
+            }
+            else
+            {
+
+                FedExPioneerRXTableSort.IsAscending = !FedExPioneerRXTableSort.IsAscending;
+            }
+            FedExPioneerRXTableSort.SortColumnName = columnName;
+            System.Diagnostics.Debug.WriteLine("New Sort:" + FedExPioneerRXTableSort.SortColumnName + FedExPioneerRXTableSort.SortDirection);
+
+            if (PioneerEntities == null || PioneerEntities.Count == 0)
+            {
+                toastService.ShowInfo("Please wait refreshing and sorting by  " + columnName);
+                await refreshRecords(columnName + ":" + FedExPioneerRXTableSort.SortDirection);
+            }
+
+            if (FedExPioneerRXTableSort.IsAscending)
+            {
+                if (FedExPioneerRXTableSort.SortColumnName == "RxNumber")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.RXNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "DateFilled")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.DateFilled).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "MRN")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.PatientSerialNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "ShipDate")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.CreatedOn).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "SaleReceipt")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.SaleReceiptString).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "TrackingNo")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.TrackingNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "Status")
+                {
+                    PioneerEntities = PioneerEntities.OrderBy(x => x.TrackStatus).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+            else
+            {
+                if (FedExPioneerRXTableSort.SortColumnName == "RxNumber")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.RXNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "DateFilled")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.DateFilled).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "MRN")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.PatientSerialNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "ShipDate")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.CreatedOn).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "SaleReceipt")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.SaleReceiptString).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "TrackingNo")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.TrackingNumber).ToList();
+                }
+                else if (FedExPioneerRXTableSort.SortColumnName == "Status")
+                {
+                    PioneerEntities = PioneerEntities.OrderByDescending(x => x.TrackStatus).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+        }
+
+        StateHasChanged();
+    }
+
+    private string SetSortIcon(string columnName)
+    {
+        TableSortModel CurrentTableSort = FedExCPRSQLTableSort;
+        if (ViewModel.SelectedDatabase == FedExViewModel.Databases.Hoover.ToString())
+        {
+            CurrentTableSort = FedExPioneerRXTableSort;
+        }
+
+        if (CurrentTableSort.SortColumnName != columnName)
+        {
+            return string.Empty;
+        }
+
+        if (CurrentTableSort.IsAscending)
+        {
+            return "fa-sort-up";
+        }
+        else
+        {
+            return "fa-sort-down";
+        }
+    }
+
+    private async Task refreshRecords(string searchType)
+    {
+        ObjectState ViewModelState = ViewModel.State();
+        if (ViewModelState.ErrorOccurred)
+        {
+            toastService.ShowWarning(ViewModelState.DisplayMessage);
+            return;
+        }
+
+        ViewModel.ShowSearch = false;
+
+        toastService.ShowInfo("Searching...");
+        await Task.Delay(1);
+
+        if (ViewModel.SelectedDatabase == FedExViewModel.Databases.Alphascript.ToString())
+        {
+            FedExCPRSQLDataModel FedExCPRSQLData = new FedExCPRSQLDataModel();
+
+            //FedExCPRSQLData.FedExCPRSQLDispenseList = await SqlService.CPRSQLFedExSearchDispense(ViewModel.SelectedSearchType.ToString(), ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate, Global.ShippingMethod.ALL);
+            FedExCPRSQLData = await SqlService.CPRSQLFedExSearch(ViewModel.SelectedSearchType.ToString(), ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate, Global.ShippingMethod.ALL);
+
+            Entities = FedExCPRSQLData.FedExCPRSQLDispenseList;
+            //Entities = FedExCPRSQLData.FedExCPRSQLDispenseList.OrderBy(x => x.rx_number).OrderBy(x => x.refillnum).ToList();
+
+            if ((Entities == null) || (Entities.Count == 0))
+            {
+                toastService.ShowInfo("No record(s) found");
+            }
+        }
+        else
+        {
+            //List<FedExPioneerRXDispenseModel> Models = await SqlService.PioneerRXFedExSearchDispense(ViewModel.SelectedSearchType.ToString(), ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate, Global.ShippingMethod.ALL);
+
+            List<FedExPioneerRXDispenseModel> Models = await SqlService.PioneerRXFedExSearchDispenseDoc(ViewModel.SelectedSearchType.ToString(), ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate, Global.ShippingMethod.ALL);
+
+            PioneerEntities = Models;
+            //PioneerEntities = Models.OrderBy(x => x.RxNumber).OrderBy(x => x.RefillNumber).ToList();
+
+            if ((PioneerEntities == null) || (PioneerEntities.Count == 0))
+            {
+                toastService.ShowInfo("No record(s) found");
+            }
+        }
+
+        if (SqlService.DBState.ErrorOccurred) toastService.ShowError(SqlService.DBState.ErrorMessage);
+        await Task.Delay(1);
+    }
+}

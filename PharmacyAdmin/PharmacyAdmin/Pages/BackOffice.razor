@@ -1,0 +1,154 @@
+﻿@page "/BackOffice"
+@using Pharmacy.Data.Repository
+@inject ISqlService sqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject IUserService UserService
+@inject StateHelper StateHelper
+
+<style>
+    .TextBoxSm {
+        width: 300px;
+    }
+</style>
+
+<form>
+
+    <TelerikGrid Data="@Jobs" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150" Width="1200px">
+        <GridColumns>
+            <GridColumn Field="Category" Title="Category" Filterable="true" Width="130px" />
+            <GridColumn Field="Name" Title="Name" Filterable="false" Width="250px" />
+            <GridColumn Field="Owner" Title="Owner" Filterable="false" Width="135px" />
+            <GridColumn Field="Status" Title="Status" Filterable="false" Width="100px" />
+            <GridColumn Field="LastRunTime" Title="Run Requested" Filterable="false" Width="160px" />
+            <GridColumn Field="LastStopTime" Title="Stop Execution" Filterable="false" Width="160px" />
+            <GridColumn Field="@(nameof(JobEntity.RecordSelected))" Title="SELECT" Filterable="false" Width="65px">
+                <Template>
+                    <input type="checkbox" id="cbJobSelect" value="@((context as JobEntity).JobID)" checked="@((context as JobEntity).RecordSelected)" @onchange="@(async (e) => await RecordSelectedHandler(context as JobEntity, e))" />
+                </Template>
+            </GridColumn>
+        </GridColumns>
+    </TelerikGrid>
+
+    <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><h4>Jobs</h4></div>
+
+    <h4>@Title</h4>
+
+    <div class="form-group">
+        <label for="JobName" class="lblCaption">Job Name</label>
+        <input type="text" id="JobName" class="TextBoxSm" @bind-value="JobSelected.Name" />
+    </div>
+    <div class="form-group">
+        <label for="EndDate" class="lblCaption">Job Schedule Date Time</label>
+        <input type="text" id="EndDate" @bind-value="JobScheduleDate" />
+    </div>
+
+    <button type="button" class="btn btn-danger">@Title</button>
+</form>
+
+@code {
+
+    private string Title;
+    public string JobScheduleDate { get; set; }
+
+    List<JobEntity> Jobs;
+
+    JobEntity JobSelected;
+    List<JobScheduleModel> JobScheduleEntities;
+    JobScheduleModel JobScheduleSelected;
+
+    protected override async Task OnInitializedAsync()
+    {
+        JobSelected = new JobEntity();
+        JobSelected.RecordSelected = false;
+        Title = "Add Job";
+
+        Jobs = new List<JobEntity>();
+        await Task.Run(async () => await JobsLoad());
+        await Task.CompletedTask;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            StateHasChanged();
+        }
+    }
+
+    protected async Task JobsLoad()
+    {
+        Jobs = await sqlService.ISHUBGetJobs();
+        Jobs = Jobs.OrderBy(x => x.Category).ToList();
+
+        if (Jobs != null && Jobs.Count > 0)
+        {
+        }
+        else
+        {
+            toastService.ShowWarning("No Jobs were found");
+        }
+
+        await Task.CompletedTask;
+    }
+
+    public async Task saveJob(string mode)
+    {
+        try
+        {
+            JobScheduleSelected.ScheduledDate = DateTime.Parse(JobScheduleDate);
+            var result = await sqlService.ISHUB_Job_UpdateSchedule(JobScheduleSelected);
+            toastService.ShowInfo("Job schedule saved");
+        }
+        catch (Exception e)
+        {
+            toastService.ShowError("Job schedule not saved " + e.Message);
+        }
+
+        await Task.CompletedTask;
+    }
+
+    private async Task RecordSelectedHandler(JobEntity entity, ChangeEventArgs e)
+    {
+        for (int i = 0; i < Jobs.Count; i++)
+        {
+            Jobs[i].RecordSelected = false;
+        }
+
+        JobSelected = entity;
+        entity.RecordSelected = !entity.RecordSelected;
+
+        if (e.Value.ToString().ToLower() == "true")
+        {
+            Title = "Update Job";
+            toastService.ShowInfo("job selected");
+            await Task.Run(async () => await JobScheduleSelect());
+        }
+        else
+        {
+            Title = "Add Job";
+
+        }
+
+        //entity.UpdatedBy = entity.UpdatedBy + "-" + StateHelper.Items["UserIdentityName"].ToString();
+
+        await Task.CompletedTask;
+    }
+
+    protected async Task JobScheduleSelect()
+    {
+        JobScheduleEntities = await sqlService.ISHUBGetJobSchedules(JobSelected.Name);
+        if (JobScheduleEntities != null && JobScheduleEntities.Count > 0)
+        {
+            JobScheduleSelected = JobScheduleEntities.FirstOrDefault(); // selected Job Schedule , To do support multiple schedules
+            JobScheduleDate = JobScheduleSelected.ScheduledDate.Value.ToString("yyyy-MM-dd h:mm tt");
+        }
+        else
+        {
+            toastService.ShowWarning("No Job Schedule was found because job is not a back office scheduled job");
+        }
+
+        //await Task.CompletedTask;
+    }
+}

@@ -1,0 +1,27 @@
+﻿@page "/TestDocumentDownload"
+@inject ISqlService SqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject DocumentService DocumentService
+
+<button @onclick="onClick">download</button>
+
+@code {
+
+    private string DocumentGUID;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        navigationManager.TryGetQueryString<string>("DocumentGUID", out DocumentGUID);
+
+        await Task.CompletedTask;
+    }
+
+    private void onClick(MouseEventArgs e)
+    {
+        navigationManager.NavigateTo($"api/download?DocumentGUID={DocumentGUID}", true);
+        //navigationManager.NavigateTo("api/download", true);
+    }
+}

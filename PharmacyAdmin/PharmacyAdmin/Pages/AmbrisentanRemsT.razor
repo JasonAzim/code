@@ -1,0 +1,158 @@
+﻿@page "/AmbrisentanRemsT"
+@inject IAmbrisentanREMService ambrisentanService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+
+@using System.Collections.Generic;
+@using Telerik.DataSource.Extensions;
+
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+<style>
+    .sort-th {
+        cursor: pointer;
+    }
+
+    .fa {
+        float: right;
+    }
+
+    .btn-custom {
+        color: black;
+        float: left;
+        padding: 8px 16px;
+        text-decoration: none;
+        transition: background-color .3s;
+        border: 2px solid #000;
+        margin: 0px 5px 0px 5px;
+    }
+
+    /* Telerik Styles */
+
+    /* the custom background - in this example, on every third element*/
+    .k-grid-table .k-master-row {
+        /* color: purple; */
+        border: 1px solid maroon;
+    }
+
+    k-grid-content tr:last-child > td, .k-grid-content-locked tr:last-child > td {
+        border-bottom-width: 1px;
+    }
+
+    /* Data Loading */
+    .initial-data-loader .k-loader-container-overlay.k-overlay-light {
+        background-color: white;
+    }
+</style>
+
+<br />
+
+@if (!string.IsNullOrEmpty(GridDataLoadCompleteStatus))
+{
+    <div class="form-group">
+        <label class="lblCaption">@GridDataLoadCompleteStatus</label>
+    </div>
+}
+<div style="position: relative; width:100%; min-height: 400px;">
+    <TelerikLoaderContainer OverlayThemeColor="light"
+                            Visible="@IsGridDataLoadComplete"
+                            Text="@null" Class="initial-data-loader">
+        <Template>
+            <TelerikLoader Type="@LoaderType.InfiniteSpinner" Size="@(ThemeConstants.Loader.Size.Large)">
+            </TelerikLoader>
+        </Template>
+    </TelerikLoaderContainer>
+    <TelerikGrid Data="@entities" TItem="AmbrisentanREMSModel" @ref="@GridRef" Sortable="true" Resizable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false"  EditMode="GridEditMode.Inline"  OnUpdate="@UpdateHandler" OnCancel="@CancelHandler">
+        <GridColumns>
+            <GridColumn Field="TransactionID" Title=" Transaction ID" Filterable="true" Resizable="true" Editable="false" Width="175px" />
+            <GridColumn Field="SPPatientID" Title="MRN" Filterable="true" Resizable="true" Editable="false" Width="100px" />
+            <GridColumn Field="ShipDatePart" Title="Ship Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Resizable="true" Editable="false" Width="150px" />
+            <GridColumn Field="RestatementFlag" Title="Restatement" Filterable="true" Resizable="true" Editable="false" Width="150px" />
+            <GridColumn Field="CreatedTimestamp" Title="Created" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Resizable="true" Editable="false" Width="150px" />
+            <GridColumn Field="UpdatedBy" Title="Updated By" Filterable="true" Resizable="true" Editable="false" Width="250px" />
+            <GridColumn Field="@nameof(AmbrisentanREMSModel.SubmitToUBC)" Title="Submit To UBC" Width="175px">
+                <Template>
+                    @{
+                        var entity = context as AmbrisentanREMSModel;
+                        @entity.SubmitToUBC;
+                    }
+                </Template>
+                <EditorTemplate>
+                    @{
+                        var entity = context as AmbrisentanREMSModel;
+                        <TelerikDropDownList Data="SubmitList" @bind-Value="entity.SubmitToUBC" TextField="SubmitToUBC" ValueField="SubmitToUBC">
+                        </TelerikDropDownList>
+                    }
+                </EditorTemplate>
+            </GridColumn>
+            <GridColumn Field="@nameof(AmbrisentanREMSModel.FinalStatus)" Title="Final Status" Width="140px">
+                <Template>
+                    @{
+                        var entity = context as AmbrisentanREMSModel;
+                        @entity.FinalStatus;
+                    }
+                </Template>
+                <EditorTemplate>
+                    @{
+                        var entity = context as AmbrisentanREMSModel;
+                        <TelerikDropDownList Data="FinalStatusList" @bind-Value="entity.FinalStatus" TextField="FinalStatus" ValueField="FinalStatus">
+                        </TelerikDropDownList>
+                    }
+                </EditorTemplate>
+            </GridColumn>
+            <GridCommandColumn Width="250px">
+                <GridCommandButton Command="Save" Icon="save" ShowInEdit="true">Update</GridCommandButton>
+                <GridCommandButton Command="Edit" Icon="edit">Edit</GridCommandButton>
+                <GridCommandButton Command="Cancel" Icon="cancel" ShowInEdit="true">Cancel</GridCommandButton>
+            </GridCommandColumn>
+        </GridColumns>
+    </TelerikGrid>
+</div>
+
+
+@code {
+
+    public List<string> SubmitList { get; set; } = new List<string>() { "Y", "N" };
+
+    public bool IsGridDataLoadComplete { get; set; } = true; // Do not show the loading image when the page first loads
+    public string GridDataLoadCompleteStatus { get; set; }
+    TelerikGrid<AmbrisentanREMSModel> GridRef { get; set; }
+
+    private string searchTerm { get; set; } = "05/28/2020";
+
+    List<AmbrisentanREMSModel> entities;
+    AmbrisentanREMSModel Entity = new AmbrisentanREMSModel();
+
+    List<string> FinalStatusList = new List<string>() { "None", "Rejected", "Deferred", "Accepted" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        //display total page buttons
+        IsGridDataLoadComplete = true;
+        GridDataLoadCompleteStatus = "";
+        entities = await ambrisentanService.GetAll();
+        GridDataLoadCompleteStatus = "Total Record count = " + @entities.Count;
+        IsGridDataLoadComplete = false;
+    }
+
+    async Task UpdateHandler(GridCommandEventArgs args)
+    {
+        IsGridDataLoadComplete = true;
+        var UpdateEntity = (AmbrisentanREMSModel)args.Item;
+        string DisplayMessage = "Record Saved, status is " + UpdateEntity.FinalStatus + " Submit to UBC is " + UpdateEntity.SubmitToUBC;
+        UpdateEntity.UpdatedBy = StateHelper.Items["UserIdentityName"].ToString();
+        toastService.ShowInfo(DisplayMessage);
+        await ambrisentanService.Update(UpdateEntity);
+        entities = await ambrisentanService.GetAll();
+        GridRef?.Rebind();
+        IsGridDataLoadComplete = false;
+        //StateHasChanged();
+    }
+
+    async Task CancelHandler(GridCommandEventArgs args)
+    {
+        await Task.CompletedTask;
+    }
+
+}

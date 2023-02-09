@@ -1,0 +1,202 @@
+﻿@page "/ProfitabilityReportTest"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject IJSRuntime JSRuntime
+
+    <style>
+        .sort-th {
+            cursor: pointer;
+        }
+
+        .fa {
+            float: right;
+        }
+
+        .DatePanel {
+            border: 2px solid #000;
+            width: 700px;
+            height: 100%;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        tr.strikeout {
+            text-decoration: line-through;
+        }
+
+        .TextBoxSm {
+            width: 125px;
+        }
+
+        /* Telerik Styles */
+        .custom-row-colors .k-grid-table .k-master-row {
+            background-color: red;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row:hover {
+            background-color: pink;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row.k-alt {
+            background-color: green;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row.k-alt:hover {
+            background-color: cyan;
+        }
+
+        .k-grid-table td .cellchanged {
+            background: yellow;
+        }
+
+        .k-input-numeric {
+            border: 1px solid maroon;
+        }
+    </style>
+
+    <form>
+        <div class="form-group">
+            <table>
+                <tr>
+                    <td>
+                        Enter RX Number(s)
+                        <input type="text" id="txtRXNumber" @bind="ViewModel.RXNO" @bind:event="oninput" class="TextBoxSm" />&nbsp;&nbsp;
+                        Or Enter Invoice Number(s)<input type="text" id="txtInvoiceNumber" @bind="ViewModel.INVOICENO" @bind:event="oninput" class="TextBoxSm" />
+                    </td>
+                    <td><ComponentDate Title="Start Date" @bind-Value="@ViewModel.SearchStartDate" />@ViewModel.SearchStartDate</td>
+                    <td><ComponentDate Title="End Date" @bind-Value="@ViewModel.SearchEndDate" />@ViewModel.SearchEndDate</td>
+                    <td>
+                        <label for="dropdownDate">Run test</label>
+                        <select name="dropdownDate" id="dropdownSearchType" @onchange="@((ChangeEventArgs e) => OnSearchTypeItemChanged(e))">
+                            <option value="NONE">None</option>
+                            <option value="SEARCH_RXNO">Search by RXNO</option>
+                            <option value="SEARCH_INVOICENO">Search by INVOICENO</option>
+                            <option value="CHECK_009JL">Check 0009JL Calculations</option>
+                        </select>
+                    </td>
+                    <td><button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button></td>
+                </tr>
+            </table>
+        </div>
+
+        <TelerikLoaderContainer OverlayThemeColor="light"
+                                Visible="@( !ViewModel.IsGridDataLoadComplete )"
+                                Text="@null" Class="initial-data-loader">
+            <Template>
+                <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+                               Size="@(ThemeConstants.Loader.Size.Large)">
+                </TelerikLoader>
+            </Template>
+        </TelerikLoaderContainer>
+        <TelerikGrid Data="@Entities" AutoGenerateColumns="false">
+            <GridColumns>
+                <GridColumn Field="@(nameof(ProfitabilityNCPDPModel.TicketSelected))" Title="EDIT" Width="50px">
+                    <Template>
+                        <input type="checkbox" id="cbTicketSelect" value="@((context as ProfitabilityNCPDPModel).TICKNO)" checked="@((context as ProfitabilityNCPDPModel).RecordSelected)" />
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="ncpdp_rx_number" Title="RX NO" Width="120px" />
+                <GridColumn Field="ncpdp_invoice_number" Title="Invoice No" Width="135px" />
+                <GridColumn Field="TICKNO" Title="Ticket No" Width="130px" />
+                <GridColumn Field="ncpdp_date_filled_timestamp" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Width="145px" />
+                <!--<GridColumn Field="ticket_cost_chgbyhost" Title="Cost Change" Filterable="false" />
+                    <GridColumn Field="ticket_cost_class" Title="Cost Class" Filterable="false" />
+                    <GridColumn Field="ticket_item_chgbyhost" Title="DelFlag Change" Filterable="false" />
+                    <GridColumn Field="CssClassName" Title="Row Class" Filterable="false" /> -->
+                <GridColumn Field="ticket_confirmation_date" Title="Conf. Date" DisplayFormat="{0:MM/dd/yy}" Width="150px" />
+                <GridColumn Field="ncpdp_quantity_new_refill_code" Title="Refill No" Width="125px" />
+                <GridColumn Field="ticket_quantity" Title="Quantity" Width="110px" />
+                <GridColumn Field="drug_name" Title="Drug Name" Width="200px" />
+                <GridColumn Field="ncpdp_primary_claim_payor" Title="Primary Payor" Width="200px" />
+                <GridColumn Field="primary_payor_type" Title="Payor Type" Width="150px" />
+                <GridColumn Field="Copay" Title="Copay" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="150px" />
+                <GridColumn Field="TPRevenuePlusPatientCopay" Title="TP Revenue + Patient Copay" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="200px" />
+                <GridColumn Field="COGS" Title="COGS" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="140px" />
+                <GridColumn Field="COGSAdjusted" Title="COGS Adjusted" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="140px" />
+                <GridColumn Field="GrossProfit" Title="Gross Profit" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="180px" />
+                <GridColumn Field="GrossProfitAdjusted" Title="Gross Profit Adjusted" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Width="180px" />
+                <GridColumn Field="History" Title="Change History" Width="200px" />
+                <GridColumn Field="ticket_item_delivins" Title="Delivery Instructions" Width="200px" />
+                <GridColumn Field="@(nameof(ProfitabilityNCPDPModel.TicketSelected))" Title="DELETE" Width="65px">
+                    <Template>
+                        <input type="checkbox" id="cbTicketSelect" value="@((context as ProfitabilityNCPDPModel).TICKNO)" checked="@((context as ProfitabilityNCPDPModel).TicketSelected)" />
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    </form>
+
+
+    @code {
+
+        private ProfitabilityReportViewModel ViewModel;
+        List<ProfitabilityNCPDPModel> Entities;
+
+        protected override async Task OnInitializedAsync()
+        {
+            ViewModel = new ProfitabilityReportViewModel() { SelectedSearchType = ProfitabilityReportViewModel.SearchTypes.All.ToString(), SelectedSearchDate = ProfitabilityReportViewModel.SearchDates.FillDate.ToString(), SearchValues = "", UserID = StateHelper.Items["UserIdentityName"].ToString() };
+
+            //await refreshRecords("");
+            await Task.CompletedTask;
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+            }
+            await Task.CompletedTask;
+        }
+
+        private void OnSearchTypeItemChanged(ChangeEventArgs e)
+        {
+            ViewModel.SelectedSearchType = e.Value.ToString();
+        }
+
+        public async Task refreshRecords(string searchType)
+        {
+            ViewModel.IsGridDataLoadComplete = false;
+            toastService.ShowInfo("Searching...");
+            //await Task.Delay(1);
+
+            var watch = new System.Diagnostics.Stopwatch();
+            watch.Start();
+
+            if (ViewModel.SelectedSearchType == "All")
+            {
+                //Entities = await cprsqlService.GetProfitabilityReportDuplicate(searchType,"None",DateTime.Now, DateTime.Now);
+                //DateTime StartDate = DateTime.Parse("8/15/2022"); DateTime EndDate = DateTime.Parse("9/1/2022"); // 1.6GB
+                //DateTime StartDate = DateTime.Parse("8/1/2022"); DateTime EndDate = DateTime.Parse("9/1/2022");    // 1.9GB
+                DateTime StartDate = DateTime.Parse("6/1/2021"); DateTime EndDate = DateTime.Parse("9/1/2022");    // 1.9GB
+                //DateTime StartDate = DateTime.Parse("9/1/2021"); DateTime EndDate = DateTime.Parse("9/1/2022");    // 1.9GB
+
+                //Entities = await cprsqlService.GetProfitability(ProfitabilityReportViewModel.SearchTypes.All.ToString(), "RXNO", false, string.Empty, "FillDate", StartDate, EndDate);
+                Entities = await cprsqlService.GetProfitabilityReport(ProfitabilityReportViewModel.SearchTypes.All.ToString(), "RXNO", false, string.Empty, "FillDate", StartDate, EndDate);
+            }
+            else
+            {
+                //Entities = await cprsqlService.GetByRXNO(searchValue);
+            }
+
+            watch.Stop();
+            string output = $"Execution Time: {watch.ElapsedMilliseconds/1000} seconds";
+
+            Console.WriteLine(output);
+            //await JSRuntime.InvokeVoidAsync("console.log", output);
+
+            if (cprsqlService.DBState.ErrorOccurred) toastService.ShowError(cprsqlService.DBState.ErrorMessage);
+
+            if (Entities == null)
+            {
+                toastService.ShowInfo("No record(s) found");
+            }
+            else
+            {
+                toastService.ShowInfo("record was found");
+            }
+            ViewModel.IsGridDataLoadComplete = true;
+        }
+    }

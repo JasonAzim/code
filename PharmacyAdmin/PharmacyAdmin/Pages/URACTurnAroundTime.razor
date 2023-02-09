@@ -1,0 +1,418 @@
+﻿@page "/URACTat"
+@inject ISqlService sqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject IUserService UserService
+@inject StateHelper StateHelper
+
+<style>
+    .TextBoxSm {
+        width: 300px;
+    }
+</style>
+
+<form>
+    <h4>Set Start/End dates or schedule Job to run</h4>
+
+    <div class="form-group">
+        <label for="JobName" class="lblCaption">Job Name</label>
+        <input type="text" id="JobName" class="TextBoxSm" @bind-value="ViewModel.JobName" />
+    </div>
+    <div class="form-group">
+        <label for="EndDate" class="lblCaption">Job Schedule Date Time</label>
+        <input type="text" id="EndDate" @bind-value="ViewModel.JobScheduleDate" />
+    </div>
+    <div class="form-group">
+        <label for="StartDate" class="lblCaption">Dispense Start Date</label>
+        <input type="text" id="StartDate" @bind-value="ViewModel.StartDate" />
+    </div>
+    <div class="form-group">
+        <label for="EndDate" class="lblCaption">Dispense End Date</label>
+        <input type="text" id="EndDate" @bind-value="ViewModel.EndDate" />
+    </div>
+    <div class="form-group">
+        <label for="StartDate" class="lblCaption">Queue Move Start Date</label>
+        <input type="text" id="StartDate" @bind-value="ViewModel.QueueMoveStartDate" />
+    </div>
+    <div class="form-group">
+        <label for="EndDate" class="lblCaption">Queue Move End Date</label>
+        <input type="text" id="EndDate" @bind-value="ViewModel.QueueMoveEndDate" />
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-danger" @onclick="@(async () => await saveJob(""))">Schedule URAC Job</button>&nbsp;&nbsp;
+    </div>
+    <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><h4>Job Status: @ViewModel.JobStatusMessage</h4></div>
+
+    <table class="table-sm table-bordered">
+        <thead>
+            <tr class="table-primary">
+                <th>Summary</th>
+                <th>Record Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (JobStatistics == null || JobStatistics.Count == 0)
+            {
+                <tr>
+                    <td colspan="3">No Records to display</td>
+                </tr>
+            }
+            else
+            {
+                foreach (var entity in JobStatistics)
+                {
+                    <tr>
+                        <td>@entity.KPI</td>
+                        <td>@entity.Count</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><h4>Discrepancies</h4></div>
+
+    <TelerikGrid Data="@JobDiscrepancies" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150" Width="700px">
+        <GridToolBar>
+            <GridCommandButton Command="ExcelExport" Icon="file-excel">Export to Excel</GridCommandButton>
+            <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ViewModel.ExportAllPages" />Export All Pages</label>
+        </GridToolBar>
+        <GridExport>
+            <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+        </GridExport>
+        <GridColumns>
+            <GridColumn Field="line_numb" Title="Line NO" Filterable="true" Width="120px" />
+            <GridColumn Field="RXNumber" Title="RX Number" Filterable="true" Width="135px" />
+            <GridColumn Field="FillNum" Title="Fill Num" Filterable="true" Width="130px" />
+            <GridColumn Field="tat_start_date" Title="Start Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+            <GridColumn Field="tat_end_date" Title="End Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+        </GridColumns>
+    </TelerikGrid>
+
+    <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><h4>Report</h4></div>
+    <label for="dropdownUracTable">Select URAC Data</label>
+    <select name="dropdownUracTable" id="dropdownUracTable" @onchange="@((ChangeEventArgs e) => OnUracTableDropdownItemChanged(e))">
+        <option value="tb_dispense_tat_step1">Step1 - Raw Data</option>
+        <option value="tb_dispense_tat_step2">Step2 - Date Determination</option>
+        <option value="tb_dispense_tat">Step3 - Dispense NO PHI</option>
+        <option value="Calc_Turnaround_Time_Step2" selected>Step4 - Calculations</option>
+    </select>
+    <button type="button" class="btn btn-danger" @onclick="@(async () => await JobRunReport())">Display Report</button>
+
+    @if (ViewModel.SelectedUracTable == "tb_dispense_tat_step1")
+    {
+        <TelerikGrid Class="special-grid-paddings" Data="@JobReport" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150">
+            <GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel">Export to Excel</GridCommandButton>
+                <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ViewModel.ExportAllPages" />Export All Pages</label>
+            </GridToolBar>
+            <GridExport>
+                <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="line_numb" Title="Line NO" Filterable="true" Width="120px" />
+                <GridColumn Field="dispense_order_sys_id" Title="Order ID" Filterable="true" Width="120px" />
+                <GridColumn Field="mrn" Title="MRN" Filterable="true" Width="120px" />
+                <GridColumn Field="RXNumber" Title="RX Number" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugNameStrengthForm" Title="Drug Name Strength Form" Filterable="false" Width="120px" />
+                <GridColumn Field="invoice_start_date_of_service" Title="invoice_start_date_of_service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="TicketConfirmationDate" Title="Ticket Confirmation Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="FillNum" Title="Fill Num" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientLastName" Title="Patient Last Name" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientFirstName" Title="Patient First Name" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientStreetAddress" Title="Patient Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientCity" Title="Patient City" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientState" Title="Patient State" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientZipCode" Title="Patient Zip Code" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientDateofBirth" Title="Patient Date of Birth" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientGender" Title="Patient Gender" Filterable="false" Width="120px" />
+                <GridColumn Field="DrugNDC" Title="Drug NDC" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugDEASchedule" Title="Drug DEA Schedule" Filterable="false" Width="120px" />
+                <GridColumn Field="Directionsforuse" Title="Directions for use" Filterable="false" Width="120px" />
+                <GridColumn Field="QuantityDispensed" Title="Quantity Dispensed" Filterable="false" Width="120px" />
+                <GridColumn Field="DaysSupply" Title="Days Supply" Filterable="false" Width="120px" />
+                <GridColumn Field="DateFilled" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="DeliveryDate" Title="Delivery Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="Numberofrefillsauthorized" Title="Number of refills authorized" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorName" Title="Doctor Name" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorDEA" Title="Doctor DEA" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorNPI" Title="Doctor NPI" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorStreetAddress" Title="Doctor Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorState" Title="Doctor State" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorZip" Title="Doctor Zip" Filterable="true" Width="120px" />
+                <GridColumn Field="PaymentName" Title="Payment name" Filterable="true" Width="120px" />
+                <GridColumn Field="Nameofinsurancebilled" Title="Name of insurance billed" Filterable="true" Width="120px" />
+                <GridColumn Field="payor_type" Title="Payor Type" Filterable="true" Width="120px" />
+                <GridColumn Field="dispense_type" Title="dispense_type" Filterable="true" Width="120px" />
+                <GridColumn Field="insurance_identifier" Title="insurance_identifier" Filterable="true" Width="120px" />
+                <GridColumn Field="invoice_sys_id" Title="invoice_sys_id" Filterable="true" Width="120px" />
+                <GridColumn Field="SortUID" Title="SortUID" Filterable="false" Width="120px" />
+            </GridColumns>
+        </TelerikGrid>
+    }
+    else if (ViewModel.SelectedUracTable == "tb_dispense_tat_step2")
+    {
+        <TelerikGrid Data="@JobReport" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150">
+            <GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel">Export to Excel</GridCommandButton>
+                <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ViewModel.ExportAllPages" />Export All Pages</label>
+            </GridToolBar>
+            <GridExport>
+                <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="line_numb" Title="Line NO" Filterable="true" Width="120px" />
+                <GridColumn Field="dispense_order_sys_id" Title="Order ID" Filterable="true" Width="120px" />
+                <GridColumn Field="SortUID" Title="SortUID" Filterable="false" Width="120px" />
+                <GridColumn Field="invoice_sys_id" Title="invoice_sys_id" Filterable="true" Width="120px" />
+                <GridColumn Field="mrn" Title="MRN" Filterable="true" Width="120px" />
+                <GridColumn Field="RXNumber" Title="RX Number" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugNameStrengthForm" Title="Drug Name Strength Form" Filterable="false" Width="120px" />
+                <GridColumn Field="invoice_start_date_of_service" Title="invoice_start_date_of_service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="TicketConfirmationDate" Title="Ticket Confirmation Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="tat_start_date" Title="tat_start_date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="tat_end_date" Title="tat_end_date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="New_Refill" Title="New_Refill" Filterable="true" Width="120px" />
+                <GridColumn Field="FillNum" Title="Fill Num" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientLastName" Title="Patient Last Name" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientFirstName" Title="Patient First Name" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientStreetAddress" Title="Patient Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientCity" Title="Patient City" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientState" Title="Patient State" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientZipCode" Title="Patient Zip Code" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientDateofBirth" Title="Patient Date of Birth" Filterable="false" Width="120px" />
+                <GridColumn Field="PatientGender" Title="Patient Gender" Filterable="false" Width="120px" />
+                <GridColumn Field="DrugNDC" Title="Drug NDC" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugDEASchedule" Title="Drug DEA Schedule" Filterable="false" Width="120px" />
+                <GridColumn Field="Directionsforuse" Title="Directions for use" Filterable="false" Width="120px" />
+                <GridColumn Field="QuantityDispensed" Title="Quantity Dispensed" Filterable="false" Width="120px" />
+                <GridColumn Field="DaysSupply" Title="Days Supply" Filterable="false" Width="120px" />
+                <GridColumn Field="DateFilled" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="DeliveryDate" Title="Delivery Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="Numberofrefillsauthorized" Title="Number of refills authorized" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorName" Title="Doctor Name" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorDEA" Title="Doctor DEA" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorNPI" Title="Doctor NPI" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorStreetAddress" Title="Doctor Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorState" Title="Doctor State" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorZip" Title="Doctor Zip" Filterable="true" Width="120px" />
+                <GridColumn Field="PaymentName" Title="Payment name" Filterable="true" Width="120px" />
+                <GridColumn Field="Nameofinsurancebilled" Title="Name of insurance billed" Filterable="true" Width="120px" />
+                <GridColumn Field="payor_type" Title="Payor Type" Filterable="true" Width="120px" />
+                <GridColumn Field="dispense_type" Title="dispense_type" Filterable="true" Width="120px" />
+                <GridColumn Field="queue_move" Title="queue_move" Filterable="false" Width="120px" />
+                <GridColumn Field="claimsnew_date" Title="claimsnew_date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="intervention_required_date" Title="intervention_required_date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="all_queue_moves" Title="all_queue_moves" Filterable="false" Width="120px" />
+                <GridColumn Field="last_events" Title="last_events" Filterable="false" Width="120px" />
+                <GridColumn Field="TurnAroundTimeType" Title="Turn Around Time Type" Filterable="true" Width="120px" />
+            </GridColumns>
+        </TelerikGrid>
+    }
+    else if (ViewModel.SelectedUracTable == "tb_dispense_tat")
+    {
+        <TelerikGrid Data="@JobReport" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150">
+            <GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel">Export to Excel</GridCommandButton>
+                <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ViewModel.ExportAllPages" />Export All Pages</label>
+            </GridToolBar>
+            <GridExport>
+                <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="line_numb" Title="Line NO" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugNameStrengthForm" Title="Drug Name Strength Form" Filterable="false" Width="120px" />
+                <GridColumn Field="tat_start_date" Title="Start Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="tat_end_date" Title="End Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="FillNum" Title="Fill Num" Filterable="false" Width="120px" />
+                <GridColumn Field="NDC" Title="NDC" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugNDC" Title="Drug NDC" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugDEASchedule" Title="Drug DEA Schedule" Filterable="false" Width="120px" />
+                <GridColumn Field="Directionsforuse" Title="Directions for use" Filterable="false" Width="120px" />
+                <GridColumn Field="QuantityDispensed" Title="Quantity Dispensed" Filterable="false" Width="120px" />
+                <GridColumn Field="DaysSupply" Title="Days Supply" Filterable="false" Width="120px" />
+                <GridColumn Field="DateFilled" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="DeliveryDate" Title="Delivery Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="Numberofrefillsauthorized" Title="Number of refills authorized" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorName" Title="Doctor Name" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorDEA" Title="Doctor DEA" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorStreetAddress" Title="Doctor Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorState" Title="Doctor State" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorZip" Title="Doctor Zip" Filterable="true" Width="120px" />
+                <GridColumn Field="PaymentName" Title="Payment name" Filterable="true" Width="120px" />
+                <GridColumn Field="Nameofinsurancebilled" Title="Name of insurance billed" Filterable="true" Width="120px" />
+                <GridColumn Field="payor_type" Title="Payor Type" Filterable="true" Width="120px" />
+                <GridColumn Field="TurnAroundTimeType" Title="TurnAroundTimeType" Filterable="true" Width="120px" />
+                <GridColumn Field="dispense_order_sys_id" Title="Order ID" Filterable="true" Width="120px" />
+                <GridColumn Field="SortUID" Title="SortUID" Filterable="false" Width="120px" />
+                <GridColumn Field="New_Refill" Title="New_Refill" Filterable="true" Width="120px" />
+                <GridColumn Field="invoice_start_date_of_service" Title="invoice_start_date_of_service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="TicketConfirmationDate" Title="Ticket Confirmation Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="last_events" Title="last_events" Filterable="false" Width="120px" />
+                <GridColumn Field="queue_move" Title="queue_move" Filterable="false" Width="120px" />
+                <GridColumn Field="all_queue_moves" Title="all_queue_moves" Filterable="false" Width="120px" />
+            </GridColumns>
+        </TelerikGrid>
+    }
+    else
+    {
+        <TelerikGrid Data="@JobReport" Sortable="true" Reorderable="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false" Pageable="true" PageSize="150">
+            <GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel">Export to Excel</GridCommandButton>
+                <label class="k-checkbox-label"><TelerikCheckBox @bind-Value="@ViewModel.ExportAllPages" />Export All Pages</label>
+            </GridToolBar>
+            <GridExport>
+                <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="line_numb" Title="Line NO" Filterable="true" Width="120px" />
+                <GridColumn Field="tat_start_date" Title="Start Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="tat_end_date" Title="End Date of Service" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="TicketConfirmationDate" Title="Ticket Confirmation Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="turnaround_time" Title="Turn Around Time" Filterable="true" Width="145px" />
+                <GridColumn Field="FillNum" Title="Fill Num" Filterable="false" Width="120px" />
+                <GridColumn Field="DrugNDC" Title="Drug NDC" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugDEASchedule" Title="Drug DEA Schedule" Filterable="false" Width="120px" />
+                <GridColumn Field="Directionsforuse" Title="Directions for use" Filterable="false" Width="120px" />
+                <GridColumn Field="QuantityDispensed" Title="Quantity Dispensed" Filterable="false" Width="120px" />
+                <GridColumn Field="DaysSupply" Title="Days Supply" Filterable="false" Width="120px" />
+                <GridColumn Field="DateFilled" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="DeliveryDate" Title="Delivery Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="145px" />
+                <GridColumn Field="Numberofrefillsauthorized" Title="Number of refills authorized" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorName" Title="Doctor Name" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorDEA" Title="Doctor DEA" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorStreetAddress" Title="Doctor Street Address" Filterable="false" Width="120px" />
+                <GridColumn Field="DoctorState" Title="Doctor State" Filterable="true" Width="120px" />
+                <GridColumn Field="DoctorZip" Title="Doctor Zip" Filterable="true" Width="120px" />
+                <GridColumn Field="PaymentName" Title="Payment name" Filterable="true" Width="120px" />
+                <GridColumn Field="Nameofinsurancebilled" Title="Name of insurance billed" Filterable="true" Width="120px" />
+                <GridColumn Field="payor_type" Title="Payor Type" Filterable="true" Width="120px" />
+                <GridColumn Field="DrugType" Title="Drug Type" Filterable="true" Width="120px" />
+                <GridColumn Field="Clean_vs_Unclean" Title="Clean_vs_Unclean" Filterable="true" Width="120px" />
+                <GridColumn Field="New_Refill" Title="New_Refill" Filterable="true" Width="120px" />
+            </GridColumns>
+        </TelerikGrid>
+    }
+
+</form>
+
+@code {
+    private UracTurnAroundTimeViewModel ViewModel;
+    List<JobScheduleModel> JobScheduleEntities;
+
+    JobScheduleModel JobScheduleSelected;
+    List<StatisticModel> JobStatistics;
+    List<UracTurnAroundTimeDispenseModel> JobDiscrepancies;
+    List<UracTurnAroundTimeDispenseModel> JobReport;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel = new UracTurnAroundTimeViewModel() { UserID = StateHelper.Items["UserIdentityName"].ToString() };
+        // If User has access to FedEx Search page then give them access to this page also because they are an admin
+        if (UserService.CheckUserAccess("FedExSearch", ViewModel.UserID).Result == false)
+        {
+            navigationManager.NavigateTo("event/2", true);
+        }
+
+        await Task.Run(async () => await JobScheduleSelect());
+        await Task.Run(async () => await JobRunSummary());
+
+        if ((JobStatistics == null) || (JobStatistics.Count == 0))
+
+        {
+            toastService.ShowWarning("No Job Summary found");
+        }
+        else
+        {
+            await Task.Run(async () => await JobRunDiscrepancies());
+        }
+
+        await Task.Run(async () => await JobStatus());
+        //await Task.Run(async () => await JobRunReport());
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+
+            StateHasChanged();
+        }
+    }
+
+    private void OnUracTableDropdownItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedUracTable = e.Value.ToString();
+        JobReport = null;
+    }
+
+    protected async Task JobScheduleSelect()
+    {
+        JobScheduleEntities = await sqlService.ISHUBGetJobSchedules(ViewModel.JobName);
+        if (JobScheduleEntities != null && JobScheduleEntities.Count > 0)
+        {
+            JobScheduleSelected = JobScheduleEntities.FirstOrDefault(); // selected Job Schedule , To do support multiple schedules
+            ViewModel.JobScheduleDate = JobScheduleSelected.ScheduledDate.Value.ToString("yyyy-MM-dd h:mm tt");
+            ViewModel.StartDate = JobScheduleSelected.StartDate.Value.ToString("yyyy-MM-dd");
+            ViewModel.EndDate = JobScheduleSelected.EndDate.Value.ToString("yyyy-MM-dd");
+
+            ViewModel.QueueMoveStartDate = JobScheduleSelected.StartDate.Value.AddDays(-30).ToString("yyyy-MM-dd");
+            ViewModel.QueueMoveEndDate = JobScheduleSelected.EndDate.Value.AddDays(30).ToString("yyyy-MM-dd");
+        }
+        else
+        {
+            toastService.ShowWarning("No Job Schedule was found");
+        }
+
+        //await Task.CompletedTask;
+    }
+
+    protected async Task JobRunSummary()
+    {
+        JobStatistics = await sqlService.ISHUBGetJobSummary(ViewModel.JobName);
+
+
+
+        //await Task.CompletedTask;
+    }
+
+    protected async Task JobRunDiscrepancies()
+    {
+        JobDiscrepancies = await sqlService.URACTurnAroundTimeDiscrepancies(ViewModel.JobName);
+
+        //await Task.CompletedTask;
+    }
+
+    protected async Task JobRunReport()
+    {
+        toastService.ShowInfo("Loading Report. Please wait...");
+        await Task.Delay(1);
+        JobReport = await sqlService.URACTurnAroundTimeReport(ViewModel.JobName, ViewModel.SelectedUracTable);
+        StateHasChanged();
+        //await Task.CompletedTask;
+    }
+
+    protected async Task JobStatus()
+    {
+        ViewModel.JobStatusMessage = await sqlService.ISHUBJobStatus(ViewModel.JobName);
+    }
+
+    public async Task saveJob(string mode)
+    {
+        try
+        {
+            JobScheduleSelected.ScheduledDate = DateTime.Parse(ViewModel.JobScheduleDate);
+            JobScheduleSelected.StartDate = DateTime.Parse(ViewModel.StartDate);
+            JobScheduleSelected.EndDate = DateTime.Parse(ViewModel.EndDate);
+
+            var result = await sqlService.URAC_ISHUB_ScheduleJob(JobScheduleSelected);
+            toastService.ShowInfo("Job schedule saved");
+        }
+        catch (Exception e)
+        {
+            toastService.ShowError("Job schedule not saved " + e.Message);
+        }
+
+        await Task.CompletedTask;
+    }
+}

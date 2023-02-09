@@ -1,0 +1,766 @@
+﻿@page "/ProfitabilityReportEdit"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject IUserService UserService
+@inject StateHelper StateHelper
+@inject ScheduleService ScheduleService
+
+<style>
+    .sort-th {
+        cursor: pointer;
+    }
+
+    .fa {
+        float: right;
+    }
+
+    .DatePanel {
+        border: 2px solid #000;
+        width: 500px;
+        height: 100%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    tr.strikeout {
+        text-decoration: line-through;
+    }
+
+    .TextBoxSm {
+        width: 125px;
+    }
+</style>
+
+<form>
+    <div class="form-group">
+        Select Search Type:
+        @foreach (var item in Enum.GetNames(typeof(ProfitabilityReportViewModel.SearchTypes)))
+        {
+            <input type="radio" name="radioSearchType" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchTypeItemChanged(e))" checked=@(ViewModel.SelectedSearchType.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+            <label for="@item">@(StateHelper.GetDisplayName((ProfitabilityReportViewModel.SearchTypes) Enum.Parse(typeof(ProfitabilityReportViewModel.SearchTypes), item)))</label>
+        }
+        <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button>
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(() => NavigateToPowerBIReport())">Go to Profitability Report</button>
+    </div>
+
+    @if (ViewModel.SelectedSearchType == "Partials")
+    {
+    }
+    else if (ViewModel.SelectedSearchType == "One")
+    {
+        <div class="form-group">
+            Enter RX Number
+            <input type="text" id="txtRXNumber" @bind="ViewModel.RXNO" @bind:event="oninput" class="TextBoxSm" />
+            &nbsp;&nbsp; Enter Invoice Number <input type="text" id="txtInvoiceNumber" @bind="ViewModel.INVOICENO" @bind:event="oninput" class="TextBoxSm" />
+        </div>
+    }
+    else
+    {
+        <div class="form-group">
+            <label for="txtSearchValues" class="control-label">Enter Comma Separated Values:</label><br />
+            <textarea rows="5" cols="100" id="txtOutput" @bind="ViewModel.SearchValues"></textarea>
+        </div>
+    }
+
+    <div class="DatePanel">
+        <div class="form-group">
+            Select the Date Range to search with:
+            @foreach (var item in Enum.GetNames(typeof(ProfitabilityReportViewModel.SearchDates)))
+            {
+                <input type="radio" name="radioSearchDate" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchDateItemChanged(e))" checked=@(ViewModel.SelectedSearchDate.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+                <label for="@item">@item</label>
+            }
+        </div>
+        @if (ViewModel.SelectedSearchDate != "None")
+        {
+            <label for="dropdownDate">Select a predefined date</label>
+            <select name="dropdownDate" id="dropdownDate" @onchange="@((ChangeEventArgs e) => OnSearchDropdownDateItemChanged(e))">
+                <option value="NONE">None</option>
+                <option value="LAST_WEEK">Last Week</option>
+                <option value="CURRENT_WEEK">This Week</option>
+                <option value="LAST_MONTH">Last Month</option>
+                <option value="CURRENT_MONTH">This Month</option>
+            </select>
+
+            <ComponentDate Title="Start Date" @bind-Value="@ViewModel.SearchStartDate" />@ViewModel.SearchStartDate<br>
+            <ComponentDate Title="End Date" @bind-Value="@ViewModel.SearchEndDate" />@ViewModel.SearchEndDate<br>
+        }
+    </div>
+
+    @if (Entities != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    @if (ViewModel.SelectedSearchType == "Partials")
+                    {
+                        <th>EDIT</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("RxNumber"))" data-toggle="tooltip" data-placement="right" title="Sort">RX NO<span class="fa @(SetSortIcon("RxNumber"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("BILLNO"))" data-toggle="tooltip" data-placement="right" title="Sort">Invoice No<span class="fa @(SetSortIcon("BILLNO"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("DateFilled"))" data-toggle="tooltip" data-placement="right" title="Sort">Date Filled<span class="fa @(SetSortIcon("DateFilled"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TicketNo"))" data-toggle="tooltip" data-placement="right" title="Sort">Ticket No<span class="fa @(SetSortIcon("TicketNo"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TicketConfDate"))" data-toggle="tooltip" data-placement="right" title="Sort">Ticket Conf. Date<span class="fa @(SetSortIcon("TicketConfDate"))"></span></th>
+                        <th>Refill No</th>
+                        <th>Drug Name</th>
+                        <th>Quantity</th>
+                        <th>TP Revenue</th>
+                        <th>Copay</th>
+                        <th>TP Revenue + Patient Copay</th>
+                        <th>COGS</th>
+                        <th>COGS Adjusted</th>
+                        <th>Gross Profit</th>
+                        <th>Gross Profit Adjusted</th>
+                        <th>Delivery Instructions</th>
+                        <th>DELETE</th>
+                    }
+                    else
+                    {
+                        <th>EDIT</th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("RxNumber"))" data-toggle="tooltip" data-placement="right" title="Sort">RX NO<span class="fa @(SetSortIcon("RxNumber"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("BILLNO"))" data-toggle="tooltip" data-placement="right" title="Sort">Invoice No<span class="fa @(SetSortIcon("BILLNO"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("DateFilled"))" data-toggle="tooltip" data-placement="right" title="Sort">Date Filled<span class="fa @(SetSortIcon("DateFilled"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TicketNo"))" data-toggle="tooltip" data-placement="right" title="Sort">Ticket No<span class="fa @(SetSortIcon("TicketNo"))"></span></th>
+                        <th class="gridColumnSort-th-150" @onclick="@(() => SortTable("TicketConfDate"))" data-toggle="tooltip" data-placement="right" title="Sort">Ticket Conf. Date<span class="fa @(SetSortIcon("TicketConfDate"))"></span></th>
+                        <th>Refill No</th>
+                        <th>Drug Name</th>
+                        <th>Quantity</th>
+                        <th>Cost</th>
+                        <th>TP Revenue</th>
+                        <th>Copay</th>
+                        <th>TP Revenue + Patient Copay</th>
+                        <th>COGS</th>
+                        <th>COGS Adjusted</th>
+                        <th>Gross Profit</th>
+                        <th>Gross Profit Adjusted</th>
+                        <th>Delivery Instructions</th>
+                        <th>DELETE</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Entities == null || Entities.Count == 0)
+                {
+                    <tr>
+                        <td colspan="3">No Records to display</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var entity in Entities)
+                    {
+                        @if (ViewModel.SelectedSearchType == "Partials")
+                        {
+                            <tr class="@entity.RowClass">
+                                <td><input type="checkbox" id="cbRecordSelect" value="@entity.LABLOGNO" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" /></td>
+                                <td>@entity.ncpdp_rx_number</td>
+                                <td>@entity.ncpdp_invoice_number</td>
+                                <td>@entity.ncpdp_date_filled_timestamp?.ToShortDateString()</td>
+                                <td>@entity.TICKNO</td>
+                                <td>@entity.ticket_confirmation_date?.ToShortDateString()</td>
+                                <td>@entity.ncpdp_quantity_new_refill_code</td>
+                                <td>@entity.ticket_item_name</td>
+                                <td>@entity.ticket_quantity</td>
+                                <td class="@entity.PrimaryTPPaid_class">$@entity.ncpdp_primary_claim_paid</td>
+                                <td class="@entity.SecondaryTPPaid_class">$@entity.ncpdp_secondary_claim_paid</td>
+                                <td class="@entity.Copay_class">$@entity.Copay</td>
+                                <td>$@entity.TPRevenuePlusPatientCopay</td>
+                                <td class="@entity.ticket_cost_class">$@entity.COGS</td>
+                                <td>$@entity.COGSAdjusted</td>
+                                <td>$@entity.GrossProfit</td>
+                                <td>$@entity.GrossProfitAdjusted</td>
+                                <td>@entity.ticket_item_delivins</td>
+                                <td><input type="checkbox" id="cbTicketSelect" value="@entity.TICKNO" checked="@entity.TicketSelected" @onchange="(e) => TicketDeleteHandler(entity, e)" /></td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr class="@entity.RowClass">
+                                <td><input type="checkbox" id="cbRecordSelect" value="@entity.LABLOGNO" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" /></td>
+                                <td>@entity.ncpdp_rx_number</td>
+                                <td>@entity.ncpdp_invoice_number</td>
+                                <td>@entity.ncpdp_date_filled_timestamp?.ToShortDateString()</td>
+                                <td>@entity.TICKNO</td>
+                                <td>@entity.ticket_confirmation_date?.ToShortDateString()</td>
+                                <td>@entity.ncpdp_quantity_new_refill_code</td>
+                                <td>@entity.ticket_partials_name</td>
+                                <td>@entity.ticket_quantity</td>
+                                <td class="@entity.PrimaryTPPaid_class">$@entity.ncpdp_primary_claim_paid</td>
+                                <td class="@entity.SecondaryTPPaid_class">$@entity.ncpdp_secondary_claim_paid</td>
+                                <td class="@entity.Copay_class">$@entity.Copay</td>
+                                <td>$@entity.TPRevenuePlusPatientCopay</td>
+                                <td class="@entity.ticket_cost_class">$@entity.COGS</td>
+                                <td>$@entity.COGSAdjusted</td>
+                                <td>$@entity.GrossProfit</td>
+                                <td>$@entity.GrossProfitAdjusted</td>
+                                <td>@entity.ticket_item_delivins</td>
+                                <td><input type="checkbox" id="cbTicketSelect" value="@entity.TICKNO" checked="@entity.TicketSelected" @onchange="(e) => TicketDeleteHandler(entity, e)" /></td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+
+    @if (EntitySelected != null)
+    {
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Row details for invoice# @EntitySelected.ncpdp_invoice_number with ticket#  @EntitySelected.TICKNO</b></div>
+
+        <div class="form-group">
+            <label for="PrimaryTPPaid" class="lblCaption">TP Revenue</label>
+            <input type="text" id="TPRevenue" @bind-value="@EntitySelected.ncpdp_primary_claim_paid" />
+        </div>
+        <div class="form-group">
+            <label for="Copay" class="lblCaption">Copay</label>
+            <input type="text" id="Copay" @bind-value="@EntitySelected.Copay" />
+        </div>
+        <!--
+        <div class="form-group">
+            <label class="lblCaption">Quantity</label>
+            <label class="lblCaption">@EntitySelected.ticket_quantity</label>
+        </div>
+        <div class="form-group">
+            <label class="lblCaption">Ticket Unit Cost</label>
+            <label class="lblCaption">@EntitySelected.ticket_unit_cost</label>
+        </div>
+        -->
+        <div class="form-group">
+            <label for="ticket_unit_cost" class="lblCaption">COGS (Ticket Cost)</label>
+            <input type="text" id="ticket_unit_cost" @bind-value="@EntitySelected.ticket_total_cost" />
+            <b>Note: Editting this will affect COGS, COGS Adjusted, Gross Profit, Gross Profit Adjusted and TP Revenue + Patient Copay</b>
+        </div>
+        <div class="form-group">
+            <label for="ncpdp_invoice_expected" class="lblCaption">Revenue Total Expected</label>
+            <input type="text" id="ncpdp_invoice_expected" @bind-value="@EntitySelected.ncpdp_invoice_expected" />
+        </div>
+        <!--
+        <div class="form-group">
+            <label for="ncpdp_primary_claim_billed" class="lblCaption">Primary Claim Billed</label>
+            <input type="text" id="ncpdp_primary_claim_billed" @bind-value="@EntitySelected.ncpdp_primary_claim_billed" />
+        </div>
+        <div class="form-group">
+            <label for="ncpdp_secondary_claim_billed" class="lblCaption">Secondary Claim Billed</label>
+            <input type="text" id="ncpdp_secondary_claim_billed" @bind-value="@EntitySelected.ncpdp_secondary_claim_billed" />
+        </div>
+        -->
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" @onclick="() => Update(EntitySelected)">Update</button>
+        </div>
+
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Change History Log:</b></div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Field Name</th>
+                    <th>Original Value</th>
+                    <th>New Value</th>
+                    <th>Modified By</th>
+                    <th>Modified Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (AuditChanges == null || AuditChanges.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5">No fields have been modified.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var change in AuditChanges)
+                    {
+                        <tr>
+                            <td>@change.FieldName</td>
+                            <td>@change.OriginalValue</td>
+                            <td>@change.OverlayValue</td>
+                            <td>@change.CreatedBy</td>
+                            <td>@change.TouchDate</td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+</form>
+
+
+@code {
+    // Query Parameters
+    private string _RXNO;
+    private string _INVOICENO;
+
+    private ProfitabilityReportViewModel ViewModel;
+    private TableSortModel DefaultTableSort = TableSortModel.ConstructProfitabilityReportDefaultTable();
+    private TableSortModel PartialsTableSort = TableSortModel.ConstructProfitabilityReportPartialsTable();
+
+    List<ProfitabilityNCPDPModel> Entities;
+    List<AuditModel> AuditChanges;
+
+    ProfitabilityNCPDPModel EntitySelected;
+    ProfitabilityNCPDPModel EntitySaved;
+
+    protected override void OnInitialized()
+    {
+        ViewModel = new ProfitabilityReportViewModel() { SelectedSearchType = ProfitabilityReportViewModel.SearchTypes.One.ToString(), UserID = StateHelper.Items["UserIdentityName"].ToString() };
+
+        // If User has access to FedEx Search page then give them access to this page also because they are an admin
+        if (UserService.CheckUserAccess("FedExSearch", ViewModel.UserID).Result == false)
+        {
+            navigationManager.NavigateTo("event/2", true);
+        }
+
+        navigationManager.TryGetQueryString<string>("RXNO", out _RXNO); if (!string.IsNullOrEmpty(_RXNO)) ViewModel.RXNO = _RXNO;
+        navigationManager.TryGetQueryString<string>("INVOICENO", out _INVOICENO); if (!string.IsNullOrEmpty(_INVOICENO)) ViewModel.INVOICENO = _INVOICENO;
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(ViewModel.RXNO))
+            {
+                Task.Run(async () => await refreshRecords("RXNO"));//<--or Task.Delay(0) without Task.Run
+            }
+
+            if (!string.IsNullOrEmpty(ViewModel.INVOICENO))
+            {
+                System.Diagnostics.Debug.WriteLine("");
+                if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    private void InitializeEntities()
+    {
+        Entities = null;
+        AuditChanges = null;
+
+        EntitySelected = null;
+        EntitySaved = null;
+    }
+
+    private void OnSearchTypeItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchType = e.Value.ToString();
+        ViewModel.SelectedSearchDate = "None";
+        ViewModel.SearchStartDate = DateTime.Now;
+        ViewModel.SearchEndDate = DateTime.Now;
+        InitializeEntities();
+    }
+
+    private void OnSearchDateItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchDate = e.Value.ToString();
+    }
+
+    private void OnSearchDropdownDateItemChanged(ChangeEventArgs e)
+    {
+        DateTime StartDate = DateTime.Now;
+        DateTime EndDate = DateTime.Now;
+
+        ScheduleService.SetDateRange(ref StartDate, ref EndDate, e.Value.ToString());
+        ViewModel.SearchStartDate = StartDate;
+        ViewModel.SearchEndDate = EndDate;
+    }
+
+    public void NavigateToPowerBIReport()
+    {
+        string url = "https://app.powerbi.com/groups/b387e327-8b65-4d20-9b20-ddd49345842d/reports/44056c2b-3d57-4140-84fc-dfe2e32c8483/ReportSection?bookmarkGuid=Bookmark011eb47b4c4a3a79178e";
+        navigationManager.NavigateTo(url);
+    }
+
+    private async Task SortTable(string columnName)
+    {
+        if (ViewModel.SelectedSearchType == "Partials")
+        {
+            System.Diagnostics.Debug.WriteLine("Current Sort:" + PartialsTableSort.SortColumnName + PartialsTableSort.SortDirection);
+            if (columnName != PartialsTableSort.SortColumnName) // This will execute when SortColumnName is null or empty or changed
+            {
+                PartialsTableSort.IsAscending = true;  // since we changed to a new column so we will default it to ascending sort
+            }
+            else
+            {
+                // It is the same column but sort order has been changed
+                PartialsTableSort.IsAscending = !PartialsTableSort.IsAscending;
+            }
+            PartialsTableSort.SortColumnName = columnName;
+            System.Diagnostics.Debug.WriteLine("New Sort:" + PartialsTableSort.SortColumnName + PartialsTableSort.SortDirection);
+
+            if (Entities == null || Entities.Count == 0)
+            {
+                toastService.ShowInfo("Please wait refreshing and sorting by  " + columnName);
+                //await refreshRecords("Billable:Partials" + columnName + PartialsTableSort.SortDirection);
+            }
+
+            if (PartialsTableSort.IsAscending)
+            {
+                if (PartialsTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_rx_number).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "BILLNO")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_invoice_number).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "DateFilled")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_date_filled_timestamp).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "TicketNo")
+                {
+                    Entities = Entities.OrderBy(x => x.TICKNO).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "TicketConfDate")
+                {
+                    Entities = Entities.OrderBy(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "RefillNo")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_quantity_new_refill_code).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+            else
+            {
+                if (PartialsTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_rx_number).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "BILLNO")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_invoice_number).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "DateFilled")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_date_filled_timestamp).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "TicketNo")
+                {
+                    Entities = Entities.OrderByDescending(x => x.TICKNO).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "TicketConfDate")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (PartialsTableSort.SortColumnName == "RefillNo")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_quantity_new_refill_code).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("Current Sort:" + DefaultTableSort.SortColumnName + DefaultTableSort.SortDirection);
+            if (columnName != DefaultTableSort.SortColumnName)
+            {
+                DefaultTableSort.IsAscending = true;
+            }
+            else
+            {
+
+                DefaultTableSort.IsAscending = !DefaultTableSort.IsAscending;
+            }
+            DefaultTableSort.SortColumnName = columnName;
+            System.Diagnostics.Debug.WriteLine("New Sort:" + DefaultTableSort.SortColumnName + DefaultTableSort.SortDirection);
+
+            if (Entities == null || Entities.Count == 0)
+            {
+                toastService.ShowInfo("Please wait refreshing and sorting by  " + columnName);
+                //await refreshRecords(columnName + ":" + DefaultTableSort.SortDirection);
+            }
+
+            if (DefaultTableSort.IsAscending)
+            {
+
+                if (DefaultTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_rx_number).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "BILLNO")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_invoice_number).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "DateFilled")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_date_filled_timestamp).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "TicketNo")
+                {
+                    Entities = Entities.OrderBy(x => x.TICKNO).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "TicketConfDate")
+                {
+                    Entities = Entities.OrderBy(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "RefillNo")
+                {
+                    Entities = Entities.OrderBy(x => x.ncpdp_quantity_new_refill_code).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+            else
+            {
+                if (DefaultTableSort.SortColumnName == "RxNumber")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_rx_number).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "BILLNO")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_invoice_number).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "DateFilled")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_date_filled_timestamp).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "TicketNo")
+                {
+                    Entities = Entities.OrderByDescending(x => x.TICKNO).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "TicketConfDate")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ticket_confirmation_date).ToList();
+                }
+                else if (DefaultTableSort.SortColumnName == "RefillNo")
+                {
+                    Entities = Entities.OrderByDescending(x => x.ncpdp_quantity_new_refill_code).ToList();
+                }
+                else
+                {
+                    toastService.ShowInfo("Column Sorting is not available for " + columnName);
+                }
+            }
+        }
+        await Task.CompletedTask;
+        StateHasChanged();
+    }
+
+    private string SetSortIcon(string columnName)
+    {
+        TableSortModel CurrentTableSort = DefaultTableSort;
+        if (ViewModel.SelectedSearchType == "Partials")
+        {
+            CurrentTableSort = PartialsTableSort;
+        }
+
+        if (CurrentTableSort.SortColumnName != columnName)
+        {
+            return string.Empty;
+        }
+
+        if (CurrentTableSort.IsAscending)
+        {
+            return "fa-sort-up";
+        }
+        else
+        {
+            return "fa-sort-down";
+        }
+    }
+
+    public async Task refreshRecords(string searchType)
+    {
+        EntitySelected = null;
+        EntitySaved = null;
+
+        // Begin View Model Validation
+        ObjectState ViewModelState = ViewModel.State();
+        if (ViewModelState.ErrorOccurred)
+        {
+            toastService.ShowWarning(ViewModelState.DisplayMessage);
+            return;
+        }
+
+        // Perform Database Search Operation
+        toastService.ShowInfo(ViewModel.SearchMessage);
+        await Task.Delay(1);
+        if (ViewModel.SelectedSearchType == "One")
+        {
+            List<ProfitabilityNCPDPModel> Models = await cprsqlService.GetByRXNO(ViewModel.RXNO, ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+            if (Models != null && Models.Count > 0)
+            {
+                if (string.IsNullOrEmpty(ViewModel.INVOICENO))
+                {
+                    Entities = Models;
+                }
+                else
+                {
+                    Entities = Models.Where(x => x.ncpdp_invoice_number == int.Parse(ViewModel.INVOICENO)).ToList();
+                    Entities[0].RecordSelected = true;
+                    RecordSelectedHandler(Entities[0], new ChangeEventArgs() { Value = "true" });
+                }
+            }
+            else
+            {
+                Entities = null;
+            }
+        }
+        else if (ViewModel.SelectedSearchType == "All")
+        {
+            //Entities = await cprsqlService.GetByDateFilled(ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+            Entities = await cprsqlService.GetProfitability(ViewModel.SelectedSearchType, ViewModel.SelectedSearchMode, ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+        }
+        else
+        {
+            Entities = await cprsqlService.GetProfitabilityReportDuplicate(ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+        }
+
+        // Check errors display UI messages
+        if (cprsqlService.DBState.ErrorOccurred) toastService.ShowError(cprsqlService.DBState.ErrorMessage);
+
+        if (Entities == null)
+        {
+            toastService.ShowInfo("No record(s) found");
+        }
+        else
+        {
+            toastService.ShowInfo("record was found");
+        }
+
+        if (!string.IsNullOrEmpty(_INVOICENO))
+        {
+            if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+        }
+
+        await Task.Delay(1);
+    }
+
+    private void RefreshAuditHistoryChanges()
+    {
+        EntitySelected = Entities.FirstOrDefault(x => x.ncpdp_invoice_number == int.Parse(ViewModel.INVOICENO));
+        EntitySelected.RecordSelected = true;
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(EntitySelected.ncpdp_rx_number, EntitySelected.ncpdp_invoice_number)).Result;
+        EntitySaved = new ProfitabilityNCPDPModel() { ncpdp_rx_number = EntitySelected.ncpdp_rx_number, ncpdp_invoice_number = EntitySelected.ncpdp_invoice_number, TICKNO = EntitySelected.TICKNO, ncpdp_date_filled_timestamp = EntitySelected.ncpdp_date_filled_timestamp, ticket_confirmation_date = EntitySelected.ticket_confirmation_date, ncpdp_primary_claim_paid = EntitySelected.ncpdp_primary_claim_paid, ncpdp_secondary_claim_paid = EntitySelected.ncpdp_secondary_claim_paid, ticket_total_cost = EntitySelected.ticket_total_cost, COGS = EntitySelected.COGS, Copay = EntitySelected.Copay, ncpdp_invoice_expected = EntitySelected.ncpdp_invoice_expected };
+    }
+
+    private void RecordSelectedHandler(ProfitabilityNCPDPModel entity, ChangeEventArgs e)
+    {
+        toastService.ShowInfo("Invoice #" + entity.ncpdp_invoice_number + " selected");
+
+        if (entity.IsDuplicate)
+        {
+            List<ProfitabilityNCPDPModel> TicketItems = Task.Run(() => cprsqlService.GetProfitabilityTicketItem(entity.ncpdp_invoice_number, entity.TICKNO)).Result;
+            if ((TicketItems == null) || (TicketItems.Count == 0))
+            {
+                entity.ticket_total_cost = 0;
+            }
+            else
+            {
+                entity.ticket_total_cost = TicketItems.Where(x => x.ticket_item_delflag_overlay == null || x.ticket_item_delflag_overlay == 0).Sum(x => x.ticket_total_cost);
+            }
+        }
+
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(entity.ncpdp_rx_number, entity.ncpdp_invoice_number)).Result;
+
+        for (int i = 0; i < Entities.Count; i++)
+        {
+            Entities[i].RecordSelected = false;
+        }
+
+        entity.RecordSelected = !entity.RecordSelected;
+        if (entity.RecordSelected)
+        {
+            EntitySelected = entity;
+            EntitySaved = new ProfitabilityNCPDPModel() { ncpdp_rx_number = EntitySelected.ncpdp_rx_number, ncpdp_invoice_number = EntitySelected.ncpdp_invoice_number, TICKNO = EntitySelected.TICKNO, ncpdp_date_filled_timestamp = EntitySelected.ncpdp_date_filled_timestamp, ticket_confirmation_date = EntitySelected.ticket_confirmation_date, ncpdp_primary_claim_paid = EntitySelected.ncpdp_primary_claim_paid, ncpdp_secondary_claim_paid = EntitySelected.ncpdp_secondary_claim_paid, ticket_total_cost = EntitySelected.ticket_total_cost, COGS = EntitySelected.COGS, Copay = EntitySelected.Copay, ncpdp_invoice_expected = EntitySelected.ncpdp_invoice_expected };
+        }
+        else
+        {
+            EntitySelected = null;
+            EntitySaved = null;
+        }
+        string CheckValue = e.Value.ToString();
+    }
+
+    private async Task TicketDeleteHandler(ProfitabilityNCPDPModel entity, ChangeEventArgs e)
+    {
+        entity.TicketSelected = !entity.TicketSelected;
+        entity.ticket_item_delflag_overlay = (entity.TicketSelected == true) ? 1 : 0;
+
+        toastService.ShowInfo(entity.MessageDelete);
+        int result = Task.Run(() => cprsqlService.TICKCI_UpdateDelFlag(entity)).Result;
+        await refreshRecords("RXNO");  // remove the page refresh and do the calculations inside the model class
+    }
+
+    protected async Task Update(ProfitabilityNCPDPModel UpdateEntity)
+    {
+        UpdateEntity.UpdatedBy = UpdateEntity.UpdatedBy + "-" + StateHelper.Items["UserIdentityName"].ToString();
+        int TextBoxesChangedCount = 0;
+
+        if (EntitySaved.ncpdp_primary_claim_paid != UpdateEntity.ncpdp_primary_claim_paid)
+        {
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_primary_claim_paid_response_sys_id, EntitySaved.ncpdp_secondary_claim_paid, UpdateEntity.ncpdp_secondary_claim_paid, "PrimaryTPPaid", UpdateEntity.UpdatedBy);
+            //UpdateEntity.TPRevenuePlusPatientCopay = UpdateEntity.TPRevenue + UpdateEntity.Copay;
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.ncpdp_primary_claim_paid = UpdateEntity.ncpdp_primary_claim_paid;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.ncpdp_secondary_claim_paid != UpdateEntity.ncpdp_secondary_claim_paid)
+        {
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_primary_claim_paid_response_sys_id, EntitySaved.ncpdp_secondary_claim_paid, UpdateEntity.ncpdp_secondary_claim_paid, "SecondaryTPPaid", UpdateEntity.UpdatedBy);
+            //UpdateEntity.TPRevenuePlusPatientCopay = UpdateEntity.TPRevenue + UpdateEntity.Copay;
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.ncpdp_secondary_claim_paid = UpdateEntity.ncpdp_secondary_claim_paid;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.Copay != UpdateEntity.Copay)
+        {
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_patient_copay_expected_response_sys_id, EntitySaved.Copay, UpdateEntity.Copay, "Copay", UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.Copay = UpdateEntity.Copay;
+            //UpdateEntity.TPRevenuePlusPatientCopay = UpdateEntity.TPRevenue + UpdateEntity.Copay;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.ticket_total_cost != UpdateEntity.ticket_total_cost)
+        {
+            await cprsqlService.TICKC_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, EntitySaved.ticket_total_cost, UpdateEntity.ticket_total_cost, UpdateEntity.COGS, UpdateEntity.ncpdp_primary_claim_paid, UpdateEntity.ncpdp_secondary_claim_paid, UpdateEntity.Copay, UpdateEntity.ncpdp_primary_claim_payor, UpdateEntity.vatext, UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.COGS = UpdateEntity.COGS;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.ncpdp_invoice_expected != UpdateEntity.ncpdp_invoice_expected)
+        {
+            //await cprsqlService.LINEITEMS_Update(UpdateEntity);
+            await cprsqlService.INVOICES_UpdateRenenueTotalExpected(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, EntitySaved.ncpdp_invoice_expected, UpdateEntity.ncpdp_invoice_expected, UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.ncpdp_invoice_expected = UpdateEntity.ncpdp_invoice_expected;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        // After the database call we update the UI with the new calculated values
+        if (cprsqlService.DBState.ErrorOccurred)
+        {
+            toastService.ShowError(cprsqlService.DBState.DisplayMessage + ":" + cprsqlService.DBState.ErrorMessage);
+            return;
+        }
+        else
+        {
+            if (TextBoxesChangedCount == 0)
+            {
+                toastService.ShowInfo("Nothing was changed. So no data was updated.");
+                return;
+            }
+            else
+            {
+                toastService.ShowInfo("Record Saved. Reloading Search Grid.");
+            }
+        }
+
+        await refreshRecords("RXNO");
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number)).Result;
+    }
+}

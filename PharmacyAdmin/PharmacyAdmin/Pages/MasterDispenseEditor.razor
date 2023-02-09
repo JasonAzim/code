@@ -1,0 +1,371 @@
+﻿@page "/masterDispenseEditor"
+@inject ISqlService ISHUBService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject IJSRuntime JSRuntime
+
+<form>
+    <div class="form-group">
+        Enter RX Number
+        <input type="text" id="txtRXNumber" @bind="RXNO" @bind:event="oninput" />
+        &nbsp;&nbsp;
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(async () => await RefreshRecords("RXNO"))">Search</button>
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" >Download Documents</button>
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(() => NavigateToPowerBIReport())">View Report</button>
+    </div>
+
+    @if (Entities != null)
+    {
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Select</th>
+                    <th>RxNumber</th>
+                    <th>Doc</th>
+                    <th>RefillNumber</th>
+                    <th>DateFilled</th>
+                    <th>DispensedItemName</th>
+                    <th>TotalPriceSubmitted</th>
+                    <th>TotalPricePaid</th>
+                    <th>PatientPaidAmount</th>
+                    <th>AcquisitionCost</th>
+                    <th>GrossProfit</th>
+                    <th>DatabaseName</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Entities == null || Entities.Count == 0)
+                {
+                    <tr>
+                        <td colspan="3">No Records to display</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var entity in Entities)
+                    {
+                        <tr>
+                            <td><input type="checkbox" value="@entity.RxNumber" checked="@entity.RecordSelected" @onchange="(e) => RecordSelectedHandler(entity, e)" /></td>
+                            <td>@entity.RxNumber</td>
+                            @if (@entity.ticket_shipping_tracking_number == null)
+                            {
+                                <td></td>
+                            }
+                            else
+                            {
+                                <td><table>
+                                        <tr>
+                                            <td><a href="api/download?DocumentGUID=F3BAA641-6914-4EE5-8FCD-0C57C1F43A65&UserID=@UserID&Database=@entity.DatabaseName" title="Download Document"><img src="/assets/images/file-earmark-arrow-down.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                            <td><a href="" @onclick="ViewDocument" @onclick:preventDefault title="View Document"><img src="/assets/images/file-earmark-pdf.svg" alt="Bootstrap" width="24" height="24"></a></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            }
+                            <td>@entity.RefillNumber</td>
+                            <td>@entity.DateFilled?.ToShortDateString()</td>
+                            <!--<td>@entity.PatientSerialNumber</td>-->
+                            <!--<td>@entity.DispensedItemNDC</td>-->
+                            <td>@entity.DispensedItemName</td>
+                            <td>@entity.TotalPriceSubmitted</td>
+                            <td>@entity.TotalPricePaid</td>
+                            <td>@entity.PatientPaidAmount</td>
+                            <td>@entity.AcquisitionCost</td>
+                            <td>@entity.GrossProfit</td>
+                            <td>@entity.DatabaseName</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    }
+
+    @if (EntitySelected != null)
+    {
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Selected row details</b></div>
+
+        <div class="form-group">
+            <label for="RxNumber" class="lblCaption">RX Number</label>
+            <input type="text" id="RxNumber" @bind-value="@EntitySelected.RxNumber" />
+            <b>Note: If the RX Number is changed then it will be changed for all the invoices for that RX Number</b>
+        </div>
+
+        // Add control fields below
+        <div class="form-group">
+            <label for="TotalPriceSubmitted" class="lblCaption">Total Price Submitted</label>
+            <input type="text" id="TotalPriceSubmitted" @bind-value="@EntitySelected.TotalPriceSubmitted" />
+        </div>
+        
+        <div class="form-group">
+            <label for="TotalPricePaid" class="lblCaption">Total Price Paid</label>
+            <input type="text" id="TotalPricePaid" @bind-value="@EntitySelected.TotalPricePaid" />
+        </div>
+        
+        <div class="form-group">
+            <label for="PatientPaidAmount" class="lblCaption">Patient Paid Amount</label>
+            <input type="text" id="PatientPaidAmount" @bind-value="@EntitySelected.PatientPaidAmount" />
+            <!--<b>Note: Editting this will affect COGS, COGS Adjusted, Gross Profit, Gross Profit Adjusted and TP Revenue + Patient Copay</b>-->
+        </div>
+
+        <div class="form-group">
+            <label for="AcquisitionCost" class="lblCaption">Acquisition Cost</label>
+            <input type="text" id="AcquisitionCost" @bind-value="@EntitySelected.AcquisitionCost" />
+        </div>
+
+        <div class="form-group">
+            <label for="GrossProfit" class="lblCaption">Gross Profit</label>
+            <input type="text" id="GrossProfit" @bind-value="@EntitySelected.GrossProfit" />
+        </div>
+
+        <div class="form-group">
+            <label for="ticket_shipping_tracking_number" class="lblCaption">Shipping Tracking Number</label>
+            <input type="text" id="ticket_shipping_tracking_number" @bind-value="@EntitySelected.ticket_shipping_tracking_number" />
+            <button type="button" class="btn btn-danger" @onclick="ViewDocument">View Document</button>
+        </div>
+
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" @onclick="() => Update(EntitySelected)">Update</button>
+        </div>
+
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Change History Log:</b></div>
+
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-primary">
+                    <th>Refill Number</th>
+                    <th>Field Name</th>
+                    <th>Original Value</th>
+                    <th>New Value</th>
+                    <th>Modified By</th>
+                    <th>Modified Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (AuditChanges == null || AuditChanges.Count == 0)
+                {
+                    <tr>
+                        <td colspan="5">No fields have been modified.</td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var change in AuditChanges)
+                    {
+                        <tr>
+                            <td>@change.INVOICENO</td>
+                            <td>@change.FieldName</td>
+                            <td>@change.OriginalValue</td>
+                            <td>@change.OverlayValue</td>
+                            <td>@change.Chgbyhost</td>
+                            <!--<td>@change.CreatedBy</td> //This contains PharmacyAdminDayOldUser system app account which created the record -->
+                            <td>@change.TouchDate</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+</form>
+
+
+@code {
+    private string _RXNO;
+
+    private string RXNO
+    {
+        get { return _RXNO; }
+        set { _RXNO = value; }
+    }
+
+    public string UserID { get; set; }
+
+    List<DispenseModel> Entities;
+    List<AuditModel> AuditChanges;
+
+    DispenseModel EntitySelected;
+    DispenseModel EntitySaved;
+
+    List<DocumentModel> Documents;
+
+    protected override async Task OnInitializedAsync()
+    {
+        navigationManager.TryGetQueryString<string>("RXNO", out _RXNO);
+        UserID = StateHelper.Items["UserIdentityName"].ToString();
+
+        await Task.CompletedTask;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(_RXNO))
+            {
+                await Task.Run(async () => await RefreshRecords("RXNO"));//<--or Task.Delay(0) without Task.Run
+                if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+            }
+
+            StateHasChanged();
+        }
+    }
+
+
+    private async void ViewDocument(MouseEventArgs e)
+    {
+        string uri = "Document?Database=1&RXNO=583514&REFNO=377435&DATE=2021-10";
+        // uri = "api/download?DocumentGUID=1234";
+        //navigationManager.NavigateTo(uri, true);
+        await JSRuntime.InvokeAsync<object>("open", uri, "_blank");
+    }
+
+    public void NavigateToPowerBIReport()
+    {
+        string url = "https://app.powerbi.com/groups/b387e327-8b65-4d20-9b20-ddd49345842d/reports/44056c2b-3d57-4140-84fc-dfe2e32c8483/ReportSection?bookmarkGuid=Bookmark011eb47b4c4a3a79178e";
+        navigationManager.NavigateTo(url);
+    }
+
+    public async Task RefreshRecords(string searchType)
+    {
+        EntitySelected = null;
+        if (string.IsNullOrEmpty(_RXNO))
+        {
+            toastService.ShowWarning("Please enter a RX Number");
+            return;
+        }
+
+        toastService.ShowInfo("Searching...");
+        await Task.Delay(1);
+        if (searchType == "RXNO")
+        {
+            Entities = await ISHUBService.ISHUBGetByRxNumber(_RXNO);
+            //List<DispenseModel> Models = await ISHUBService.PioneerRxGetByRxNumber(_RXNO);
+            //Entities = Models.GroupBy(x => x.ncpdp_invoice_number).Select(x => x.OrderByDescending(y => y.ticket_confirmation_date).FirstOrDefault()).ToList();
+        }
+        else
+        {
+            //Entities = await cprsqlService.GetByRXNO(searchValue);
+        }
+
+        if (ISHUBService.DBState.ErrorOccurred) toastService.ShowError(ISHUBService.DBState.ErrorMessage);
+
+        if (Entities == null)
+
+        {
+            toastService.ShowInfo("No record(s) found");
+        }
+        else
+        {
+            toastService.ShowInfo("record was found");
+        }
+
+        if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+
+        await Task.Delay(1);
+    }
+
+    public event Action<DispenseModel> RecordSelectedEvent;
+
+    private void RefreshAuditHistoryChanges()
+    {
+        EntitySelected = Entities.FirstOrDefault();
+        EntitySelected.RecordSelected = true;
+        AuditChanges = Task.Run(() => ISHUBService.ISHUBGetProfitabilityAuditMaster(_RXNO)).Result;
+        EntitySaved = new DispenseModel() { RxNumber = EntitySelected.RxNumber, RxTransactionID = EntitySelected.RxTransactionID, TotalPriceSubmitted = EntitySelected.TotalPriceSubmitted, TotalPricePaid = EntitySelected.TotalPricePaid, PatientPaidAmount = EntitySelected.PatientPaidAmount, AcquisitionCost = EntitySelected.AcquisitionCost, GrossProfit = EntitySelected.GrossProfit, DatabaseName = EntitySelected.DatabaseName };
+    }
+
+    private void RecordSelectedHandler(DispenseModel entity, ChangeEventArgs e)
+    {
+        AuditChanges = Task.Run(() => ISHUBService.ISHUBGetProfitabilityAuditMaster(_RXNO)).Result;
+
+        if (entity.DatabaseName == "PioneerRX")
+        {
+            Documents = Task.Run(() => ISHUBService.PioneerRXGetFedexShipmentTrackingNumber(entity.DatabaseName, _RXNO, entity.RxTransactionID)).Result;
+            //entity.ticket_shipping_tracking_number = Documents.FirstOrDefault().TrackingNumber.ToString();
+
+        }
+
+        //var item = AuditChanges.FirstOrDefault(i => i.ColumnKey == entity.RxTransactionID);
+
+        for (int i = 0; i < Entities.Count; i++)
+        {
+            Entities[i].RecordSelected = false;
+        }
+
+        entity.RecordSelected = !entity.RecordSelected;
+        EntitySelected = entity;
+        EntitySaved = new DispenseModel() { RxNumber = entity.RxNumber , RxTransactionID = entity.RxTransactionID, TotalPriceSubmitted = entity.TotalPriceSubmitted, TotalPricePaid = entity.TotalPricePaid, PatientPaidAmount = entity.PatientPaidAmount, AcquisitionCost = entity.AcquisitionCost, GrossProfit = entity.GrossProfit , DatabaseName = entity.DatabaseName};
+        string CheckValue = e.Value.ToString();
+        RecordSelectedEvent?.Invoke(entity);
+    }
+
+    protected async Task Update(DispenseModel UpdateEntity)
+    {
+        UpdateEntity.UpdatedBy = UpdateEntity.UpdatedBy + "-" + StateHelper.Items["UserIdentityName"].ToString();
+        int TextBoxesChangedCount = 0;
+
+        if (EntitySaved.RxNumber != UpdateEntity.RxNumber)
+        {
+            //await ISHUBService.NCDPDP_Update(EntitySaved.RxNumber, UpdateEntity.RxNumber, UpdateEntity.UpdatedBy); ;
+            //if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            //TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.TotalPriceSubmitted != UpdateEntity.TotalPriceSubmitted)
+        {
+            await ISHUBService.ISHUBDispenseUpdate(EntitySaved.DatabaseName, "TotalPriceSubmitted", EntitySaved.RxNumber, EntitySaved.RxTransactionID, EntitySaved.TotalPriceSubmitted, UpdateEntity.TotalPriceSubmitted, UpdateEntity.UpdatedBy, AuditChanges.FirstOrDefault(i => i.ColumnKey == UpdateEntity.RxTransactionID));
+            if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.TotalPricePaid != UpdateEntity.TotalPricePaid)
+        {
+            await ISHUBService.ISHUBDispenseUpdate(EntitySaved.DatabaseName, "TotalPricePaid", EntitySaved.RxNumber, EntitySaved.RxTransactionID, EntitySaved.TotalPricePaid, UpdateEntity.TotalPricePaid, UpdateEntity.UpdatedBy, AuditChanges.FirstOrDefault(i => i.ColumnKey == UpdateEntity.RxTransactionID));
+            if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.PatientPaidAmount != UpdateEntity.PatientPaidAmount)
+        {
+            await ISHUBService.ISHUBDispenseUpdate(EntitySaved.DatabaseName, "PatientPaidAmount", EntitySaved.RxNumber, EntitySaved.RxTransactionID, EntitySaved.PatientPaidAmount, UpdateEntity.PatientPaidAmount, UpdateEntity.UpdatedBy, AuditChanges.FirstOrDefault(i => i.ColumnKey == UpdateEntity.RxTransactionID));
+            if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.AcquisitionCost != UpdateEntity.AcquisitionCost)
+        {
+            await ISHUBService.ISHUBDispenseUpdate(EntitySaved.DatabaseName, "AcquisitionCost", EntitySaved.RxNumber, EntitySaved.RxTransactionID, EntitySaved.AcquisitionCost, UpdateEntity.AcquisitionCost, UpdateEntity.UpdatedBy, AuditChanges.FirstOrDefault(i => i.ColumnKey == UpdateEntity.RxTransactionID));
+            if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        if (EntitySaved.GrossProfit != UpdateEntity.GrossProfit)
+        {
+            await ISHUBService.ISHUBDispenseUpdate(EntitySaved.DatabaseName, "GrossProfit", EntitySaved.RxNumber, EntitySaved.RxTransactionID, EntitySaved.GrossProfit, UpdateEntity.GrossProfit, UpdateEntity.UpdatedBy, AuditChanges.FirstOrDefault(i => i.ColumnKey == UpdateEntity.RxTransactionID));
+            if (ISHUBService.DBState.ErrorOccurred == false) EntitySaved.RxNumber = UpdateEntity.RxNumber;
+            TextBoxesChangedCount = TextBoxesChangedCount + 1;
+        }
+
+        // After the database call we update the UI with the new calculated values
+        if (ISHUBService.DBState.ErrorOccurred)
+        {
+            toastService.ShowError(ISHUBService.DBState.DisplayMessage + ":" + ISHUBService.DBState.ErrorMessage);
+            return;
+        }
+        else
+        {
+            if (TextBoxesChangedCount == 0)
+            {
+                toastService.ShowInfo("Nothing was changed. So no data was updated.");
+                return;
+            }
+            else
+            {
+                toastService.ShowInfo("Record Saved. Reloading Search Grid.");
+            }
+        }
+
+        await RefreshRecords("RXNO");
+        AuditChanges = Task.Run(() => ISHUBService.ISHUBGetProfitabilityAuditMaster(_RXNO)).Result;
+    }
+}

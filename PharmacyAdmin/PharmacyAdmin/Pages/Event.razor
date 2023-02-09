@@ -1,0 +1,54 @@
+﻿@page "/event/{EventNo}"
+@inject NavigationManager NavigationManager
+
+<div class="col-md-6 offset-md-3 mt-5">
+     @if (!string.IsNullOrEmpty(EventNo))
+     {
+     <div class="alert alert-info">
+        @SystemMessageTitle
+     </div>
+     }
+    <div class="card">
+        @if (!string.IsNullOrEmpty(EventNo))
+        {
+        <h4 class="card-header">Error Type Code is @EventNo</h4>
+        }
+        <div class="card-body">
+            @if (!string.IsNullOrEmpty(Error))
+            {
+                <div class="alert alert-danger mt-3 mb-0">@Error</div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public string EventNo { get; set; }
+
+    private string SystemMessageTitle;
+
+    public string Error { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // NavigationManager.TryGetQueryString<string>("EVENTNO", out EVENTNO);
+
+        if (!string.IsNullOrEmpty(EventNo))
+        {
+            SystemMessageTitle = null;
+
+            if (EventNo == "2")
+            {
+                EventNo = null; // hide the event number do not show it to user 
+                Error = "Access Denied. User does not have access to this page.";
+            }
+        }
+        else
+        {
+            SystemMessageTitle = "INFORMATION MESSAGE";
+            Error = "System Error.";
+        }
+    }
+}

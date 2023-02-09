@@ -1,0 +1,8 @@
+﻿1>------ Build started: Project: PharmacyAdmin, Configuration: Debug Any CPU ------
+1>C:\global\PharmacyAdmin\PharmacyAdmin\Service\AuthenticationService.cs(11,7,11,28): warning CS0105: The using directive for 'PharmacyAdmin.Helpers' appeared previously in this namespace
+1>C:\global\PharmacyAdmin\PharmacyAdmin\Service\AuthenticationService.cs(11,7,11,28): warning CS0105: The using directive for 'PharmacyAdmin.Helpers' appeared previously in this namespace
+1>C:\global\PharmacyAdmin\PharmacyAdmin\Pages\AmbrisentanRemsPaging.razor(119,9,119,21): warning CS0649: Field 'AmbrisentanRemsPaging.totalRecords' is never assigned to, and will always have its default value 0
+1>PharmacyAdmin -> C:\global\PharmacyAdmin\PharmacyAdmin\bin\Debug\netcoreapp3.1\PharmacyAdmin.dll
+1>PharmacyAdmin -> C:\global\PharmacyAdmin\PharmacyAdmin\bin\Debug\netcoreapp3.1\PharmacyAdmin.Views.dll
+1>Done building project "PharmacyAdmin.csproj".
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

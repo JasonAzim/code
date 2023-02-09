@@ -1,0 +1,58 @@
+@layout TelerikLayout
+@inherits LayoutComponentBase
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Components.Authorization
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject StateHelper StateHelper
+
+<BlazoredToasts />
+
+<div class="#menu-container">
+    <div class="sidebar" style="width: 335px;">
+        <NavMenu />
+    </div>
+</div>
+
+<div class="main">
+    <div class="top-row px-4">
+        @StateHelper.GetPropertyOrDefault("UserIdentityName", "none@aprilrx.com")
+        <NavLink class="nav-link" href="Help" Match="NavLinkMatch.All">
+            <span class="oi oi-home" aria-hidden="true"></span>Help
+        </NavLink>
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+
+@code {
+    public string UserIdentityName { get; set; } = "Not Authenticated";
+
+    private string _authMessage;
+
+    private async Task ClaimsSetAuthorizationMessage()
+    {
+        if (StateHelper.Items.Count() == 0 && StateHelper.IsAuthenticated() == null)
+        {
+            var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                UserIdentityName = $"{user.Identity.Name}";
+                _authMessage = $"{user.Identity.Name} is authenticated.";
+            }
+
+            StateHelper.SetLoginAuditProperty($"{UserIdentityName} Logged in {DateTime.Now}");
+            StateHelper.Items.Add("UserIdentityName", UserIdentityName);
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await ClaimsSetAuthorizationMessage();
+    }
+}

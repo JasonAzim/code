@@ -1,0 +1,76 @@
+﻿@page "/CPRSQLPatientExport"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+
+<form>
+    <div class="form-group">
+        <input type="checkbox" value="@ViewModel.FilterByMRNChecked" checked="@ViewModel.FilterByMRNChecked" />
+        <label for="txtMRNs" class="control-label col-md-3">Filter By MRNs</label>
+        <input class="form-control" type="text" id="txtMRNs" @bind="ViewModel.MRNs" @bind:event="oninput" />
+    </div>
+    <div class="form-group">
+        <input type="checkbox" value="@ViewModel.FilterByDrugNamesChecked" checked="@ViewModel.FilterByDrugNamesChecked" />
+        <label for="txtDrugNames" class="control-label col-md-3">Filter By Drug Names</label>
+        <input class="form-control" type="text" id="txtDrugNames" @bind="ViewModel.DrugNames" @bind:event="oninput" />
+    </div>
+    <div class="form-group">
+        <input type="checkbox" value="@ViewModel.FilterByICDCodesChecked" checked="@ViewModel.FilterByICDCodesChecked" />
+        <label for="txtICDCodes" class="control-label col-md-3">Filter By ICD Codes</label>
+        <input class="form-control" type="text" id="txtICDCodes" @bind="ViewModel.ICDCodes" @bind:event="oninput" />
+    </div>
+    <div class="form-group">
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(async () => await generateCSV())">Generate CSV</button>
+        &nbsp;&nbsp;<button type="button" class="btn btn-danger" @onclick="@(async () => await generateQuery())">Generate Query</button>
+    </div>
+    <div class="form-group">
+        <textarea rows="23" cols="200" id="txtOutput" @bind="Output"></textarea>
+    </div>
+</form>
+
+@code {
+
+    public string Output { get; set; }
+    CPRSQLPatientExportViewModel ViewModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel = new CPRSQLPatientExportViewModel();
+        ViewModel.FilterByMRNChecked = true;
+        ViewModel.MRNs = @"200230,200282,200318,200420,200506,200639,200759,200891,200951,201027,201081,201082,201099,201141,201150,201153,201163,201164,201202,201229,201245,201259,201260,201268,201273,201316,201338,201396,201590,201597,201634,201689,201699,201906,201934,201985,202098,202100,202189,202214,202346,202348,202454,202458,202510,202528,202544,202548,202561,202569,202604,202617,202659,202733,202766,202780,202816,202828,202864,202916,202926,202973,202975,203012,203068,203070,203265,203339,203357,203366,203384,203414,203618,203626,203658,203665,203780,203797,203935,204004,204280,204351,204409,204428,204535,204563,204565,204605,204695,204726,204850,204883,204937,205011,205144,205150,205158,205188,205195,205354,205388,205401,205500,205530,205549,205584,205594,205598,205640,205693,205700,205797,205992,206002,206088,206143,206251,206269,206281,206287,206327,206352,206375,206432,206472,206478,206581,206587,206624,206760,206792,206828,206931,207054,207098,207122,207165,207268,207299,207306,207510,207512,207530,207606,207627,207726,207777,207801,207927,207944,207965,207970,207972,207974,207975,207985,207986,208026,208051,208072,208073,208155,208179,208184,208232,208240,208241,208248,208251,208291,208350,208351,208366,208384,208385,208398,208417,208431,208456,208458,208472,208473,208496,208550,208556,208560,208572,208575,208576,208584,208589,208595,208627,208644,208680,208692,208712,208716,208731,208750";
+        ViewModel.FilterByDrugNamesChecked = true;
+        ViewModel.DrugNames = @"'Cinacalcet','SandoSTATIN','CycloSPORINE','Mycophenolate','Sensipar','Sildenafil','Invega','Octreotide','Tacrolimus','Fondaparinux','Tobramycin','Sirolimus','Icatibant','Mekinist','HYDROXYprogesterone','Prograf','Acitretin','Zortress','Lupron','RhoGAM','Tetrabenazine'";
+
+        await Task.CompletedTask;
+    }
+
+    public async Task generateCSV()
+    {
+        if (string.IsNullOrEmpty(ViewModel.MRNs))
+        {
+            toastService.ShowWarning("Please enter MRNs. They are required input.");
+            return;
+        }
+
+        //ViewModel.OutputCSV = await cprsqlService.GetPatientExportData(ViewModel);
+        ViewModel.OutputCSV = await cprsqlService.GetPatientExportDataCSV(ViewModel);
+
+        Output = ViewModel.OutputCSV;
+        await Task.CompletedTask;
+    }
+
+    public async Task generateQuery()
+    {
+        if (string.IsNullOrEmpty(ViewModel.MRNs))
+        {
+            toastService.ShowWarning("Please enter MRNs. They are required input.");
+            return;
+        }
+
+        //ViewModel.OutputQuery = await cprsqlService.GetPatientExportQuery(ViewModel);
+        ViewModel.OutputQuery = await cprsqlService.GetPatientExportQuery2(ViewModel);
+        Output = ViewModel.OutputQuery;
+        await Task.CompletedTask;
+    }
+}

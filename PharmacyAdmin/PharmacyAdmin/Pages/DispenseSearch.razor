@@ -1,0 +1,201 @@
+﻿@page "/DispenseSearch"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+
+<form>
+
+    <!--
+    <div class="form-group">
+        Enter RXNumber
+        <input type="text" id="txtSearch" placeholder="Search RX Number" @bind="SearchLABLOGNO" @bind:event="oninput" />
+        <button type="button" class="btn btn-danger" @onclick="() => refreshRecords()">Search</button>&nbsp;&nbsp;
+    </div>
+    -->
+    <!--
+
+    <div class="form-group">
+        Enter MRN
+        <input type="text" id="txtSearch" placeholder="Search RX Number" @bind="SearchLABLOGNO" @bind:event="oninput" />
+        <button type="button" class="btn btn-danger" @onclick="() => refreshRecords()">Search</button>&nbsp;&nbsp;
+    </div>
+    <div class="form-group">
+        Enter Ticket No
+        <input type="text" id="txtSearch" placeholder="Search RX Number" @bind="SearchLABLOGNO" @bind:event="oninput" />
+        <button type="button" class="btn btn-danger" @onclick="() => refreshRecords()">Search</button>&nbsp;&nbsp;
+    </div>
+    -->
+    <div class="form-group">
+        Enter Invoice No
+        <input type="text" id="txtSearch" placeholder="Search RX Number" @bind="SearchLABLOGNO" @bind:event="oninput" />
+        <button type="button" class="btn btn-danger" @onclick="() => refreshRecords()">Search</button>&nbsp;&nbsp;
+    </div>
+    @if (entity != null)
+    {
+        <div class="form-group">
+            <label for="ncpdp_date_filled_timestamp" class="lblCaption">Date Filled</label>
+            <input type="text" id="ncpdp_date_filled_timestamp" @bind-value="@entity.ncpdp_date_filled_timestamp" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_rx_number" class="lblCaption">RX Number</label>
+            <input type="text" id="ncpdp_rx_number" @bind-value="@entity.ncpdp_rx_number" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_drug_name" class="lblCaption">Drug Name</label>
+            <input type="text" id="ncpdp_drug_name" @bind-value="@entity.ncpdp_drug_name" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_ndc" class="lblCaption">Drug NDC</label>
+            <input type="text" id="ncpdp_ndc" @bind-value="@entity.ncpdp_ndc" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_invoice_number" class="lblCaption">Invoice Number</label>
+            <input type="text" id="ncpdp_invoice_number" @bind-value="@entity.ncpdp_invoice_number" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_primary_claim_billed" class="lblCaption">Primary Claim Billed</label>
+            <input type="text" id="ncpdp_primary_claim_billed" @bind-value="@entity.ncpdp_primary_claim_billed" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_primary_claim_expected" class="lblCaption">Primary Claim Expected</label>
+            <input type="text" id="ncpdp_primary_claim_expected" @bind-value="@entity.ncpdp_primary_claim_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_primary_claim_paid" class="lblCaption">Primary Claim Paid</label>
+            <input type="text" id="ncpdp_primary_claim_paid" @bind-value="@entity.ncpdp_primary_claim_paid" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_secondary_claim_billed" class="lblCaption">Secondary Claim Billed</label>
+            <input type="text" id="ncpdp_secondary_claim_billed" @bind-value="@entity.ncpdp_secondary_claim_billed" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_secondary_claim_expected" class="lblCaption">Secondary Claim Expected</label>
+            <input type="text" id="ncpdp_secondary_claim_expected" @bind-value="@entity.ncpdp_secondary_claim_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_secondary_claim_paid" class="lblCaption">Secondary Claim Paid</label>
+            <input type="text" id="ncpdp_secondary_claim_paid" @bind-value="@entity.ncpdp_secondary_claim_paid" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_patient_copay_expected" class="lblCaption">Patient Copay Expected</label>
+            <input type="text" id="ncpdp_patient_copay_expected" @bind-value="@entity.ncpdp_patient_copay_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_patient_secondary_copay_expected" class="lblCaption">Patient Secondary Copay Expected</label>
+            <input type="text" id="ncpdp_patient_secondary_copay_expected" @bind-value="@entity.ncpdp_patient_secondary_copay_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_other_secondary_copay_expected" class="lblCaption">Other Secondary Copay Expected</label>
+            <input type="text" id="ncpdp_other_secondary_copay_expected" @bind-value="@entity.ncpdp_other_secondary_copay_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_patient_paid" class="lblCaption">Patient Paid</label>
+            <input type="text" id="ncpdp_patient_paid" @bind-value="@entity.ncpdp_patient_paid" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_claim_adjustment" class="lblCaption">Claim Adjustment</label>
+            <input type="text" id="ncpdp_claim_adjustment" @bind-value="@entity.ncpdp_claim_adjustment" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_claim_balance" class="lblCaption">Claim Balance</label>
+            <input type="text" id="ncpdp_claim_balance" @bind-value="@entity.ncpdp_claim_balance" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_ncpdp_cost" class="lblCaption">NCPDP Cost</label>
+            <input type="text" id="ncpdp_ncpdp_cost" @bind-value="@entity.ncpdp_ncpdp_cost" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_ticket_cost" class="lblCaption">Ticket Cost</label>
+            <input type="text" id="ncpdp_ticket_cost" @bind-value="@entity.ncpdp_ticket_cost" />
+            <label for="ncpdp_ticket_cost" class="lblCaption">New Ticket Cost</label>
+            <input type="text" id="ncpdp_ticket_cost" @bind-value="@entity.ncpdp_ticket_cost_new" />
+            <button type="button" class="btn btn-danger" @onclick="() => updateCost()">Update</button>&nbsp;&nbsp;
+            <button type="button" class="btn btn-danger" @onclick="() => updateCost()">Update All</button>&nbsp;&nbsp;
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_invoice_expected" class="lblCaption">NCPDP Invoice Expected</label>
+            <input type="text" id="ncpdp_invoice_expected" @bind-value="@entity.ncpdp_invoice_expected" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_invoice_billed" class="lblCaption">NCPDP Invoice Billed</label>
+            <input type="text" id="ncpdp_invoice_billed" @bind-value="@entity.ncpdp_invoice_billed" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_sec_ncpdp_cost" class="lblCaption">NCPDP Secondary Cost</label>
+            <input type="text" id="ncpdp_sec_ncpdp_cost" @bind-value="@entity.ncpdp_sec_ncpdp_cost" />
+        </div>
+
+        <div class="form-group">
+            <label for="ncpdp_new_profit" class="lblCaption">NCPDP New Profit</label>
+            <input type="text" id="ncpdp_new_profit" @bind-value="@entity.ncpdp_new_profit" />
+        </div>
+
+        <div class="form-group">
+            <label for="awp" class="lblCaption">Awp</label>
+            <input type="text" id="awp" @bind-value="@entity.awp" />
+        </div>
+
+    }
+</form>
+
+
+@code {
+    private string searchLABLOGNO = "500010";
+
+    private string SearchLABLOGNO
+    {
+        get { return searchLABLOGNO; }
+        set { searchLABLOGNO = value; }
+    }
+
+    ViewCubeNCPDPModel entity;
+
+    public async Task refreshRecords()
+    {
+        entity = await cprsqlService.GetByLABLOGNO(searchLABLOGNO);
+        //this.StateHasChanged();
+
+        if (entity == null)
+
+        {
+            string DisplayMessage = "No record was found";
+            toastService.ShowInfo(DisplayMessage);
+        }
+        else
+        {
+            string DisplayMessage = "record was found";
+            toastService.ShowInfo(DisplayMessage);
+            //var EditUrl = "/PharmacyAdmin/NcpdpEdit/" + entity.LABLOGNO.ToString();
+            //navigationManager.NavigateTo(EditUrl);
+        }
+    }
+
+    public async Task updateCost()
+    {
+        entity.UpdatedBy = StateHelper.Items["UserIdentityName"].ToString();
+        await Task.CompletedTask;
+        //await cprsqlService.Update(entity);
+    }
+}

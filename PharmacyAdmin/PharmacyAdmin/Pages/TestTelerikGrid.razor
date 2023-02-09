@@ -1,0 +1,63 @@
+﻿@page "/TestTelerikGrid"
+@inject ISqlService SqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject DocumentService DocumentService
+
+<TelerikButton OnClick="@SayHelloHandler">Say Hello</TelerikButton>
+
+<TelerikButton OnClick="@AutoFitAllColumns">AutoFit All Columns</TelerikButton>&nbsp;&nbsp;
+<TelerikButton OnClick="@TestColumnVisibility">Toggle Column Visibility</TelerikButton>
+
+@helloString
+
+<TelerikGrid Data="@GridData" AutoGenerateColumns="true" @ref="@GridRef" Pageable="true" PageSize="4">
+</TelerikGrid>
+
+
+@code {
+    MarkupString helloString;
+
+    public bool isVisible { get; set; } = true;
+
+    TelerikGrid<GridDataModel> GridRef { get; set; }
+
+    public class GridDataModel
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string EmailAddress { get; set; }
+        public DateTime? RegistrationDate { get; set; }
+        public DateTime? LocalTime { get; set; }
+        public string BoughtBooks { get; set; } = String.Join(", ", Books);
+    }
+
+    List<GridDataModel> GridData { get; set; } = Enumerable.Range(1, 15).Select(i => new GridDataModel()
+    {
+        Id = i,
+        Username = $"Username {i}",
+        EmailAddress = $"user{i}@mail.com",
+        RegistrationDate = DateTime.Now.AddDays(-2),
+        LocalTime = DateTime.Now
+    }).ToList();
+
+    static List<string> Books = new List<string>() { "Wolf", "Lord of the Rings", "The Hobbit" };
+
+    void SayHelloHandler()
+    {
+        string msg = string.Format("Hello from <strong>Telerik Blazor</strong> at {0}.<br /> Now you can use C# to write front-end!", DateTime.Now);
+        helloString = new MarkupString(msg);
+    }
+
+    void AutoFitAllColumns()
+    {
+        GridRef.AutoFitAllColumns();
+    }
+
+    void TestColumnVisibility()
+    {
+        isVisible = !isVisible;
+        GridRef.AutoFitAllColumns();
+    }
+}

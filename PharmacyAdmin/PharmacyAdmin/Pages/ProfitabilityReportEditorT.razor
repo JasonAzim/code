@@ -1,0 +1,748 @@
+﻿@page "/ProfitabilityReportEditor"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject IUserService UserService
+@inject StateHelper StateHelper
+@inject ScheduleService ScheduleService
+@inject IJSRuntime JSRuntime
+
+@using System.Collections.Generic;
+@using Telerik.DataSource.Extensions;
+
+<style>
+    .sort-th {
+        cursor: pointer;
+    }
+
+    .fa {
+        float: right;
+    }
+
+    .DatePanel {
+        border: 2px solid #000;
+        width: 700px;
+        height: 100%;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        overflow: hidden;
+    }
+
+    tr.strikeout {
+        text-decoration: line-through;
+    }
+
+    .TextBoxSm {
+        width: 125px;
+    }
+
+    /* Telerik Styles */
+    .highlightCell {
+        background-color: lightyellow;
+        color: maroon;
+        border: 1px solid maroon;
+    }
+
+    /* the custom background - in this example, on every third element*/
+    .k-grid-table .k-master-row {
+        /* color: purple; */
+        border: 1px solid maroon;
+    }
+
+    k-grid-content tr:last-child > td, .k-grid-content-locked tr:last-child > td {
+        border-bottom-width: 1px;
+    }
+
+    .RowFormat {
+        /*color: black; */
+    }
+
+    .RowFormatStrike {
+        text-decoration: line-through;
+    }
+
+    .k-input-numeric {
+        border: 1px solid maroon;
+    }
+
+    /* Data Loading */
+    .initial-data-loader .k-loader-container-overlay.k-overlay-light {
+        background-color: white;
+    }
+
+    .k-loader-container {
+        z-index: 104;
+    }
+
+    .help-window {
+        z-index: 150;
+    }
+</style>
+
+<TelerikWindow Class="help-window" Width="875px" Height="265px" @bind-Top="@ViewModel.HelpTop" @bind-Left="@ViewModel.HelpLeft" Visible="@( ViewModel.IsHelpVisible )" PersistContent="false">
+    <WindowTitle>
+        <strong>Welcome to Profitability Report Editor! - Whats New</strong>
+    </WindowTitle>
+    <WindowActions>
+        <WindowAction Name="Minimize"></WindowAction>
+    </WindowActions>
+    <WindowContent>
+        <ul>
+            <li>Added dropdown on Grid Toolbar to adjust the width of the grid.</li>
+            <li>Grid automatically adjusts to browser dimensions.</li>
+            <li>Added an Edit Flag to filter for records that have been modified.</li>
+            <li>Added AutoFit All columns button to the Grid Toolbar to resize all columns.</li>
+            <li>Added Column Locking so columns can be frozen in place while scrolling to the right.</li>
+        </ul>
+    </WindowContent>
+</TelerikWindow>
+
+<form>
+
+    <div class="form-group">
+        Select Search Type:
+        @foreach (var item in Enum.GetNames(typeof(ProfitabilityReportViewModel.SearchTypes)))
+        {
+            <input type="radio" name="radioSearchType" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchTypeItemChanged(e))" checked=@(ViewModel.SelectedSearchType.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+            <label for="@item">@(StateHelper.GetDisplayName((ProfitabilityReportViewModel.SearchTypes) Enum.Parse(typeof(ProfitabilityReportViewModel.SearchTypes), item)))</label>
+        }
+        @if (ViewModel.SelectedSearchType == "Partials")
+        {
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Search for duplicate tickets">
+                <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button>
+            </span>
+        }
+        <!--&nbsp;&nbsp;<button type="button" class="btn btn-danger"  @onclick="@(() => NavigateToPowerBIReport())">Go to Profitability Report</button>-->
+    </div>
+
+    @if (ViewModel.SelectedSearchType == "Partials")
+    {
+        <br /><br /><br /><br /><br />
+    }
+    else if (ViewModel.SelectedSearchType == "One")
+    {
+        <div class="form-group">
+            Enter RX Number(s)
+            <input type="text" id="txtRXNumber" @bind="ViewModel.RXNO" @bind:event="oninput" @onkeyup="@OnRXNOKeyPressHandler" class="TextBoxSm" />
+            &nbsp;&nbsp;Or Enter Invoice Number(s) <input type="text" id="txtInvoiceNumber" @bind="ViewModel.INVOICENO" @bind:event="oninput" @onkeyup="@OnINVOICENOKeyPressHandler" class="TextBoxSm" />
+            <!--&nbsp;&nbsp;Use cached table <input type="checkbox" value="@ViewModel.UseCachedTableChecked" checked="@ViewModel.UseCachedTableChecked"  />-->
+            <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Search by rx number(s) or invoice number(s)">
+                <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button>
+            </span>
+            <br /><b>Note:</b>Please use comma separation to search for multiple records.
+        </div>
+        <br /><br /><br />
+    }
+    else
+    {
+        <div class="DatePanel">
+            <div class="form-group">
+                Select the Date Range to search with:
+                @foreach (var item in Enum.GetNames(typeof(ProfitabilityReportViewModel.SearchDates)))
+                {
+                    @if (item == ProfitabilityReportViewModel.SearchDates.None.ToString())
+                    {
+                        // Do nothing.
+                    }
+                    else
+                    {
+                        <input type="radio" name="radioSearchDate" id="@item" value="@item" @onchange="@((ChangeEventArgs e) => OnSearchDateItemChanged(e))" checked=@(ViewModel.SelectedSearchDate.Equals(item, StringComparison.OrdinalIgnoreCase)) />
+                        <label for="@item">@(StateHelper.GetDisplayName((ProfitabilityReportViewModel.SearchDates) Enum.Parse(typeof(ProfitabilityReportViewModel.SearchDates), item)))</label>
+                    }
+                }
+                @if (ViewModel.SelectedSearchDate != "None")
+                {
+                    <table>
+                        <tr>
+                            <td><label for="dropdownDate">Select a predefined date</label></td>
+                            <td>
+                                <select name="dropdownDate" id="dropdownDate" @onchange="@((ChangeEventArgs e) => OnSearchDropdownDateItemChanged(e))">
+                                    <option value="NONE">None</option>
+                                    <option value="LAST_WEEK">Last Week</option>
+                                    <option value="CURRENT_WEEK">This Week</option>
+                                    <option value="LAST_MONTH">Last Month</option>
+                                    <option value="CURRENT_MONTH">This Month</option>
+                                </select>
+                            </td>
+                            <td><ComponentDate Title="Start Date" @bind-Value="@ViewModel.SearchStartDate" />@ViewModel.SearchStartDate</td>
+                            <td><ComponentDate Title="End Date" @bind-Value="@ViewModel.SearchEndDate" />@ViewModel.SearchEndDate</td>
+                            <td>&nbsp;&nbsp;</td>
+                            <td>
+                                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Search by date range">
+                                    <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                }
+            </div>
+        </div>
+    }
+
+    @if (EntitySelected != null)
+    {
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Row details for invoice# @EntitySelected.ncpdp_invoice_number with ticket#  @EntitySelected.TICKNO</b></div>
+
+        <div class="form-group">
+            <label for="PrimaryTPPaid" class="lblCaption">Primary TP Paid</label>
+            <TelerikNumericTextBox Id="PrimaryTPPaid" Format="C" @bind-Value="@EntitySelected.ncpdp_primary_claim_paid" Size="sm" Arrows="false" class="k-input-numeric"></TelerikNumericTextBox>
+        </div>
+        <div class="form-group">
+            <label for="SecondaryTPPaid" class="lblCaption">Secondary TP Paid</label>
+            <TelerikNumericTextBox Id="SecondaryTPPaid" Format="C" @bind-Value="@EntitySelected.ncpdp_secondary_claim_paid" Size="sm" Arrows="false" class="k-input-numeric"></TelerikNumericTextBox>
+        </div>
+
+        <div class="form-group">
+            <label for="Copay" class="lblCaption">Copay</label>
+            <TelerikNumericTextBox Id="Copay" Format="C" @bind-Value="@EntitySelected.Copay" Size="sm" Arrows="false" class="k-input-numeric"></TelerikNumericTextBox>
+        </div>
+        <div class="form-group">
+            <label for="ticket_unit_cost" class="lblCaption">COGS (Ticket Cost)</label>
+            <TelerikNumericTextBox Id="ticket_unit_cost" Format="C" @bind-Value="@EntitySelected.ticket_total_cost" Size="sm" Arrows="false" class="k-input-numeric"></TelerikNumericTextBox>
+            <b>Note: Editting this will affect COGS, COGS Adjusted, Gross Profit and Gross Profit Adjusted</b>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-danger" @onclick="() => Update(EntitySelected)">Update</button>
+        </div>
+
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"></div>
+    }
+
+    <br />
+    @if (!string.IsNullOrEmpty(ViewModel.GridDataLoadCompleteStatus))
+    {
+        <div class="form-group">
+            <label class="lblCaption">@ViewModel.GridDataLoadCompleteStatus</label>
+        </div>
+    }
+    <div style="position: relative; width:100%; min-height: 400px;">
+        <TelerikLoaderContainer OverlayThemeColor="light"
+                                Visible="@( !ViewModel.IsGridDataLoadComplete )"
+                                Text="@null" Class="initial-data-loader">
+            <Template>
+                <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+                               Size="@(ThemeConstants.Loader.Size.Large)">
+                </TelerikLoader>
+            </Template>
+        </TelerikLoaderContainer>
+        <TelerikGrid Data="@Entities" TItem="ProfitabilityNCPDPModel" EditMode="@GridEditMode.Inline" @ref="@GridRef" Height=@(ViewModel.SelectedSearchType == "One" ? "100%" : "900px") Width="@ViewModel.GridWidth" RowHeight="60" PageSize=@ViewModel.PageSize
+                     ScrollMode="@(ViewModel.SelectedSearchType == "One" ? GridScrollMode.Scrollable:GridScrollMode.Virtual )" ColumnVirtualization="@ViewModel.ColumnVirtualization"
+                     Sortable="true" Reorderable="true" Resizable="true" ShowColumnMenu="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false"
+                     OnRowRender="@OnRowRenderHandler">
+            <GridToolBar>
+                <GridCommandButton Command="ExcelExport" Icon="file-excel" Title="Export to excel">Export to Excel</GridCommandButton>
+                <GridCommandButton Command="ResetGrid" OnClick="@ResetGrid" Title="Reset sorting, filtering and column hiding">Reset</GridCommandButton>
+                <GridCommandButton Command="AutoFitGrid" OnClick="@AutoFitAllColumns" Title="AutoFit all columns">AutoFit All Columns</GridCommandButton>
+                &nbsp;&nbsp;Adjust Width:
+                <span class="d-inline-block" tabindex="0" data-toggle="tooltip" title="Change the grid width to 100% to fill the whole window or change it to 1500px for tablets, 2500px for laptops and 3500px for Wide displays">
+                    <TelerikDropDownList @ref="@DropDownWidthRef" Data="@ViewModel.GridWidths.OrderBy(x => x).ToList()" Value="@ViewModel.GridWidth" ValueChanged="@( (string newValue) => ResizeGrid(newValue) )">
+                    </TelerikDropDownList>
+                </span>
+            </GridToolBar>
+            <GridExport>
+                <GridExcelExport FileName="telerik-grid-export" AllPages="@ViewModel.ExportAllPages" />
+            </GridExport>
+            <GridColumns>
+                <GridColumn Field="ROWNUM" Title="Row" Filterable="false" Width="@ViewModel.ROWNUM_Width" Resizable="true" />
+                <GridColumn Field="@(nameof(ProfitabilityNCPDPModel.TicketSelected))" Title="EDIT" Filterable="true" Width="@ViewModel.TicketSelected_Width" Resizable="true">
+                    <Template>
+                        <input type="checkbox" id="cbTicketSelect" value="@((context as ProfitabilityNCPDPModel).TICKNO)" checked="@((context as ProfitabilityNCPDPModel).RecordSelected)" @onchange="@(async (e) => await RecordSelectedHandler(context as ProfitabilityNCPDPModel, e))" />
+                    </Template>
+                </GridColumn>
+                <GridColumn Field="ncpdp_rx_number" Title="RX NO" Filterable="true" Width="@ViewModel.ncpdp_rx_number_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_invoice_number" Title="Invoice No" Filterable="true" Width="@ViewModel.ncpdp_invoice_number_Width" Resizable="true" />
+                <GridColumn Field="TICKNO" Title="Ticket No" Filterable="true" Width="@ViewModel.TICKNO_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_date_filled_timestamp" Title="Date Filled" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="@ViewModel.ncpdp_date_filled_timestamp_Width" Resizable="true" />
+                <GridColumn Field="ticket_confirmation_date" Title="Conf. Date" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="@ViewModel.ticket_confirmation_date_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_quantity_new_refill_code" Title="Refill No" Filterable="true" Width="@ViewModel.ncpdp_quantity_new_refill_code_Width" Resizable="true" />
+                <GridColumn Field="ticket_quantity" Title="Quantity" DisplayFormat="{0:0.00}" TextAlign="@ColumnTextAlign.Right" Filterable="true" Width="@ViewModel.ticket_quantity_Width" Resizable="true" />
+                <GridColumn Field="drug_name" Title="Drug Name" Filterable="true" Width="@ViewModel.drug_name_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_primary_claim_payor" Title="Primary Payor" Filterable="true" Width="@ViewModel.ncpdp_primary_claim_payor_Width" Resizable="true" />
+                <GridColumn Field="primary_payor_type" Title="Payor Type" Filterable="true" Width="@ViewModel.primary_payor_type_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_primary_claim_paid" Title="Primary TP Paid" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" OnCellRender="@OnCellRenderPrimaryTPPaid" Filterable="true" Width="@ViewModel.ncpdp_primary_claim_paid_Width" Resizable="true" />
+                <GridColumn Field="ncpdp_secondary_claim_paid" Title="Secondary TP paid" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" OnCellRender="@OnCellRenderSecondaryTPPaid" Filterable="true" Width="@ViewModel.ncpdp_secondary_claim_paid_Width" Resizable="true" />
+                <GridColumn Field="Copay" Title="Copay" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" OnCellRender="@OnCellRenderCopay" Filterable="true" Width="@ViewModel.Copay_Width" Resizable="true" />
+                <GridColumn Field="TPRevenuePlusPatientCopay" Title="TP Revenue + Patient Copay" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Filterable="true" Width="@ViewModel.TPRevenuePlusPatientCopay_Width" Resizable="true" />
+                <GridColumn Field="COGS" Title="COGS" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" OnCellRender="@OnCellRenderCOGS" Filterable="true" Width="@ViewModel.COGS_Width" Resizable="true" />
+                <GridColumn Field="COGSAdjusted" Title="COGS Adjusted" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Filterable="true" Width="@ViewModel.COGSAdjusted_Width" Resizable="true" />
+                <GridColumn Field="GrossProfit" Title="Gross Profit" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Filterable="true" Width="@ViewModel.GrossProfit_Width" Resizable="true" />
+                <GridColumn Field="GrossProfitAdjusted" Title="Gross Profit Adjusted" DisplayFormat="{0:C2}" TextAlign="@ColumnTextAlign.Right" Filterable="true" Width="@ViewModel.GrossProfitAdjusted_Width" Resizable="true" />
+                <GridColumn Field="CHGFLAG" Title="Edit Flag" Filterable="true" Width="@ViewModel.CHGFLAG_Width" Resizable="true" />
+                <GridColumn Field="PrimaryTPHistory" Title="Primary TP History" Filterable="true" Width="@ViewModel.PrimaryTPHistory_Width" Resizable="true" />
+                <GridColumn Field="SecondaryTPHistory" Title="Secondary TP History" Filterable="true" Width="@ViewModel.SecondaryTPHistory_Width" Resizable="true" />
+                <GridColumn Field="CopayHistory" Title="Copay History" Filterable="true" Width="@ViewModel.CopayHistory_Width" Resizable="true" />
+                <GridColumn Field="COGSHistory" Title="COGS History" Filterable="true" Width="@ViewModel.COGSHistory_Width" Resizable="true" />
+                <GridColumn Field="RecordDeletedHistory" Title="Record Delete History" Filterable="true" Width="@ViewModel.RecordDeletedHistory_Width" Resizable="true" />
+                <GridColumn Field="ticket_item_delivins" Title="Delivery Instructions" Filterable="true" Width="@ViewModel.ticket_item_delivins_Width" Resizable="true" />
+                <GridColumn Field="@(nameof(ProfitabilityNCPDPModel.TicketSelected))" Title="DELETE" Filterable="true" Width="@ViewModel.RecordDeleted_Width" Resizable="true">
+                    <Template>
+                        <input type="checkbox" id="cbTicketSelect" value="@((context as ProfitabilityNCPDPModel).TICKNO)" checked="@((context as ProfitabilityNCPDPModel).TicketSelected)" @onchange="@(async (e) => await TicketDeleteHandler(context as ProfitabilityNCPDPModel, e))" />
+                    </Template>
+                </GridColumn>
+            </GridColumns>
+        </TelerikGrid>
+    </div>
+    @if (EntitySelected != null)
+    {
+        <div class="form-group"><hr style="height:2px;border-width:0;color:gray;background-color:maroon"><b>Change History for invoice# @EntitySelected.ncpdp_invoice_number</b></div>
+
+        <TelerikGrid Data="@AuditChanges" AutoGenerateColumns="false" Pageable="false">
+            <GridColumns>
+                <GridColumn Field="AuditUID" Title="Ticket No" />
+                <GridColumn Field="FieldName" Title="Field Name" />
+                <GridColumn Field="OriginalValue" Title="Original Value" />
+                <GridColumn Field="OverlayValue" Title="New Value" />
+                <GridColumn Field="CreatedBy" Title="Modified By" />
+                <GridColumn Field="TouchDate" Title="Modified Date" />
+            </GridColumns>
+        </TelerikGrid>
+    }
+</form>
+
+@code {
+    // Tooltip Window Help Component
+
+    // Query Parameters
+    private string _RXNO;
+    private string _INVOICENO;
+
+    private ProfitabilityReportViewModel ViewModel;
+    TelerikGrid<ProfitabilityNCPDPModel> GridRef { get; set; }
+
+    private TelerikDropDownList<string, string> DropDownWidthRef { get; set; }
+
+    List<ProfitabilityNCPDPModel> Entities { get; set; } = new List<ProfitabilityNCPDPModel>();
+    ProfitabilityNCPDPModel EntitySelected;
+    ProfitabilityNCPDPModel EntitySaved;
+
+    List<AuditModel> AuditChanges { get; set; } = new List<AuditModel>();
+
+    [CascadingParameter]
+    public DialogFactory Dialogs { get; set; }
+
+    public class WindowDimension
+    {
+        public int Width { get; set; }
+        public int Height { get; set; }
+    }
+
+    // This is called first as part of the Blazor Page Life Cycle
+    protected override void OnInitialized()
+    {
+        ViewModel = new ProfitabilityReportViewModel() { SelectedSearchDate = ProfitabilityReportViewModel.SearchDates.FillDate.ToString(), SearchValues = "", UserID = StateHelper.Items["UserIdentityName"].ToString() };
+
+        // If User has access to FedEx Search page then give them access to this page also because they are an admin
+        if (UserService.CheckUserAccess("FedExSearch", ViewModel.UserID).Result == false)
+        {
+            navigationManager.NavigateTo("event/2", true);
+        }
+
+        navigationManager.TryGetQueryString<string>("RXNO", out _RXNO);
+
+
+        navigationManager.TryGetQueryString<string>("INVOICENO", out _INVOICENO);
+
+        if (!string.IsNullOrEmpty(_RXNO))
+        {
+            ViewModel.RXNO = _RXNO;
+            ViewModel.SelectedSearchType = ProfitabilityReportViewModel.SearchTypes.One.ToString();
+            Task.Run(async () => await refreshRecords("RXNO"));
+        }
+        else if (!string.IsNullOrEmpty(_INVOICENO))
+        {
+            ViewModel.INVOICENO = _INVOICENO;
+            ViewModel.SelectedSearchType = ProfitabilityReportViewModel.SearchTypes.One.ToString();
+            Task.Run(async () => await refreshRecords("INVOICENO"));
+        }
+        else
+        {
+            ViewModel.SelectedSearchType = ProfitabilityReportViewModel.SearchTypes.All.ToString();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (!string.IsNullOrEmpty(ViewModel.RXNO))
+            {
+                await refreshRecords("RXNO");
+                StateHasChanged();
+            }
+            else if (!string.IsNullOrEmpty(ViewModel.INVOICENO))
+            {
+                await refreshRecords("RXNO");
+                if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+                StateHasChanged();
+            }
+
+            var dimension = await JSRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+            //System.Diagnostics.Debug.WriteLine("OnInitializedAsync" + dimension.Width.ToString());
+            string screenWidth = (dimension.Width - 450).ToString() + "px";
+            if (ViewModel.GridWidths.Contains(screenWidth) == false)
+            {
+                ViewModel.GridWidths.Add(screenWidth);
+                ViewModel.GridWidth = screenWidth;
+                //await InvokeAsync(StateHasChanged);
+                DropDownWidthRef.Rebind();
+                GridRef.Rebind();
+            }
+        }
+    }
+
+    private void InitializeEntities()
+    {
+        Entities = null;
+        AuditChanges = null;
+
+        EntitySelected = null;
+        EntitySaved = null;
+    }
+
+    void OnRXNOKeyPressHandler(KeyboardEventArgs e)
+    {
+        ViewModel.INVOICENO = "";
+    }
+
+    void OnINVOICENOKeyPressHandler(KeyboardEventArgs e)
+    {
+        ViewModel.RXNO = "";
+    }
+
+    private void OnSearchTypeItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchType = e.Value.ToString();
+        ViewModel.SelectedSearchDate = ProfitabilityReportViewModel.SearchDates.FillDate.ToString();
+        ViewModel.SearchStartDate = DateTime.Now;
+        ViewModel.SearchEndDate = DateTime.Now;
+        ViewModel.SearchValues = "";
+        InitializeEntities();
+        GridRef.SetState(null); // clear the grid and reset it
+        ViewModel.GridDataLoadCompleteStatus = "";
+    }
+
+    private void OnSearchDateItemChanged(ChangeEventArgs e)
+    {
+        ViewModel.SelectedSearchDate = e.Value.ToString();
+    }
+
+    private void OnSearchDropdownDateItemChanged(ChangeEventArgs e)
+    {
+        DateTime StartDate = DateTime.Now;
+        DateTime EndDate = DateTime.Now;
+
+        ScheduleService.SetDateRange(ref StartDate, ref EndDate, e.Value.ToString());
+        ViewModel.SearchStartDate = StartDate;
+        ViewModel.SearchEndDate = EndDate;
+    }
+
+    public void NavigateToPowerBIReport()
+    {
+        string url = "https://app.powerbi.com/groups/b387e327-8b65-4d20-9b20-ddd49345842d/reports/44056c2b-3d57-4140-84fc-dfe2e32c8483/ReportSection?bookmarkGuid=Bookmark011eb47b4c4a3a79178e";
+        navigationManager.NavigateTo(url);
+    }
+
+    void OnRowRenderHandler(GridRowRenderEventArgs args)
+    {
+        ProfitabilityNCPDPModel item = args.Item as ProfitabilityNCPDPModel;
+        args.Class = item.RowClass;
+    }
+
+    void OnCellRenderPrimaryTPPaid(GridCellRenderEventArgs args)
+    {
+        ProfitabilityNCPDPModel item = args.Item as ProfitabilityNCPDPModel;
+        args.Class = item.PrimaryTPPaid_class;
+    }
+
+    void OnCellRenderSecondaryTPPaid(GridCellRenderEventArgs args)
+    {
+        ProfitabilityNCPDPModel item = args.Item as ProfitabilityNCPDPModel;
+        args.Class = item.SecondaryTPPaid_class;
+    }
+
+    void OnCellRenderCopay(GridCellRenderEventArgs args)
+    {
+        ProfitabilityNCPDPModel item = args.Item as ProfitabilityNCPDPModel;
+        args.Class = item.Copay_class;
+    }
+
+    void OnCellRenderCOGS(GridCellRenderEventArgs args)
+    {
+        ProfitabilityNCPDPModel item = args.Item as ProfitabilityNCPDPModel;
+        args.Class = item.ticket_cost_class;
+    }
+
+    private void ResetGrid()
+    {
+        if (@Entities != null && @Entities.Count() > 0)
+            GridRef.SetState(null);
+        else
+            toastService.ShowWarning("There are not records - reset grid not possible");
+    }
+
+    private void ResizeGrid(string newWidth)
+    {
+        if (@Entities != null && @Entities.Count() > 0)
+        {
+            ViewModel.GridWidth = newWidth;
+
+            //GridRef.SetState(null);
+        }
+        else
+            toastService.ShowWarning("There is no data so cant resize grid");
+    }
+
+    private void AutoFitAllColumns()
+    {
+        if (@Entities != null && @Entities.Count() > 0)
+            GridRef.AutoFitAllColumns();
+        else
+            toastService.ShowWarning("There are no records - AutoFit grid not possible");
+    }
+
+    public async Task refreshRecords(string searchType)
+    {
+        EntitySelected = null;
+        EntitySaved = null;
+
+        // Begin View Model Validation
+        ObjectState ViewModelState = ViewModel.State();
+        if (ViewModelState.ErrorOccurred)
+        {
+            toastService.ShowWarning(ViewModelState.DisplayMessage);
+            return;
+        }
+
+        // Perform Database Search Operation
+        toastService.ShowInfo(ViewModel.SearchMessage);
+        ViewModel.IsGridDataLoadComplete = false;
+        //await JSRuntime.InvokeVoidAsync("console.log", "loading..");
+        var dimension = await JSRuntime.InvokeAsync<WindowDimension>("getWindowDimensions");
+
+        if (ViewModel.SelectedSearchType == ProfitabilityReportViewModel.SearchTypes.One.ToString())
+        {
+            ViewModel.SelectedSearchDate = ProfitabilityReportViewModel.SearchDates.None.ToString();
+            if (ViewModel.SelectedSearchMode == ProfitabilityReportViewModel.SearchModes.INVOICENO.ToString())
+            {
+                ViewModel.SearchValues = ViewModel.INVOICENO;
+            }
+            else
+            {
+                ViewModel.SearchValues = ViewModel.RXNO;
+            }
+            ViewModel.IsCSVNumbers = false;
+
+            List<ProfitabilityNCPDPModel> Models = null;
+
+            if (ViewModel.UseCachedTableChecked)
+            {
+                Models = await cprsqlService.GetProfitabilityReport(ProfitabilityReportViewModel.SearchTypes.All.ToString(), ViewModel.SelectedSearchMode, ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+            }
+            else
+            {
+                Models = await cprsqlService.GetByRXNO(ViewModel.RXNO, ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+            }
+
+            if (Models != null && Models.Count > 0)
+            {
+                if (string.IsNullOrEmpty(ViewModel.INVOICENO))
+                {
+                    Entities = Models;
+                }
+                else
+                {
+                    Entities = Models.Where(x => x.ncpdp_invoice_number == int.Parse(ViewModel.INVOICENO)).ToList();
+                    Entities[0].RecordSelected = true;
+                    await RecordSelectedHandler(Entities[0], new ChangeEventArgs() { Value = "true" });
+                }
+            }
+            else
+            {
+                Entities = null;
+            }
+        }
+        else if (ViewModel.SelectedSearchType == "All") // Date Range Search
+        {
+            //Entities = await cprsqlService.GetByDateFilled(ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+            Entities = await cprsqlService.GetProfitabilityReport(ViewModel.SelectedSearchType, ViewModel.SelectedSearchMode, ViewModel.IsCSVNumbers, ViewModel.SearchValues.Trim(), ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+        }
+        else
+        {
+            ViewModel.SelectedSearchDate = ProfitabilityReportViewModel.SearchDates.None.ToString();
+            Entities = await cprsqlService.GetProfitabilityReportDuplicate(ViewModel.SelectedSearchType, ViewModel.SelectedSearchDate, ViewModel.SearchStartDate, ViewModel.SearchEndDate);
+        }
+
+        // Check errors display UI messages
+        if (cprsqlService.DBState.ErrorOccurred) toastService.ShowError(cprsqlService.DBState.ErrorMessage);
+
+        if (Entities == null)
+        {
+            ViewModel.GridDataLoadCompleteStatus = "";
+            toastService.ShowInfo("No record(s) found");
+        }
+        else
+        {
+            ViewModel.GridDataLoadCompleteStatus = "Total Record count = " + @Entities.Count;
+
+            toastService.ShowInfo("record was found");
+        }
+
+        if (!string.IsNullOrEmpty(_INVOICENO))
+        {
+            if ((Entities != null) && (Entities.Count > 0)) RefreshAuditHistoryChanges();
+        }
+
+        ViewModel.IsGridDataLoadComplete = true;
+    }
+
+    private void RefreshAuditHistoryChanges()
+    {
+        EntitySelected = Entities.FirstOrDefault(x => x.ncpdp_invoice_number == int.Parse(ViewModel.INVOICENO));
+        EntitySelected.RecordSelected = true;
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(EntitySelected.ncpdp_rx_number, EntitySelected.ncpdp_invoice_number)).Result;
+        EntitySaved = EntitySelected.ShallowCopy();
+    }
+
+    private async Task RecordSelectedHandler(ProfitabilityNCPDPModel entity, ChangeEventArgs e)
+    {
+        toastService.ShowInfo("Invoice #" + entity.ncpdp_invoice_number + " selected");
+
+        AuditChanges = await cprsqlService.GetProfitabilityAudit(entity.ncpdp_rx_number, entity.ncpdp_invoice_number);
+
+        for (int i = 0; i < Entities.Count; i++)
+        {
+            Entities[i].RecordSelected = false;
+        }
+
+        entity.RecordSelected = !entity.RecordSelected;
+        if (entity.RecordSelected)
+        {
+            EntitySelected = entity;
+            EntitySaved = EntitySelected.ShallowCopy();
+        }
+        else
+        {
+            EntitySelected = null;
+            EntitySaved = null;
+        }
+        string CheckValue = e.Value.ToString();
+    }
+
+    private async Task TicketDeleteHandler(ProfitabilityNCPDPModel DeletedEntity, ChangeEventArgs e)
+    {
+        System.Diagnostics.Debug.WriteLine("Ticket Selected Value= " + DeletedEntity.TicketSelected + " User Input Value =" + e.Value.ToString());
+
+        bool isConfirmed = false;
+        if (e.Value.ToString() == "True")
+        {
+            isConfirmed = await Dialogs.ConfirmAsync("Are you sure you want to delete the dispense record?", "Delete Confirmation");
+        }
+        else
+        {
+            isConfirmed = await Dialogs.ConfirmAsync("Are you sure you want to undelete the dispense record?", "Delete Confirmation");
+        }
+
+        if (isConfirmed == false)
+        {
+            await refreshRecords("RXNO");  // To do remove the page refresh
+            AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(DeletedEntity.ncpdp_rx_number, DeletedEntity.ncpdp_invoice_number)).Result;
+            return;
+        }
+
+        DeletedEntity.UpdatedBy = "" + StateHelper.Items["UserIdentityName"].ToString();
+        DeletedEntity.TicketSelected = !DeletedEntity.TicketSelected;
+        DeletedEntity.ticket_item_delflag_overlay = (DeletedEntity.TicketSelected == true) ? 1 : 0;
+
+        toastService.ShowInfo(DeletedEntity.MessageDelete);
+
+        string ChangeHistory = "Partial duplicate record[ticket no " + DeletedEntity.TICKNO + " ] deleted on " + DateTime.Now.ToString("MM/dd/yyyy") + " by " + DeletedEntity.UpdatedBy;
+        int result = Task.Run(() => cprsqlService.TICKCI_UpdateDelFlag(DeletedEntity)).Result;
+        DeletedEntity.Events = DeletedEntity.Events + "Delete_Cost";   //use Delete to delete ticket only and leave original cost values in there. Use Delete_Cost if you want to delete the ticket and refresh it with new cost
+
+        await refreshRecords("RXNO");  // To do remove the page refresh
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(DeletedEntity.ncpdp_rx_number, DeletedEntity.ncpdp_invoice_number)).Result;
+
+        ProfitabilityNCPDPModel EntityUpdated = Entities.Where(x => x.ncpdp_invoice_number == DeletedEntity.ncpdp_invoice_number && x.TICKNO == DeletedEntity.TICKNO).FirstOrDefault();
+
+        //ProfitabilityNCPDPModel EntityCalculate = UpdateEntity.Calculate();
+        ProfitabilityNCPDPModel EntityCalculate = EntityUpdated; // Get the calculations from the database
+
+        await cprsqlService.DataWarehouse_NCPDP_Adjustment_Update(EntityCalculate.ncpdp_rx_number, EntityCalculate.ncpdp_invoice_number, EntityCalculate.TICKNO, EntityCalculate.ncpdp_primary_claim_paid, EntityCalculate.ncpdp_primary_claim_paid_response_sys_id, EntityCalculate.ncpdp_secondary_claim_paid, EntityCalculate.ncpdp_secondary_claim_paid_response_sys_id, EntityCalculate.Copay, EntityCalculate.ncpdp_patient_copay_expected_response_sys_id, EntityCalculate.COGS, EntityCalculate.COGSAdjusted, EntityCalculate.TPRevenuePlusPatientCopay, EntityCalculate.GrossProfit, EntityCalculate.GrossProfitAdjusted,EntityCalculate.CHGFLAG, EntityCalculate.History, EntityCalculate.PrimaryTPHistory, EntityCalculate.SecondaryTPHistory, EntityCalculate.CopayHistory, EntityCalculate.COGSHistory, EntityCalculate.RecordDeletedHistory, DeletedEntity.Events, EntityCalculate.ticket_partials_ticket_number, EntityCalculate.ticket_item_delflag_overlay);
+
+        // For Partials find the associated ticket and put a change history in there
+        if (ViewModel.SelectedSearchType == ProfitabilityReportViewModel.SearchTypes.Partials.ToString())
+        {
+            List<ProfitabilityNCPDPModel> EntityPartials = Entities.Where(x => x.ncpdp_invoice_number == EntityCalculate.ncpdp_invoice_number && x.TICKNO != EntityCalculate.TICKNO).ToList();
+
+            for (int i = 0; i < EntityPartials.Count; i++)
+            {
+                EntityCalculate = EntityPartials[i];
+                EntityCalculate.RecordDeletedHistory = ChangeHistory;
+                await cprsqlService.DataWarehouse_NCPDP_Adjustment_Update(EntityCalculate.ncpdp_rx_number, EntityCalculate.ncpdp_invoice_number, EntityCalculate.TICKNO, EntityCalculate.ncpdp_primary_claim_paid, EntityCalculate.ncpdp_primary_claim_paid_response_sys_id, EntityCalculate.ncpdp_secondary_claim_paid, EntityCalculate.ncpdp_secondary_claim_paid_response_sys_id, EntityCalculate.Copay, EntityCalculate.ncpdp_patient_copay_expected_response_sys_id, EntityCalculate.COGS, EntityCalculate.COGSAdjusted, EntityCalculate.TPRevenuePlusPatientCopay, EntityCalculate.GrossProfit, EntityCalculate.GrossProfitAdjusted, EntityCalculate.CHGFLAG, EntityCalculate.History, EntityCalculate.PrimaryTPHistory, EntityCalculate.SecondaryTPHistory, EntityCalculate.CopayHistory, EntityCalculate.COGSHistory, EntityCalculate.RecordDeletedHistory, "Cost", EntityCalculate.ticket_partials_ticket_number, EntityCalculate.ticket_item_delflag_overlay);
+            }
+        }
+    }
+
+    protected async Task Update(ProfitabilityNCPDPModel UpdateEntity)
+    {
+        UpdateEntity.UpdatedBy = "" + StateHelper.Items["UserIdentityName"].ToString();
+        UpdateEntity.Events = string.Empty;
+
+        if (EntitySaved.ncpdp_primary_claim_paid != UpdateEntity.ncpdp_primary_claim_paid)
+        {
+            UpdateEntity.Events = UpdateEntity.Events + "PrimaryTPPaid-Update_";
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_primary_claim_paid_response_sys_id, EntitySaved.ncpdp_primary_claim_paid, UpdateEntity.ncpdp_primary_claim_paid, "F9P", UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.ncpdp_primary_claim_paid = UpdateEntity.ncpdp_primary_claim_paid;
+        }
+
+        if (EntitySaved.ncpdp_secondary_claim_paid != UpdateEntity.ncpdp_secondary_claim_paid)
+        {
+            UpdateEntity.Events = UpdateEntity.Events + "SecondaryTPPaid-Update_";
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_secondary_claim_paid_response_sys_id, EntitySaved.ncpdp_secondary_claim_paid, UpdateEntity.ncpdp_secondary_claim_paid, "F9S", UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.ncpdp_secondary_claim_paid = UpdateEntity.ncpdp_secondary_claim_paid;
+        }
+
+        if (EntitySaved.Copay != UpdateEntity.Copay)
+        {
+            UpdateEntity.Events = UpdateEntity.Events + "Copay-Update_";
+            await cprsqlService.NCPDPREP_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, UpdateEntity.ncpdp_patient_copay_expected_response_sys_id, EntitySaved.Copay, UpdateEntity.Copay, "F5", UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.Copay = UpdateEntity.Copay;
+        }
+
+        if (EntitySaved.ticket_total_cost != UpdateEntity.ticket_total_cost)
+        {
+            UpdateEntity.Events = UpdateEntity.Events + "Cost-Update_";
+            await cprsqlService.TICKC_Update(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number, UpdateEntity.TICKNO, EntitySaved.ticket_total_cost, UpdateEntity.ticket_total_cost, UpdateEntity.COGS, UpdateEntity.ncpdp_primary_claim_paid, UpdateEntity.ncpdp_secondary_claim_paid, UpdateEntity.Copay, UpdateEntity.ncpdp_primary_claim_payor, UpdateEntity.vatext, UpdateEntity.UpdatedBy);
+            if (cprsqlService.DBState.ErrorOccurred == false) EntitySaved.COGS = UpdateEntity.COGS;
+        }
+
+        // After the database call we update the UI with the new calculated values
+        if (cprsqlService.DBState.ErrorOccurred)
+        {
+            toastService.ShowError(cprsqlService.DBState.DisplayMessage + ":" + cprsqlService.DBState.ErrorMessage);
+            return;
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(UpdateEntity.Events))
+            {
+                toastService.ShowInfo("Nothing was changed so no data was updated");
+                return;
+            }
+            else
+            {
+                toastService.ShowInfo("Record Saved. Reloading...");
+            }
+        }
+
+        await refreshRecords("RXNO");
+        AuditChanges = Task.Run(() => cprsqlService.GetProfitabilityAudit(UpdateEntity.ncpdp_rx_number, UpdateEntity.ncpdp_invoice_number)).Result;
+
+        ProfitabilityNCPDPModel EntityUpdated = Entities.Where(x => x.ncpdp_invoice_number == UpdateEntity.ncpdp_invoice_number).FirstOrDefault();
+
+        //ProfitabilityNCPDPModel EntityCalculate = UpdateEntity.Calculate();
+        ProfitabilityNCPDPModel EntityCalculate = EntityUpdated; // Get the calculations from the database
+
+        await cprsqlService.DataWarehouse_NCPDP_Adjustment_Update(EntityCalculate.ncpdp_rx_number, EntityCalculate.ncpdp_invoice_number, EntityCalculate.TICKNO, EntityCalculate.ncpdp_primary_claim_paid, EntityCalculate.ncpdp_primary_claim_paid_response_sys_id, EntityCalculate.ncpdp_secondary_claim_paid, EntityCalculate.ncpdp_secondary_claim_paid_response_sys_id, EntityCalculate.Copay, EntityCalculate.ncpdp_patient_copay_expected_response_sys_id, EntityCalculate.COGS, EntityCalculate.COGSAdjusted, EntityCalculate.TPRevenuePlusPatientCopay, EntityCalculate.GrossProfit, EntityCalculate.GrossProfitAdjusted, EntityCalculate.CHGFLAG, EntityUpdated.History, EntityCalculate.PrimaryTPHistory, EntityCalculate.SecondaryTPHistory, EntityCalculate.CopayHistory, EntityCalculate.COGSHistory, EntityCalculate.RecordDeletedHistory, UpdateEntity.Events, UpdateEntity.ticket_partials_ticket_number, UpdateEntity.ticket_item_delflag_overlay);
+    }
+}

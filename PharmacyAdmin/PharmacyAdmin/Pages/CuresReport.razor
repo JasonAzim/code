@@ -1,0 +1,148 @@
+﻿@page "/CuresReport"
+@inject ISqlService cprsqlService
+@inject Microsoft.AspNetCore.Components.NavigationManager navigationManager
+@inject IToastService toastService
+@inject StateHelper StateHelper
+@inject IJSRuntime JSRuntime
+
+    <style>
+        .sort-th {
+            cursor: pointer;
+        }
+
+        .fa {
+            float: right;
+        }
+
+        .DatePanel {
+            border: 2px solid #000;
+            width: 700px;
+            height: 100%;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            overflow: hidden;
+        }
+
+        tr.strikeout {
+            text-decoration: line-through;
+        }
+
+        .TextBoxSm {
+            width: 125px;
+        }
+
+        /* Telerik Styles */
+        .custom-row-colors .k-grid-table .k-master-row {
+            background-color: red;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row:hover {
+            background-color: pink;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row.k-alt {
+            background-color: green;
+        }
+
+        .custom-row-colors .k-grid-table .k-master-row.k-alt:hover {
+            background-color: cyan;
+        }
+
+        .k-grid-table td .cellchanged {
+            background: yellow;
+        }
+
+        .k-input-numeric {
+            border: 1px solid maroon;
+        }
+    </style>
+
+    <form>
+        <div class="form-group">
+            <!--
+            <table>
+                <tr>
+                    <td>
+                        Enter Batch Number(s)
+                        <input type="text" id="txtRXNumber" @bind="ViewModel.RXNO" @bind:event="oninput" class="TextBoxSm" />&nbsp;&nbsp;
+                        Or Enter Invoice Number(s)<input type="text" id="txtInvoiceNumber" @bind="ViewModel.INVOICENO" @bind:event="oninput" class="TextBoxSm" />
+                    </td>
+                    <td><ComponentDate Title="Start Date" @bind-Value="@ViewModel.SearchStartDate" />@ViewModel.SearchStartDate</td>
+                    <td><ComponentDate Title="End Date" @bind-Value="@ViewModel.SearchEndDate" />@ViewModel.SearchEndDate</td>
+                    <td><button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Search</button></td>
+                </tr>
+            </table>
+            -->
+           <button type="button" class="btn btn-danger" @onclick="@(async () => await refreshRecords(""))">Refresh</button>
+        </div>
+
+        <TelerikLoaderContainer OverlayThemeColor="light"
+                                Visible="@( !ViewModel.IsGridDataLoadComplete )"
+                                Text="@null" Class="initial-data-loader">
+            <Template>
+                <TelerikLoader Type="@LoaderType.InfiniteSpinner"
+                               Size="@(ThemeConstants.Loader.Size.Large)">
+                </TelerikLoader>
+            </Template>
+        </TelerikLoaderContainer>
+        <TelerikGrid Data="@Entities" Sortable="true" Reorderable="true" Resizable="true" ShowColumnMenu="true" FilterMode="Telerik.Blazor.GridFilterMode.FilterMenu" AutoGenerateColumns="false">
+            <GridColumns>
+                <GridColumn Field="StateCode" Title="State" Filterable="true" Width="65px" />
+                <GridColumn Field="BatchNumber" Title="Batch No" Filterable="true" Width="95px" />
+                <GridColumn Field="DateFrom" Title="Date From" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="95px" />
+                <GridColumn Field="DateTo" Title="Date To" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="95px" />
+                <GridColumn Field="DateSubmitted" Title="Date Submit" DisplayFormat="{0:MM/dd/yy}" Filterable="true" Width="95px" />
+                <GridColumn Field="ReportType" Title="Report Type" Filterable="true" Width="135px" />
+                <GridColumn Field="ReportStatus" Title="Report Status" Width="210px" />
+                <GridColumn Field="FileName" Title="File" Width="300px" />
+                <GridColumn Field="LastUpdateDate" Title="Last Update Date" Width="115px" />
+            </GridColumns>
+        </TelerikGrid>
+    </form>
+
+
+    @code {
+
+        private CuresReportViewModel ViewModel;
+        List<CuresReportModel> Entities;
+
+        protected override async Task OnInitializedAsync()
+        {
+            ViewModel = new CuresReportViewModel() { UserID = StateHelper.Items["UserIdentityName"].ToString() };
+
+            await refreshRecords("Initialize");
+        }
+
+        protected override async Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+            }
+            await Task.CompletedTask;
+        }
+
+        private void OnSearchTypeItemChanged(ChangeEventArgs e)
+        {
+            ViewModel.SelectedSearchType = e.Value.ToString();
+        }
+
+        public async Task refreshRecords(string searchType)
+        {
+            ViewModel.IsGridDataLoadComplete = false;
+            toastService.ShowInfo("Searching...");
+
+            Entities = await cprsqlService.GetCuresReport(DateTime.Now, DateTime.Now);
+
+            if (cprsqlService.DBState.ErrorOccurred) toastService.ShowError(cprsqlService.DBState.ErrorMessage);
+
+            if (Entities == null)
+            {
+                toastService.ShowInfo("No record(s) found");
+            }
+            else
+            {
+                toastService.ShowInfo("record was found");
+            }
+            ViewModel.IsGridDataLoadComplete = true;
+        }
+    }
