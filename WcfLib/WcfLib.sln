@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfLib", "WcfLib\WcfLib.csproj", "{A8B9EBB9-957C-4C44-BE58-97980DB58F29}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfWeb", "WcfWeb\WcfWeb.csproj", "{99D3D9BA-AABB-4487-A6E1-97F92A2233D0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8B9EBB9-957C-4C44-BE58-97980DB58F29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B9EBB9-957C-4C44-BE58-97980DB58F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B9EBB9-957C-4C44-BE58-97980DB58F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B9EBB9-957C-4C44-BE58-97980DB58F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99D3D9BA-AABB-4487-A6E1-97F92A2233D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D3D9BA-AABB-4487-A6E1-97F92A2233D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D3D9BA-AABB-4487-A6E1-97F92A2233D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D3D9BA-AABB-4487-A6E1-97F92A2233D0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

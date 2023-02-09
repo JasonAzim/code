@@ -1,0 +1,11 @@
+If you would rather compile the page as a code-behind with a seperate dll, 
+you can deploy it with a simple addition to the web.config of the
+target website:
+
+--
+
+<runtime>
+  <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+    <probing privatePath="WebFileManager/bin" />
+  </assemblyBinding>
+</runtime>

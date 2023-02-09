@@ -1,0 +1,14 @@
+﻿Loads the body after all external script has downloaded. It does not gradually download script, inject body and then again download script as the order is defined in the html 
+
+It waits for scripts with "defer" attribute.
+
+Inline script blocks are all executed at once after all external scripts download
+
+No document.write allowed in inline script or scripts referenced
+
+window.onload won't work. You have to use $(document).ready(...)
+
+HTMLParser cannot parse <!DOCTYPE... directive. So, you must remove that directive from your html files.
+
+
+

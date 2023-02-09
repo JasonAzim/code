@@ -1,0 +1,29 @@
+To convert a code-behind ASPX to an inline ASPX page:
+
+1. Modify Page directive to read
+
+   <%@ Page Language="vb" Strict="True" %>
+
+2. Paste code into into script tag in the header
+
+   <HEAD>
+     <SCRIPT language="vb" runat="server">
+
+      .. your code goes here ..
+
+     </SCRIPT>
+   </HEAD>
+
+   only paste the code INSIDE the page class, under the " Web Form Designer Generated Code " section. Don't paste the class itself!
+
+3. Add any namespace imports at the top:
+
+   <%@ Import Namespace="System.IO" %>
+   <%@ Import Namespace="System.Text" %>
+   <%@ Import Namespace="System.Text.RegularExpressions" %>
+   <%@ Import Namespace="System.Configuration" %>
+   .. etc ..
+   
+4. Delete the associated .vb code-behind file
+
+That's it! Now you have a single file solution that dynamically compiles.
