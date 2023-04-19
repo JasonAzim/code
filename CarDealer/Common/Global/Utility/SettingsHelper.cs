@@ -36,13 +36,15 @@ namespace Global.Utility
             return _ServerType;
         }
 
-        public static string SQLServerDB(string DatabaseName = "ISHUB")
+        // If the database name is set to an emtpy string or null then it will default to the local sql server
+        public static string SQLServerDB(string DatabaseName = "improve_code")
         {
             if (DatabaseName == DBNameImproveCode)
             {
                 return @"Data Source=192.185.6.39;Initial Catalog=improve_code;User ID=impro_sa;Password=Terminator$1";
             }
 
+            // Return the locally installed database if nothing is specified
             return @"Data Source=localhost;Initial Catalog=improve_code;User ID=impro_sa;Password=Terminator$1";
         }
 
